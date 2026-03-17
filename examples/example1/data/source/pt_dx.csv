@@ -1,0 +1,9 @@
+PT_ID,DATE,ICD10,TERM
+21962.0,2025-05-30 00:00:00,I21.3,ST elevation (STEMI) myocardial infarction of unspecified site
+21962.0,2025-06-27 00:00:00,N18.3,"Chronic kidney disease, stage 3"
+21962.0,2025-06-27 00:00:00,I25.2,Old myocardial infarction
+21962.0,2025-06-27 00:00:00,I10,Essential hypertension
+19251.0,2024-04-16 00:00:00,E11.9,Type 2 diabetes mellitus without complications
+19251.0,2024-05-28 00:00:00,E11.65,Type 2 diabetes mellitus with hyperglycemia
+19251.0,2024-07-25 00:00:00,E11.65,Type 2 diabetes mellitus with hyperglycemia
+19251.0,2024-07-25 00:00:00,K80.11,Calculus of gallbladder with chronic cholecystitis with obstruction

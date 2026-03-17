@@ -1,0 +1,348 @@
+<?xml version="1.0" ?>
+<RWDLineage xmlns="http://www.cdisc.org/ns/rwd-lineage/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cdisc.org/ns/rwd-lineage/v1 rwd-lineage.xsd" FileType="Snapshot" FileOID="RWDLineage.Example1" CreationDateTime="2026-03-16T11:49:52" AsOfDateTime="2026-03-16T11:49:52" Originator="CDISC RWD Lineage Project" SourceSystem="Example" SourceSystemVersion="1.0">
+  <MapID uuid="da443328-67c5-5481-a29d-c6d14b224330">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1SukPxF0W6aPjDMnlluHGxsSiDMq3-J9V/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>ICD10</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>2</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="754dab1e-34f4-5aa1-bd04-4adee6d21a40">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1SukPxF0W6aPjDMnlluHGxsSiDMq3-J9V/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>TERM</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>2</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="adce5ed7-39e2-5916-8a61-a6e4916e5741">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1SukPxF0W6aPjDMnlluHGxsSiDMq3-J9V/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>DATE</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>2</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="35a90486-2b95-5f7b-b149-de66749fbef7">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <RowIndex>3</RowIndex>
+        <ColumnName>Vital</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="e6a784f7-7833-54d5-9701-4a5c2cb1ca58">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <RowIndex>3</RowIndex>
+        <ColumnName>Value</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="e03afade-7241-5953-be63-373ee4a2c7c8">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <RowIndex>3</RowIndex>
+        <ColumnName>Date</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="f1b3cf26-f176-5117-a7dd-e8b313c062fd">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <RowIndex>5</RowIndex>
+        <ColumnName>Vital</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="c123f849-0000-5688-8a03-07efc8cb3cda">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <RowIndex>5</RowIndex>
+        <ColumnName>Value</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="a9b1819f-95a6-5e3c-8186-7ffa7b8726b9">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <RowIndex>5</RowIndex>
+        <ColumnName>Date</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="5dda7ade-51f2-5b6d-8b31-9e7e4ea0f43e">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <RowIndex>7</RowIndex>
+        <ColumnName>Vital</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="4c051f71-c3dc-5274-9047-012596587e6b">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <RowIndex>7</RowIndex>
+        <ColumnName>Value</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="1aa474c6-03ac-55ac-b64b-ea20636aea2e">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <RowIndex>7</RowIndex>
+        <ColumnName>Date</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="b6a4fb1e-008d-5fd2-aa18-13212c116dc4">
+    <Transformation type="NLPExtraction">NLP Extraction</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <RowIndex>2</RowIndex>
+        <ColumnName>TEXT</ColumnName>
+        <TextSpan begin="707" end="710"/>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="65ce8de5-7bb5-5c6a-81d7-3e3692f0cfe4">
+    <Transformation type="NLPExtraction">NLP Extraction</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <RowIndex>3</RowIndex>
+        <ColumnName>TEXT</ColumnName>
+        <TextSpan begin="100" end="112"/>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="65ce8de5-7bb5-5c6a-81d7-3e3692f0cfe4">
+    <Transformation type="NLPExtraction">NLP Extraction</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <RowIndex>3</RowIndex>
+        <ColumnName>TEXT</ColumnName>
+        <TextSpan begin="209" end="221"/>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>4</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="7a70aaa6-9ef8-525b-8c6f-b85603b87dc3">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>ICD10</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="e5159ce0-2f51-5954-ba85-5e3636c7605a">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>TERM</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="5ea21549-9e42-58ae-96d2-4d7c777ef42c">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>DATE</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="000d2ec1-0f47-5534-bede-839b30d1a6e5">
+    <Transformation type="NLPExtraction">NLP Extraction</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>TEXT</ColumnName>
+        <TextSpan begin="278" end="305"/>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="000d2ec1-0f47-5534-bede-839b30d1a6e5">
+    <Transformation type="NLPExtraction">NLP Extraction</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>TEXT</ColumnName>
+        <TextSpan begin="1211" end="1234"/>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>CEOCCUR</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+</RWDLineage>

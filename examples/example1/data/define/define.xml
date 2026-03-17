@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:def="http://www.cdisc.org/ns/def/v2.1" xmlns:rwdl="http://www.cdisc.org/ns/rwd-lineage/v1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 https://www.cdisc.org/standards/odm/v1.3.2/ODM1-3-2.xsd" FileType="Snapshot" FileOID="Define.Example1" CreationDateTime="2026-03-16T11:49:52" AsOfDateTime="2026-03-16T11:49:52" Originator="CDISC RWD Lineage Project" SourceSystem="Example" SourceSystemVersion="1.0" def:Context="Submission">
+  <Study OID="Study.Example1">
+    <GlobalVariables>
+      <StudyName>RWD Lineage Example 1</StudyName>
+      <StudyDescription>Example 1: CE domain with EHR source lineage</StudyDescription>
+      <ProtocolName>RWDL-EX1</ProtocolName>
+    </GlobalVariables>
+    <MetaDataVersion OID="MDV.Example1" Name="Example 1 Define-XML" def:DefineVersion="2.1.0" def:StandardName="SDTM" def:StandardVersion="1.9">
+      <def:Annotations>
+        <rwdl:lineage>
+          <rwdl:ref leafID="LF.RWDLINEAGE">rwd-lineage.xml</rwdl:ref>
+        </rwdl:lineage>
+      </def:Annotations>
+      <ItemGroupDef OID="IG.CE" Name="CE" Repeating="Yes" IsReferenceData="No" SASDatasetName="CE" def:Structure="One record per subject per clinical event" def:Purpose="Tabulation" def:StandardOID="STD.1" def:ArchiveLocationID="LF.CE">
+        <Description>
+          <TranslatedText>Clinical Events</TranslatedText>
+        </Description>
+        <ItemRef ItemOID="IT.CE.STUDYID" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.CE.DOMAIN" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.CE.USUBJID" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.CE.CESEQ" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.CE.CETERM" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.CE.CEPRESP" Mandatory="No"/>
+        <ItemRef ItemOID="IT.CE.CEOCCUR" Mandatory="No"/>
+      </ItemGroupDef>
+      <ItemDef OID="IT.CE.STUDYID" Name="STUDYID" DataType="text" Length="8" def:Label="Study Identifier">
+        <Description>
+          <TranslatedText>Study Identifier</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.CE.DOMAIN" Name="DOMAIN" DataType="text" Length="2" def:Label="Domain Abbreviation">
+        <Description>
+          <TranslatedText>Domain Abbreviation</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.CE.USUBJID" Name="USUBJID" DataType="text" Length="50" def:Label="Unique Subject Identifier">
+        <Description>
+          <TranslatedText>Unique Subject Identifier</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.CE.CESEQ" Name="CESEQ" DataType="integer" Length="8" def:Label="Sequence Number">
+        <Description>
+          <TranslatedText>Sequence Number</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.CE.CETERM" Name="CETERM" DataType="text" Length="200" def:Label="Reported Term for the CE">
+        <Description>
+          <TranslatedText>Reported Term for the CE</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.CE.CEPRESP" Name="CEPRESP" DataType="text" Length="1" def:Label="CE Pre-Specified">
+        <Description>
+          <TranslatedText>CE Pre-Specified</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.CE.CEOCCUR" Name="CEOCCUR" DataType="text" Length="1" def:Label="CE Occurrence">
+        <Description>
+          <TranslatedText>CE Occurrence</TranslatedText>
+        </Description>
+      </ItemDef>
+      <def:leaf ID="LF.CE" xlink:href="https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link">
+        <def:title>CE.xpt</def:title>
+      </def:leaf>
+      <def:leaf ID="LF.PT_DX" xlink:href="https://drive.google.com/file/d/1SukPxF0W6aPjDMnlluHGxsSiDMq3-J9V/view?usp=drive_link">
+        <def:title>PT_DX.csv</def:title>
+      </def:leaf>
+      <def:leaf ID="LF.VITALS" xlink:href="https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link">
+        <def:title>VITALS.csv</def:title>
+      </def:leaf>
+      <def:leaf ID="LF.NOTES" xlink:href="https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link">
+        <def:title>NOTES.csv</def:title>
+      </def:leaf>
+      <def:leaf ID="LF.RWDLINEAGE" xlink:href="rwd-lineage.xml">
+        <def:title>rwd-lineage.xml</def:title>
+      </def:leaf>
+    </MetaDataVersion>
+  </Study>
+</ODM>
