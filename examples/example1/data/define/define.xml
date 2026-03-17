@@ -7,11 +7,9 @@
       <ProtocolName>RWDL-EX1</ProtocolName>
     </GlobalVariables>
     <MetaDataVersion OID="MDV.Example1" Name="Example 1 Define-XML" def:DefineVersion="2.1.0" def:StandardName="SDTM" def:StandardVersion="1.9">
-      <def:Annotations>
-        <rwdl:lineage>
-          <rwdl:ref leafID="LF.RWDLINEAGE">rwd-lineage.xml</rwdl:ref>
-        </rwdl:lineage>
-      </def:Annotations>
+      <rwdl:lineage>
+        <rwdl:ref leafID="LF.RWDLINEAGE">rwd-lineage.xml</rwdl:ref>
+      </rwdl:lineage>
       <ItemGroupDef OID="IG.CE" Name="CE" Repeating="Yes" IsReferenceData="No" SASDatasetName="CE" def:Structure="One record per subject per clinical event" def:Purpose="Tabulation" def:StandardOID="STD.1" def:ArchiveLocationID="LF.CE">
         <Description>
           <TranslatedText>Clinical Events</TranslatedText>
