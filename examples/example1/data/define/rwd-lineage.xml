@@ -35,7 +35,7 @@
     </Target>
   </MapID>
   <MapID uuid="adce5ed7-39e2-5916-8a61-a6e4916e5741">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="AfterIndexDate">After Index Date</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://drive.google.com/file/d/1SukPxF0W6aPjDMnlluHGxsSiDMq3-J9V/view?usp=drive_link</URI>
@@ -69,7 +69,7 @@
     </Target>
   </MapID>
   <MapID uuid="e6a784f7-7833-54d5-9701-4a5c2cb1ca58">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="FilterByValue">Filter By Value</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
@@ -86,7 +86,7 @@
     </Target>
   </MapID>
   <MapID uuid="e03afade-7241-5953-be63-373ee4a2c7c8">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="AfterIndexDate">After Index Date</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
@@ -120,7 +120,7 @@
     </Target>
   </MapID>
   <MapID uuid="c123f849-0000-5688-8a03-07efc8cb3cda">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="FilterByValue">Filter By Value</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
@@ -137,7 +137,7 @@
     </Target>
   </MapID>
   <MapID uuid="a9b1819f-95a6-5e3c-8186-7ffa7b8726b9">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="AfterIndexDate">After Index Date</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
@@ -171,7 +171,7 @@
     </Target>
   </MapID>
   <MapID uuid="4c051f71-c3dc-5274-9047-012596587e6b">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="FilterByValue">Filter By Value</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
@@ -188,7 +188,7 @@
     </Target>
   </MapID>
   <MapID uuid="1aa474c6-03ac-55ac-b64b-ea20636aea2e">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="AfterIndexDate">After Index Date</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
@@ -293,7 +293,7 @@
     </Target>
   </MapID>
   <MapID uuid="5ea21549-9e42-58ae-96d2-4d7c777ef42c">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="AfterIndexDate">After Index Date</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
