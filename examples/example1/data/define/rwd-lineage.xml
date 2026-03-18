@@ -4,14 +4,14 @@
     <Transformation type="DirectMap">Direct Map</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1SukPxF0W6aPjDMnlluHGxsSiDMq3-J9V/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>ICD10</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>2</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -21,14 +21,14 @@
     <Transformation type="DirectMap">Direct Map</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1SukPxF0W6aPjDMnlluHGxsSiDMq3-J9V/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>TERM</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>2</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -38,14 +38,14 @@
     <Transformation type="AfterIndexDate">After Index Date</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1SukPxF0W6aPjDMnlluHGxsSiDMq3-J9V/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>DATE</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>2</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -55,14 +55,14 @@
     <Transformation type="DirectMap">Direct Map</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
         <RowIndex>3</RowIndex>
         <ColumnName>Vital</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -72,14 +72,14 @@
     <Transformation type="FilterByValue">Filter By Value</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
         <RowIndex>3</RowIndex>
         <ColumnName>Value</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -89,14 +89,14 @@
     <Transformation type="AfterIndexDate">After Index Date</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
         <RowIndex>3</RowIndex>
         <ColumnName>Date</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -106,14 +106,14 @@
     <Transformation type="DirectMap">Direct Map</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
         <RowIndex>5</RowIndex>
         <ColumnName>Vital</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -123,14 +123,14 @@
     <Transformation type="FilterByValue">Filter By Value</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
         <RowIndex>5</RowIndex>
         <ColumnName>Value</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -140,14 +140,14 @@
     <Transformation type="AfterIndexDate">After Index Date</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
         <RowIndex>5</RowIndex>
         <ColumnName>Date</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -157,14 +157,14 @@
     <Transformation type="DirectMap">Direct Map</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
         <RowIndex>7</RowIndex>
         <ColumnName>Vital</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -174,14 +174,14 @@
     <Transformation type="FilterByValue">Filter By Value</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
         <RowIndex>7</RowIndex>
         <ColumnName>Value</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -191,14 +191,14 @@
     <Transformation type="AfterIndexDate">After Index Date</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
         <RowIndex>7</RowIndex>
         <ColumnName>Date</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -208,7 +208,7 @@
     <Transformation type="NLPExtraction">NLP Extraction</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
         <RowIndex>2</RowIndex>
         <ColumnName>TEXT</ColumnName>
         <TextSpan begin="707" end="710"/>
@@ -216,7 +216,7 @@
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -226,7 +226,7 @@
     <Transformation type="NLPExtraction">NLP Extraction</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
         <RowIndex>3</RowIndex>
         <ColumnName>TEXT</ColumnName>
         <TextSpan begin="100" end="112"/>
@@ -234,7 +234,7 @@
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -244,7 +244,7 @@
     <Transformation type="NLPExtraction">NLP Extraction</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
         <RowIndex>3</RowIndex>
         <ColumnName>TEXT</ColumnName>
         <TextSpan begin="209" end="221"/>
@@ -252,7 +252,7 @@
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>4</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -262,14 +262,14 @@
     <Transformation type="DirectMap">Direct Map</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>ICD10</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -279,14 +279,14 @@
     <Transformation type="DirectMap">Direct Map</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>TERM</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -296,14 +296,14 @@
     <Transformation type="AfterIndexDate">After Index Date</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>DATE</ColumnName>
       </Coordinate>
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -313,7 +313,7 @@
     <Transformation type="NLPExtraction">NLP Extraction</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>TEXT</ColumnName>
         <TextSpan begin="278" end="305"/>
@@ -321,7 +321,7 @@
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
@@ -331,7 +331,7 @@
     <Transformation type="NLPExtraction">NLP Extraction</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>TEXT</ColumnName>
         <TextSpan begin="1211" end="1234"/>
@@ -339,7 +339,7 @@
     </Source>
     <Target>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>CEOCCUR</ColumnName>
       </Coordinate>
