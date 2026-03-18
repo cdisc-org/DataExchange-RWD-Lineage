@@ -262,7 +262,7 @@
     <Transformation type="DirectMap">Direct Map</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>ICD10</ColumnName>
       </Coordinate>
@@ -279,7 +279,7 @@
     <Transformation type="DirectMap">Direct Map</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>TERM</ColumnName>
       </Coordinate>
@@ -296,7 +296,7 @@
     <Transformation type="AfterIndexDate">After Index Date</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</URI>
         <RowIndex>1</RowIndex>
         <ColumnName>DATE</ColumnName>
       </Coordinate>
