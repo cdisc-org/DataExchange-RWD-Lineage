@@ -1,4 +1,4 @@
-![](./images/rwd-lineage-logo.png)
+<img src="./images/rwd-lineage-logo.png" alt="rwd-lineage-logo" width="10%"/>
 
 # RWD Lineage
 
