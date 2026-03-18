@@ -57,16 +57,16 @@
           <TranslatedText>CE Occurrence</TranslatedText>
         </Description>
       </ItemDef>
-      <def:leaf ID="LF.CE" xlink:href="https://drive.google.com/file/d/1zqMXZviKvS_bcC11IaSsHuZVoOhhD3D7/view?usp=drive_link">
+      <def:leaf ID="LF.CE" xlink:href="https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv">
         <def:title>CE.xpt</def:title>
       </def:leaf>
-      <def:leaf ID="LF.PT_DX" xlink:href="https://drive.google.com/file/d/1SukPxF0W6aPjDMnlluHGxsSiDMq3-J9V/view?usp=drive_link">
+      <def:leaf ID="LF.PT_DX" xlink:href="https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv">
         <def:title>PT_DX.csv</def:title>
       </def:leaf>
-      <def:leaf ID="LF.VITALS" xlink:href="https://drive.google.com/file/d/1ofgeU1M8rc2bnu0ygR5vwsWE7mRIexFz/view?usp=drive_link">
+      <def:leaf ID="LF.VITALS" xlink:href="https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv">
         <def:title>VITALS.csv</def:title>
       </def:leaf>
-      <def:leaf ID="LF.NOTES" xlink:href="https://drive.google.com/file/d/1D8zqaMGsmgCWRX8lX4WnIct4Mr2qxVYg/view?usp=drive_link">
+      <def:leaf ID="LF.NOTES" xlink:href="https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv">
         <def:title>NOTES.csv</def:title>
       </def:leaf>
       <def:leaf ID="LF.RWDLINEAGE" xlink:href="rwd-lineage.xml">
