@@ -613,7 +613,7 @@
     </Target>
   </MapID>
   <MapID uuid="8bf24cb6-910b-4134-a090-6a80a33ca0c3">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -630,7 +630,7 @@
     </Target>
   </MapID>
   <MapID uuid="3dbe8ce7-7f4c-437a-b5c3-cf93d542293e">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -647,7 +647,7 @@
     </Target>
   </MapID>
   <MapID uuid="eaf97d4e-b0c8-4ca1-b17c-55c76e149466">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -664,7 +664,7 @@
     </Target>
   </MapID>
   <MapID uuid="895c09fb-c890-4a0e-9e20-d351dcc74035">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -681,7 +681,7 @@
     </Target>
   </MapID>
   <MapID uuid="a779ae08-4e88-4ecc-aa1c-e52428be4d7e">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -698,7 +698,7 @@
     </Target>
   </MapID>
   <MapID uuid="238d4024-b998-45ab-8ef8-314684a20717">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -715,7 +715,7 @@
     </Target>
   </MapID>
   <MapID uuid="1039c4e6-2013-4c4d-bed7-5ab4900e7dfb">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -732,7 +732,7 @@
     </Target>
   </MapID>
   <MapID uuid="6e7157ae-1a39-48f6-8edc-8dffc260ed29">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -749,7 +749,7 @@
     </Target>
   </MapID>
   <MapID uuid="adade17f-de7d-4cc7-8953-fac84787e98b">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -766,7 +766,7 @@
     </Target>
   </MapID>
   <MapID uuid="851b4c99-e9a5-4f48-8dd5-acb2498897ea">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -783,7 +783,7 @@
     </Target>
   </MapID>
   <MapID uuid="da982dea-47ec-487a-8ad2-39a61b536353">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -800,7 +800,7 @@
     </Target>
   </MapID>
   <MapID uuid="0addc0a9-32fa-416e-b252-d6c23b9d751d">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -817,7 +817,7 @@
     </Target>
   </MapID>
   <MapID uuid="9f9eeb37-b9aa-4988-95cc-db9fcfe6250d">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -834,7 +834,7 @@
     </Target>
   </MapID>
   <MapID uuid="6f3b28aa-3ea5-4afb-b693-c5248b0921c4">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -851,7 +851,7 @@
     </Target>
   </MapID>
   <MapID uuid="3134d9e3-f702-4562-94e5-6e61482d8746">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -868,7 +868,7 @@
     </Target>
   </MapID>
   <MapID uuid="32e2036d-a583-4510-b1df-20712430bffe">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -885,7 +885,7 @@
     </Target>
   </MapID>
   <MapID uuid="8ab3da70-2692-42cc-bba0-dbdd6bc2c842">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -902,7 +902,7 @@
     </Target>
   </MapID>
   <MapID uuid="d770348f-a96c-4241-9325-a14b945e667d">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -919,7 +919,7 @@
     </Target>
   </MapID>
   <MapID uuid="045c0fb9-4aa8-409a-8740-d57548b302e8">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -936,7 +936,7 @@
     </Target>
   </MapID>
   <MapID uuid="9a451200-efcb-46f5-8549-8485ad2c4fd2">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -953,7 +953,7 @@
     </Target>
   </MapID>
   <MapID uuid="f5c08456-a1be-4987-b55a-5bdff8ae2a39">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -970,7 +970,7 @@
     </Target>
   </MapID>
   <MapID uuid="e9e5f0a8-8194-4c18-b53c-8765989e4c73">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -987,7 +987,7 @@
     </Target>
   </MapID>
   <MapID uuid="c771d454-c4da-41b8-9579-8c592818b5db">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -1004,7 +1004,7 @@
     </Target>
   </MapID>
   <MapID uuid="9862e5a9-35df-408c-ad8c-b20280d7993d">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="LabValueParsing">Lab Value Parsing</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv</URI>
@@ -1021,7 +1021,7 @@
     </Target>
   </MapID>
   <MapID uuid="7608fa4b-8010-4c0c-aa92-279bb41cfa22">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="ElevatedLiverEnzyme">Elevated Liver Enzyme</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1038,7 +1038,7 @@
     </Target>
   </MapID>
   <MapID uuid="aabab1fe-df1c-4ea4-affd-05502bb7b4e3">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="ElevatedLiverEnzyme">Elevated Liver Enzyme</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1055,7 +1055,7 @@
     </Target>
   </MapID>
   <MapID uuid="771f0107-201c-4b2b-9cab-080442629e78">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="ElevatedLiverEnzyme">Elevated Liver Enzyme</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1072,7 +1072,7 @@
     </Target>
   </MapID>
   <MapID uuid="2fe352d0-7155-4626-9d76-aaa98d253c08">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="ElevatedLiverEnzyme">Elevated Liver Enzyme</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1089,7 +1089,7 @@
     </Target>
   </MapID>
   <MapID uuid="f85bdf02-5ff8-4b76-915f-9842b26ac246">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="ElevatedLiverEnzyme">Elevated Liver Enzyme</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1106,7 +1106,7 @@
     </Target>
   </MapID>
   <MapID uuid="8bc382b9-0ada-4b32-bcea-ea8cc0d0196c">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="ElevatedLiverEnzyme">Elevated Liver Enzyme</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1123,7 +1123,7 @@
     </Target>
   </MapID>
   <MapID uuid="59fba449-0410-4933-8be5-ffe21314f317">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="ElevatedLiverEnzyme">Elevated Liver Enzyme</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1140,7 +1140,7 @@
     </Target>
   </MapID>
   <MapID uuid="4352dc52-5f17-4b16-b9ac-164e71338e2c">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="ElevatedLiverEnzyme">Elevated Liver Enzyme</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1157,7 +1157,7 @@
     </Target>
   </MapID>
   <MapID uuid="e068ddd5-c34a-45fa-b3f9-f179f08e3024">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="ElevatedLiverEnzyme">Elevated Liver Enzyme</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1174,7 +1174,7 @@
     </Target>
   </MapID>
   <MapID uuid="0463d8c0-d6b4-4d9f-84ca-1a29eaa65511">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="ElevatedLiverEnzyme">Elevated Liver Enzyme</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1191,7 +1191,7 @@
     </Target>
   </MapID>
   <MapID uuid="3151626e-7498-4be2-bc2d-a2efe7a560b5">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="ElevatedLiverEnzyme">Elevated Liver Enzyme</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1208,7 +1208,7 @@
     </Target>
   </MapID>
   <MapID uuid="3d25009e-f66c-4bb8-b260-ef8858edeff0">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="ElevatedLiverEnzyme">Elevated Liver Enzyme</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1276,7 +1276,7 @@
     </Target>
   </MapID>
   <MapID uuid="ddad8e62-1b5e-40aa-b563-1ef1ade71db8">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1293,7 +1293,7 @@
     </Target>
   </MapID>
   <MapID uuid="96b8f9a6-a2af-4835-af33-20c78e79997d">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1310,7 +1310,7 @@
     </Target>
   </MapID>
   <MapID uuid="1ec8fb84-c4cc-4996-bde2-a9026407fbf4">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1327,7 +1327,7 @@
     </Target>
   </MapID>
   <MapID uuid="12492fb7-783c-4b10-b7df-bbabbaefae3e">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1344,7 +1344,7 @@
     </Target>
   </MapID>
   <MapID uuid="bda8edcf-507c-4654-8e55-76682486594f">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1361,7 +1361,7 @@
     </Target>
   </MapID>
   <MapID uuid="c56e8ab6-b36c-4a44-90c1-c9b4c82708c1">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1378,7 +1378,7 @@
     </Target>
   </MapID>
   <MapID uuid="d27e20e2-9d64-4386-ae08-1c405b842e62">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1395,7 +1395,7 @@
     </Target>
   </MapID>
   <MapID uuid="ce3a83be-2055-40e7-8daf-65a6e3aca0c1">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1412,7 +1412,7 @@
     </Target>
   </MapID>
   <MapID uuid="67889de4-b804-4f13-b762-00f279880a72">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1429,7 +1429,7 @@
     </Target>
   </MapID>
   <MapID uuid="f87ccc62-e216-48a4-b8a9-858afc6e96fa">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1446,7 +1446,7 @@
     </Target>
   </MapID>
   <MapID uuid="1f19c09d-e542-4d79-8f20-2da133f2264f">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1463,7 +1463,7 @@
     </Target>
   </MapID>
   <MapID uuid="c873ffb5-8d85-46d4-8d53-1c215c214a42">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1480,7 +1480,7 @@
     </Target>
   </MapID>
   <MapID uuid="91f243de-ea56-43ac-b345-f3437f13e604">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1497,7 +1497,7 @@
     </Target>
   </MapID>
   <MapID uuid="8fc147b1-38cf-4edf-9e29-dbf58abb4462">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1514,7 +1514,7 @@
     </Target>
   </MapID>
   <MapID uuid="cb927caa-cfd0-4572-971a-bbd698ab1b6c">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1531,7 +1531,7 @@
     </Target>
   </MapID>
   <MapID uuid="47c4169b-059f-4fdc-9f88-6b1e12916ba3">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1548,7 +1548,7 @@
     </Target>
   </MapID>
   <MapID uuid="58b1fb22-9644-4956-99bb-27ad036a5411">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1565,7 +1565,7 @@
     </Target>
   </MapID>
   <MapID uuid="b5916888-998e-44d3-b0be-e6b7004c5482">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1582,7 +1582,7 @@
     </Target>
   </MapID>
   <MapID uuid="2c6278b2-5384-4764-8ea0-c298a577bb68">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1599,7 +1599,7 @@
     </Target>
   </MapID>
   <MapID uuid="87070c19-b709-49ce-9944-54695ab2a2a1">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1616,7 +1616,7 @@
     </Target>
   </MapID>
   <MapID uuid="d1c1d80f-b41a-4528-a541-ed9e42930fd5">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1633,7 +1633,7 @@
     </Target>
   </MapID>
   <MapID uuid="cf797e86-cc28-4fcb-883c-9bf727d386ab">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1650,7 +1650,7 @@
     </Target>
   </MapID>
   <MapID uuid="f7a5782d-736d-4797-98c6-ce38bd9d482b">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
@@ -1667,7 +1667,7 @@
     </Target>
   </MapID>
   <MapID uuid="6e5b9ec7-6724-4213-ba80-ae0a73f02b4a">
-    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Transformation type="UnitConversion">Unit Conversion</Transformation>
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>

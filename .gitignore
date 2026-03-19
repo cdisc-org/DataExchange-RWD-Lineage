@@ -5,8 +5,9 @@ examples/example1/generate_xml.py
 .DS_Store
 **/.DS_Store
 
-# Tests
+# Tests and working artifacts
 **/tests/
+*.xlsx\ -\ *.csv
 
 # Python / pytest
 __pycache__/
