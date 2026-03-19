@@ -1,0 +1,13 @@
+PATID,LOINC Code,Lab Test,Visit Date,Lab Result
+383641,1742-6,Alanine Aminotransferase,2/10/2024,0.3507 µkat/L
+383641,1920-8,Aspartate Aminotransferase,2/10/2024,0.5845 µkat/L
+383641,1775-6,Alkaline Phosphatase,2/10/2024,0.8016 µkat/L
+383641,1742-6,Alanine Aminotransferase,3/25/2025,0.5344 µkat/L
+383641,1920-8,Aspartate Aminotransferase,3/25/2025,0.7181 µkat/L
+383641,1775-6,Alkaline Phosphatase,3/25/2025,1.7869 µkat/L
+342832,1742-6,Alanine Aminotransferase,10/25/2024,0.8684 µkat/L
+342832,1920-8,Aspartate Aminotransferase,10/25/2024,0.7849 µkat/L
+342832,1775-6,Alkaline Phosphatase,10/25/2024,2.1376 µkat/L
+342832,1742-6,Alanine Aminotransferase,11/6/2025,1.002 µkat/L
+342832,1920-8,Aspartate Aminotransferase,11/6/2025,0.8183 µkat/L
+342832,1775-6,Alkaline Phosphatase,11/6/2025,2.1877 µkat/L
