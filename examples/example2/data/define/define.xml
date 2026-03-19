@@ -1,0 +1,181 @@
+<?xml version="1.0" ?>
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:def="http://www.cdisc.org/ns/def/v2.1" xmlns:rwdl="http://www.cdisc.org/ns/rwd-lineage/v1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 https://www.cdisc.org/standards/odm/v1.3.2/ODM1-3-2.xsd" FileType="Snapshot" FileOID="Define.Example2" CreationDateTime="2026-03-19T00:00:00" AsOfDateTime="2026-03-19T00:00:00" Originator="CDISC RWD Lineage Project" SourceSystem="Example" SourceSystemVersion="1.0" def:Context="Submission">
+  <Study OID="Study.Example2">
+    <GlobalVariables>
+      <StudyName>RWD Lineage Example 2</StudyName>
+      <StudyDescription>Example 2: AE and LB domains with EHR lab source lineage</StudyDescription>
+      <ProtocolName>RWDL-EX2</ProtocolName>
+    </GlobalVariables>
+    <MetaDataVersion OID="MDV.Example2" Name="Example 2 Define-XML" def:DefineVersion="2.1.0" def:StandardName="SDTM" def:StandardVersion="1.9">
+      <rwdl:lineage>
+        <rwdl:ref leafID="LF.RWDLINEAGE">rwd-lineage.xml</rwdl:ref>
+      </rwdl:lineage>
+      <ItemGroupDef OID="IG.AE" Name="AE" Repeating="Yes" IsReferenceData="No" SASDatasetName="AE" def:Structure="One record per subject per adverse event" def:Purpose="Tabulation" def:StandardOID="STD.1" def:ArchiveLocationID="LF.AE">
+        <Description>
+          <TranslatedText>Adverse Events</TranslatedText>
+        </Description>
+        <ItemRef ItemOID="IT.AE.STUDYID" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.AE.DOMAIN" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.AE.USUBJID" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.AE.AESEQ" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.AE.AETERM" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.AE.AEDECOD" Mandatory="No"/>
+        <ItemRef ItemOID="IT.AE.AELLTCD" Mandatory="No"/>
+        <ItemRef ItemOID="IT.AE.AESER" Mandatory="No"/>
+        <ItemRef ItemOID="IT.AE.AEREL" Mandatory="No"/>
+        <ItemRef ItemOID="IT.AE.AESTDTC" Mandatory="No"/>
+      </ItemGroupDef>
+      <ItemGroupDef OID="IG.LB" Name="LB" Repeating="Yes" IsReferenceData="No" SASDatasetName="LB" def:Structure="One record per subject per lab test per visit" def:Purpose="Tabulation" def:StandardOID="STD.1" def:ArchiveLocationID="LF.LB">
+        <Description>
+          <TranslatedText>Laboratory Test Results</TranslatedText>
+        </Description>
+        <ItemRef ItemOID="IT.LB.STUDYID" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.LB.DOMAIN" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.LB.USUBJID" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.LB.LBSEQ" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.LB.LBTESTCD" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.LB.LBTEST" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.LB.LBDTC" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBORRES" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBORRESU" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBSTRES" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBSTRESU" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBSTNRLO" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBSTNRHI" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBNRIND" Mandatory="No"/>
+      </ItemGroupDef>
+      <ItemDef OID="IT.AE.STUDYID" Name="STUDYID" DataType="text" Length="8" def:Label="Study Identifier">
+        <Description>
+          <TranslatedText>Study Identifier</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.AE.DOMAIN" Name="DOMAIN" DataType="text" Length="2" def:Label="Domain Abbreviation">
+        <Description>
+          <TranslatedText>Domain Abbreviation</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.AE.USUBJID" Name="USUBJID" DataType="text" Length="50" def:Label="Unique Subject Identifier">
+        <Description>
+          <TranslatedText>Unique Subject Identifier</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.AE.AESEQ" Name="AESEQ" DataType="integer" Length="8" def:Label="Sequence Number">
+        <Description>
+          <TranslatedText>Sequence Number</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.AE.AETERM" Name="AETERM" DataType="text" Length="200" def:Label="Reported Term for AE">
+        <Description>
+          <TranslatedText>Reported Term for AE</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.AE.AEDECOD" Name="AEDECOD" DataType="text" Length="200" def:Label="Dictionary-Derived Term">
+        <Description>
+          <TranslatedText>Dictionary-Derived Term</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.AE.AELLTCD" Name="AELLTCD" DataType="integer" Length="8" def:Label="Lowest Level Term Code">
+        <Description>
+          <TranslatedText>Lowest Level Term Code</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.AE.AESER" Name="AESER" DataType="text" Length="1" def:Label="Serious Event">
+        <Description>
+          <TranslatedText>Serious Event</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.AE.AEREL" Name="AEREL" DataType="text" Length="16" def:Label="Causality">
+        <Description>
+          <TranslatedText>Causality</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.AE.AESTDTC" Name="AESTDTC" DataType="text" Length="20" def:Label="Start Date/Time">
+        <Description>
+          <TranslatedText>Start Date/Time</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.STUDYID" Name="STUDYID" DataType="text" Length="8" def:Label="Study Identifier">
+        <Description>
+          <TranslatedText>Study Identifier</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.DOMAIN" Name="DOMAIN" DataType="text" Length="2" def:Label="Domain Abbreviation">
+        <Description>
+          <TranslatedText>Domain Abbreviation</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.USUBJID" Name="USUBJID" DataType="text" Length="50" def:Label="Unique Subject Identifier">
+        <Description>
+          <TranslatedText>Unique Subject Identifier</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.LBSEQ" Name="LBSEQ" DataType="integer" Length="8" def:Label="Sequence Number">
+        <Description>
+          <TranslatedText>Sequence Number</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.LBTESTCD" Name="LBTESTCD" DataType="text" Length="8" def:Label="Lab Test Short Name">
+        <Description>
+          <TranslatedText>Lab Test Short Name</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.LBTEST" Name="LBTEST" DataType="text" Length="40" def:Label="Lab Test Name">
+        <Description>
+          <TranslatedText>Lab Test Name</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.LBDTC" Name="LBDTC" DataType="text" Length="20" def:Label="Date/Time of Specimen Collection">
+        <Description>
+          <TranslatedText>Date/Time of Specimen Collection</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.LBORRES" Name="LBORRES" DataType="text" Length="200" def:Label="Result or Finding in Original Units">
+        <Description>
+          <TranslatedText>Result or Finding in Original Units</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.LBORRESU" Name="LBORRESU" DataType="text" Length="40" def:Label="Original Units">
+        <Description>
+          <TranslatedText>Original Units</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.LBSTRES" Name="LBSTRES" DataType="float" Length="8" def:Label="Numeric Result/Finding in Standard Units">
+        <Description>
+          <TranslatedText>Numeric Result/Finding in Standard Units</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.LBSTRESU" Name="LBSTRESU" DataType="text" Length="40" def:Label="Standard Units">
+        <Description>
+          <TranslatedText>Standard Units</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.LBSTNRLO" Name="LBSTNRLO" DataType="float" Length="8" def:Label="Reference Range Lower Limit">
+        <Description>
+          <TranslatedText>Reference Range Lower Limit</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.LBSTNRHI" Name="LBSTNRHI" DataType="float" Length="8" def:Label="Reference Range Upper Limit">
+        <Description>
+          <TranslatedText>Reference Range Upper Limit</TranslatedText>
+        </Description>
+      </ItemDef>
+      <ItemDef OID="IT.LB.LBNRIND" Name="LBNRIND" DataType="text" Length="10" def:Label="Reference Range Indicator">
+        <Description>
+          <TranslatedText>Reference Range Indicator</TranslatedText>
+        </Description>
+      </ItemDef>
+      <def:leaf ID="LF.AE" xlink:href="https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv">
+        <def:title>AE.xpt</def:title>
+      </def:leaf>
+      <def:leaf ID="LF.LB" xlink:href="https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv">
+        <def:title>LB.xpt</def:title>
+      </def:leaf>
+      <def:leaf ID="LF.LABRESULTS" xlink:href="https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/source/LabResults.csv">
+        <def:title>LabResults.csv</def:title>
+      </def:leaf>
+      <def:leaf ID="LF.RWDLINEAGE" xlink:href="rwd-lineage.xml">
+        <def:title>rwd-lineage.xml</def:title>
+      </def:leaf>
+    </MetaDataVersion>
+  </Study>
+</ODM>
