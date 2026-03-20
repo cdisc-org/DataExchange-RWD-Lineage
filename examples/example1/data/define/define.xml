@@ -6,11 +6,14 @@
       <StudyDescription>Example 1: CE domain with EHR source lineage</StudyDescription>
       <ProtocolName>RWDL-EX1</ProtocolName>
     </GlobalVariables>
-    <MetaDataVersion OID="MDV.Example1" Name="Example 1 Define-XML" def:DefineVersion="2.1.0" def:StandardName="SDTM" def:StandardVersion="1.9">
+    <MetaDataVersion OID="MDV.Example1" Name="Example 1 Define-XML" def:DefineVersion="2.1.0">
+      <def:Standards>
+        <def:Standard OID="STD.1" Name="SDTM" Version="1.9" Type="Tabulation" Status="Final"/>
+      </def:Standards>
       <rwdl:lineage>
         <rwdl:ref leafID="LF.RWDLINEAGE">rwd-lineage.xml</rwdl:ref>
       </rwdl:lineage>
-      <ItemGroupDef OID="IG.CE" Name="CE" Repeating="Yes" IsReferenceData="No" SASDatasetName="CE" def:Structure="One record per subject per clinical event" def:Purpose="Tabulation" def:StandardOID="STD.1" def:ArchiveLocationID="LF.CE">
+      <ItemGroupDef OID="IG.CE" Name="CE" Repeating="Yes" IsReferenceData="No" SASDatasetName="CE" def:Structure="One record per subject per clinical event" def:StandardOID="STD.1" def:ArchiveLocationID="LF.CE">
         <Description>
           <TranslatedText>Clinical Events</TranslatedText>
         </Description>
@@ -22,37 +25,37 @@
         <ItemRef ItemOID="IT.CE.CEPRESP" Mandatory="No"/>
         <ItemRef ItemOID="IT.CE.CEOCCUR" Mandatory="No"/>
       </ItemGroupDef>
-      <ItemDef OID="IT.CE.STUDYID" Name="STUDYID" DataType="text" Length="8" def:Label="Study Identifier">
+      <ItemDef OID="IT.CE.STUDYID" Name="STUDYID" DataType="text" Length="8">
         <Description>
           <TranslatedText>Study Identifier</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.CE.DOMAIN" Name="DOMAIN" DataType="text" Length="2" def:Label="Domain Abbreviation">
+      <ItemDef OID="IT.CE.DOMAIN" Name="DOMAIN" DataType="text" Length="2">
         <Description>
           <TranslatedText>Domain Abbreviation</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.CE.USUBJID" Name="USUBJID" DataType="text" Length="50" def:Label="Unique Subject Identifier">
+      <ItemDef OID="IT.CE.USUBJID" Name="USUBJID" DataType="text" Length="50">
         <Description>
           <TranslatedText>Unique Subject Identifier</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.CE.CESEQ" Name="CESEQ" DataType="integer" Length="8" def:Label="Sequence Number">
+      <ItemDef OID="IT.CE.CESEQ" Name="CESEQ" DataType="integer" Length="8">
         <Description>
           <TranslatedText>Sequence Number</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.CE.CETERM" Name="CETERM" DataType="text" Length="200" def:Label="Reported Term for the CE">
+      <ItemDef OID="IT.CE.CETERM" Name="CETERM" DataType="text" Length="200">
         <Description>
           <TranslatedText>Reported Term for the CE</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.CE.CEPRESP" Name="CEPRESP" DataType="text" Length="1" def:Label="CE Pre-Specified">
+      <ItemDef OID="IT.CE.CEPRESP" Name="CEPRESP" DataType="text" Length="1">
         <Description>
           <TranslatedText>CE Pre-Specified</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.CE.CEOCCUR" Name="CEOCCUR" DataType="text" Length="1" def:Label="CE Occurrence">
+      <ItemDef OID="IT.CE.CEOCCUR" Name="CEOCCUR" DataType="text" Length="1">
         <Description>
           <TranslatedText>CE Occurrence</TranslatedText>
         </Description>
