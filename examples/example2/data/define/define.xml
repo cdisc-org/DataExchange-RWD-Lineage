@@ -6,11 +6,14 @@
       <StudyDescription>Example 2: AE and LB domains with EHR lab source lineage</StudyDescription>
       <ProtocolName>RWDL-EX2</ProtocolName>
     </GlobalVariables>
-    <MetaDataVersion OID="MDV.Example2" Name="Example 2 Define-XML" def:DefineVersion="2.1.0" def:StandardName="SDTM" def:StandardVersion="1.9">
+    <MetaDataVersion OID="MDV.Example2" Name="Example 2 Define-XML" def:DefineVersion="2.1.0">
+      <def:Standards>
+        <def:Standard OID="STD.1" Name="SDTM" Version="1.9" Type="Tabulation" Status="Final"/>
+      </def:Standards>
       <rwdl:lineage>
         <rwdl:ref leafID="LF.RWDLINEAGE">rwd-lineage.xml</rwdl:ref>
       </rwdl:lineage>
-      <ItemGroupDef OID="IG.AE" Name="AE" Repeating="Yes" IsReferenceData="No" SASDatasetName="AE" def:Structure="One record per subject per adverse event" def:Purpose="Tabulation" def:StandardOID="STD.1" def:ArchiveLocationID="LF.AE">
+      <ItemGroupDef OID="IG.AE" Name="AE" Repeating="Yes" IsReferenceData="No" SASDatasetName="AE" def:Structure="One record per subject per adverse event" def:StandardOID="STD.1" def:ArchiveLocationID="LF.AE">
         <Description>
           <TranslatedText>Adverse Events</TranslatedText>
         </Description>
@@ -25,7 +28,7 @@
         <ItemRef ItemOID="IT.AE.AEREL" Mandatory="No"/>
         <ItemRef ItemOID="IT.AE.AESTDTC" Mandatory="No"/>
       </ItemGroupDef>
-      <ItemGroupDef OID="IG.LB" Name="LB" Repeating="Yes" IsReferenceData="No" SASDatasetName="LB" def:Structure="One record per subject per lab test per visit" def:Purpose="Tabulation" def:StandardOID="STD.1" def:ArchiveLocationID="LF.LB">
+      <ItemGroupDef OID="IG.LB" Name="LB" Repeating="Yes" IsReferenceData="No" SASDatasetName="LB" def:Structure="One record per subject per lab test per visit" def:StandardOID="STD.1" def:ArchiveLocationID="LF.LB">
         <Description>
           <TranslatedText>Laboratory Test Results</TranslatedText>
         </Description>
@@ -44,122 +47,122 @@
         <ItemRef ItemOID="IT.LB.LBSTNRHI" Mandatory="No"/>
         <ItemRef ItemOID="IT.LB.LBNRIND" Mandatory="No"/>
       </ItemGroupDef>
-      <ItemDef OID="IT.AE.STUDYID" Name="STUDYID" DataType="text" Length="8" def:Label="Study Identifier">
+      <ItemDef OID="IT.AE.STUDYID" Name="STUDYID" DataType="text" Length="8">
         <Description>
           <TranslatedText>Study Identifier</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.AE.DOMAIN" Name="DOMAIN" DataType="text" Length="2" def:Label="Domain Abbreviation">
+      <ItemDef OID="IT.AE.DOMAIN" Name="DOMAIN" DataType="text" Length="2">
         <Description>
           <TranslatedText>Domain Abbreviation</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.AE.USUBJID" Name="USUBJID" DataType="text" Length="50" def:Label="Unique Subject Identifier">
+      <ItemDef OID="IT.AE.USUBJID" Name="USUBJID" DataType="text" Length="50">
         <Description>
           <TranslatedText>Unique Subject Identifier</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.AE.AESEQ" Name="AESEQ" DataType="integer" Length="8" def:Label="Sequence Number">
+      <ItemDef OID="IT.AE.AESEQ" Name="AESEQ" DataType="integer" Length="8">
         <Description>
           <TranslatedText>Sequence Number</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.AE.AETERM" Name="AETERM" DataType="text" Length="200" def:Label="Reported Term for AE">
+      <ItemDef OID="IT.AE.AETERM" Name="AETERM" DataType="text" Length="200">
         <Description>
           <TranslatedText>Reported Term for AE</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.AE.AEDECOD" Name="AEDECOD" DataType="text" Length="200" def:Label="Dictionary-Derived Term">
+      <ItemDef OID="IT.AE.AEDECOD" Name="AEDECOD" DataType="text" Length="200">
         <Description>
           <TranslatedText>Dictionary-Derived Term</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.AE.AELLTCD" Name="AELLTCD" DataType="integer" Length="8" def:Label="Lowest Level Term Code">
+      <ItemDef OID="IT.AE.AELLTCD" Name="AELLTCD" DataType="integer" Length="8">
         <Description>
           <TranslatedText>Lowest Level Term Code</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.AE.AESER" Name="AESER" DataType="text" Length="1" def:Label="Serious Event">
+      <ItemDef OID="IT.AE.AESER" Name="AESER" DataType="text" Length="1">
         <Description>
           <TranslatedText>Serious Event</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.AE.AEREL" Name="AEREL" DataType="text" Length="16" def:Label="Causality">
+      <ItemDef OID="IT.AE.AEREL" Name="AEREL" DataType="text" Length="16">
         <Description>
           <TranslatedText>Causality</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.AE.AESTDTC" Name="AESTDTC" DataType="text" Length="20" def:Label="Start Date/Time">
+      <ItemDef OID="IT.AE.AESTDTC" Name="AESTDTC" DataType="text" Length="20">
         <Description>
           <TranslatedText>Start Date/Time</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.STUDYID" Name="STUDYID" DataType="text" Length="8" def:Label="Study Identifier">
+      <ItemDef OID="IT.LB.STUDYID" Name="STUDYID" DataType="text" Length="8">
         <Description>
           <TranslatedText>Study Identifier</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.DOMAIN" Name="DOMAIN" DataType="text" Length="2" def:Label="Domain Abbreviation">
+      <ItemDef OID="IT.LB.DOMAIN" Name="DOMAIN" DataType="text" Length="2">
         <Description>
           <TranslatedText>Domain Abbreviation</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.USUBJID" Name="USUBJID" DataType="text" Length="50" def:Label="Unique Subject Identifier">
+      <ItemDef OID="IT.LB.USUBJID" Name="USUBJID" DataType="text" Length="50">
         <Description>
           <TranslatedText>Unique Subject Identifier</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.LBSEQ" Name="LBSEQ" DataType="integer" Length="8" def:Label="Sequence Number">
+      <ItemDef OID="IT.LB.LBSEQ" Name="LBSEQ" DataType="integer" Length="8">
         <Description>
           <TranslatedText>Sequence Number</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.LBTESTCD" Name="LBTESTCD" DataType="text" Length="8" def:Label="Lab Test Short Name">
+      <ItemDef OID="IT.LB.LBTESTCD" Name="LBTESTCD" DataType="text" Length="8">
         <Description>
           <TranslatedText>Lab Test Short Name</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.LBTEST" Name="LBTEST" DataType="text" Length="40" def:Label="Lab Test Name">
+      <ItemDef OID="IT.LB.LBTEST" Name="LBTEST" DataType="text" Length="40">
         <Description>
           <TranslatedText>Lab Test Name</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.LBDTC" Name="LBDTC" DataType="text" Length="20" def:Label="Date/Time of Specimen Collection">
+      <ItemDef OID="IT.LB.LBDTC" Name="LBDTC" DataType="text" Length="20">
         <Description>
           <TranslatedText>Date/Time of Specimen Collection</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.LBORRES" Name="LBORRES" DataType="text" Length="200" def:Label="Result or Finding in Original Units">
+      <ItemDef OID="IT.LB.LBORRES" Name="LBORRES" DataType="text" Length="200">
         <Description>
           <TranslatedText>Result or Finding in Original Units</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.LBORRESU" Name="LBORRESU" DataType="text" Length="40" def:Label="Original Units">
+      <ItemDef OID="IT.LB.LBORRESU" Name="LBORRESU" DataType="text" Length="40">
         <Description>
           <TranslatedText>Original Units</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.LBSTRES" Name="LBSTRES" DataType="float" Length="8" def:Label="Numeric Result/Finding in Standard Units">
+      <ItemDef OID="IT.LB.LBSTRES" Name="LBSTRES" DataType="float" Length="8">
         <Description>
           <TranslatedText>Numeric Result/Finding in Standard Units</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.LBSTRESU" Name="LBSTRESU" DataType="text" Length="40" def:Label="Standard Units">
+      <ItemDef OID="IT.LB.LBSTRESU" Name="LBSTRESU" DataType="text" Length="40">
         <Description>
           <TranslatedText>Standard Units</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.LBSTNRLO" Name="LBSTNRLO" DataType="float" Length="8" def:Label="Reference Range Lower Limit">
+      <ItemDef OID="IT.LB.LBSTNRLO" Name="LBSTNRLO" DataType="float" Length="8">
         <Description>
           <TranslatedText>Reference Range Lower Limit</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.LBSTNRHI" Name="LBSTNRHI" DataType="float" Length="8" def:Label="Reference Range Upper Limit">
+      <ItemDef OID="IT.LB.LBSTNRHI" Name="LBSTNRHI" DataType="float" Length="8">
         <Description>
           <TranslatedText>Reference Range Upper Limit</TranslatedText>
         </Description>
       </ItemDef>
-      <ItemDef OID="IT.LB.LBNRIND" Name="LBNRIND" DataType="text" Length="10" def:Label="Reference Range Indicator">
+      <ItemDef OID="IT.LB.LBNRIND" Name="LBNRIND" DataType="text" Length="10">
         <Description>
           <TranslatedText>Reference Range Indicator</TranslatedText>
         </Description>
