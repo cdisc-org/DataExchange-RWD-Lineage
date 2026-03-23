@@ -1,13 +1,13 @@
 USUBJID,LBSEQ,LBTESTCD,LBTEST,LBDTC,LBORRES,LBORRESU,LBSTRES,LBSTRESU,LBSTNRLO,LBSTNRHI,LBNRIND
-001,1,ALT,Alanine Aminotransferase,2/10/2024,0.35,µkat/L,21, U/L,7,55,NORMAL
-001,2,AST,Aspartate Aminotransferase,2/10/2024,0.58,µkat/L,35, U/L,8,48,NORMAL
-001,3,ALP,Alkaline Phosphatase,2/10/2024,0.80,µkat/L,48, U/L,40,129,NORMAL
-001,4,ALT,Alanine Aminotransferase,3/25/2025,0.53,µkat/L,32, U/L,7,55,NORMAL
-001,5,AST,Aspartate Aminotransferase,3/25/2025,0.72,µkat/L,43, U/L,8,48,NORMAL
-001,6,ALP,Alkaline Phosphatase,3/25/2025,1.79,µkat/L,107, U/L,40,129,NORMAL
-002,1,ALT,Alanine Aminotransferase,10/25/2024,0.87,µkat/L,52, U/L,7,55,NORMAL
-002,2,AST,Aspartate Aminotransferase,10/25/2024,0.78,µkat/L,47, U/L,8,48,NORMAL
-002,3,ALP,Alkaline Phosphatase,10/25/2024,2.14,µkat/L,128, U/L,40,129,NORMAL
-002,4,ALT,Alanine Aminotransferase,11/6/2025,1.00,µkat/L,60, U/L,7,55,HIGH
-002,5,AST,Aspartate Aminotransferase,11/6/2025,0.82,µkat/L,49, U/L,8,48,HIGH
-002,6,ALP,Alkaline Phosphatase,11/6/2025,2.19,µkat/L,131, U/L,40,129,HIGH
+001,1,ALT,Alanine Aminotransferase,2024-02-10,0.35,µkat/L,21, U/L,7,55,NORMAL
+001,2,AST,Aspartate Aminotransferase,2024-02-10,0.58,µkat/L,35, U/L,8,48,NORMAL
+001,3,ALP,Alkaline Phosphatase,2024-02-10,0.80,µkat/L,48, U/L,40,129,NORMAL
+001,4,ALT,Alanine Aminotransferase,2025-03-25,0.53,µkat/L,32, U/L,7,55,NORMAL
+001,5,AST,Aspartate Aminotransferase,2025-03-25,0.72,µkat/L,43, U/L,8,48,NORMAL
+001,6,ALP,Alkaline Phosphatase,2025-03-25,1.79,µkat/L,107, U/L,40,129,NORMAL
+002,1,ALT,Alanine Aminotransferase,2024-10-25,0.87,µkat/L,52, U/L,7,55,NORMAL
+002,2,AST,Aspartate Aminotransferase,2024-10-25,0.78,µkat/L,47, U/L,8,48,NORMAL
+002,3,ALP,Alkaline Phosphatase,2024-10-25,2.14,µkat/L,128, U/L,40,129,NORMAL
+002,4,ALT,Alanine Aminotransferase,2025-11-06,1.00,µkat/L,60, U/L,7,55,HIGH
+002,5,AST,Aspartate Aminotransferase,2025-11-06,0.82,µkat/L,49, U/L,8,48,HIGH
+002,6,ALP,Alkaline Phosphatase,2025-11-06,2.19,µkat/L,131, U/L,40,129,HIGH

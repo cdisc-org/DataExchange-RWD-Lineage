@@ -1025,7 +1025,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>9</RowIndex>
+        <RowIndex>10</RowIndex>
         <ColumnName>LBTEST</ColumnName>
       </Coordinate>
     </Source>
@@ -1042,7 +1042,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>10</RowIndex>
+        <RowIndex>11</RowIndex>
         <ColumnName>LBTEST</ColumnName>
       </Coordinate>
     </Source>
@@ -1059,7 +1059,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>11</RowIndex>
+        <RowIndex>12</RowIndex>
         <ColumnName>LBTEST</ColumnName>
       </Coordinate>
     </Source>
@@ -1076,7 +1076,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>9</RowIndex>
+        <RowIndex>10</RowIndex>
         <ColumnName>LBSTRES</ColumnName>
       </Coordinate>
     </Source>
@@ -1093,7 +1093,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>10</RowIndex>
+        <RowIndex>11</RowIndex>
         <ColumnName>LBSTRES</ColumnName>
       </Coordinate>
     </Source>
@@ -1110,7 +1110,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>11</RowIndex>
+        <RowIndex>12</RowIndex>
         <ColumnName>LBSTRES</ColumnName>
       </Coordinate>
     </Source>
@@ -1127,7 +1127,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>9</RowIndex>
+        <RowIndex>10</RowIndex>
         <ColumnName>LBSTNRHI</ColumnName>
       </Coordinate>
     </Source>
@@ -1144,7 +1144,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>10</RowIndex>
+        <RowIndex>11</RowIndex>
         <ColumnName>LBSTNRHI</ColumnName>
       </Coordinate>
     </Source>
@@ -1161,7 +1161,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>11</RowIndex>
+        <RowIndex>12</RowIndex>
         <ColumnName>LBSTNRHI</ColumnName>
       </Coordinate>
     </Source>
@@ -1178,7 +1178,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>9</RowIndex>
+        <RowIndex>10</RowIndex>
         <ColumnName>LBNRIND</ColumnName>
       </Coordinate>
     </Source>
@@ -1195,7 +1195,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>10</RowIndex>
+        <RowIndex>11</RowIndex>
         <ColumnName>LBNRIND</ColumnName>
       </Coordinate>
     </Source>
@@ -1212,7 +1212,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>11</RowIndex>
+        <RowIndex>12</RowIndex>
         <ColumnName>LBNRIND</ColumnName>
       </Coordinate>
     </Source>
@@ -1229,7 +1229,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>9</RowIndex>
+        <RowIndex>10</RowIndex>
         <ColumnName>LBDTC</ColumnName>
       </Coordinate>
     </Source>
@@ -1246,7 +1246,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>10</RowIndex>
+        <RowIndex>11</RowIndex>
         <ColumnName>LBDTC</ColumnName>
       </Coordinate>
     </Source>
@@ -1263,7 +1263,7 @@
     <Source>
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
-        <RowIndex>11</RowIndex>
+        <RowIndex>12</RowIndex>
         <ColumnName>LBDTC</ColumnName>
       </Coordinate>
     </Source>
