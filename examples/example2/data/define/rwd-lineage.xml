@@ -1033,7 +1033,7 @@
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
         <RowIndex>1</RowIndex>
-        <ColumnName>AEDECOD</ColumnName>
+        <ColumnName>AETERM</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
@@ -1050,7 +1050,7 @@
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
         <RowIndex>1</RowIndex>
-        <ColumnName>AEDECOD</ColumnName>
+        <ColumnName>AETERM</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
@@ -1067,7 +1067,7 @@
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
         <RowIndex>1</RowIndex>
-        <ColumnName>AEDECOD</ColumnName>
+        <ColumnName>AETERM</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
@@ -1084,7 +1084,7 @@
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
         <RowIndex>1</RowIndex>
-        <ColumnName>AEDECOD</ColumnName>
+        <ColumnName>AETERM</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
@@ -1101,7 +1101,7 @@
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
         <RowIndex>1</RowIndex>
-        <ColumnName>AEDECOD</ColumnName>
+        <ColumnName>AETERM</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
@@ -1118,7 +1118,7 @@
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
         <RowIndex>1</RowIndex>
-        <ColumnName>AEDECOD</ColumnName>
+        <ColumnName>AETERM</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
@@ -1135,7 +1135,7 @@
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
         <RowIndex>1</RowIndex>
-        <ColumnName>AEDECOD</ColumnName>
+        <ColumnName>AETERM</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
@@ -1152,7 +1152,7 @@
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
         <RowIndex>1</RowIndex>
-        <ColumnName>AEDECOD</ColumnName>
+        <ColumnName>AETERM</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
@@ -1169,7 +1169,7 @@
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
         <RowIndex>1</RowIndex>
-        <ColumnName>AEDECOD</ColumnName>
+        <ColumnName>AETERM</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
@@ -1186,7 +1186,7 @@
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
         <RowIndex>1</RowIndex>
-        <ColumnName>AEDECOD</ColumnName>
+        <ColumnName>AETERM</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
@@ -1203,7 +1203,7 @@
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
         <RowIndex>1</RowIndex>
-        <ColumnName>AEDECOD</ColumnName>
+        <ColumnName>AETERM</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
@@ -1220,7 +1220,7 @@
       <Coordinate storage="Filesystem" structure="Tabular">
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
         <RowIndex>1</RowIndex>
-        <ColumnName>AEDECOD</ColumnName>
+        <ColumnName>AETERM</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
@@ -1680,6 +1680,40 @@
         <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/LB.csv</URI>
         <RowIndex>12</RowIndex>
         <ColumnName>LBSTRES</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="59b1cce1-44f0-b284-33c0-299052c86066">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>AETERM</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>AEDECOD</ColumnName>
+      </Coordinate>
+    </Target>
+  </MapID>
+  <MapID uuid="cc05f775-26f0-1c1f-5e28-eef7a57f9f11">
+    <Transformation type="DirectMap">Direct Map</Transformation>
+    <Source>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>AETERM</ColumnName>
+      </Coordinate>
+    </Source>
+    <Target>
+      <Coordinate storage="Filesystem" structure="Tabular">
+        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example2/data/sdtm/AE.csv</URI>
+        <RowIndex>1</RowIndex>
+        <ColumnName>AELLTCD</ColumnName>
       </Coordinate>
     </Target>
   </MapID>
