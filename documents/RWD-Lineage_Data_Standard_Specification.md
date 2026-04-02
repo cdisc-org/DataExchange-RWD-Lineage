@@ -37,14 +37,16 @@ The following table defines the attributes available within a Coordinate Object.
 | 4 | `Database` | string | Conditional | The specific database name (Required for `storage="Database"`). |
 | 5 | `Schema` | string | Conditional | The schema name (Required for `storage="Database"`). |
 | 6 | `Table` | string | Conditional | The table name (Required for `storage="Database"`). |
-| 7 | `RowKey`/`RowIndex` | string/integer | Conditional | The row number or Primary Key value (Required for `structure="Tabular"`). |
-| 8 | `ColumnName` | string | Conditional | The header/variable name (Required for `structure="Tabular"`). |
-| 9 | `Path` | string | Conditional | The navigation string (XPath/JSONPath) (Required for `structure="Tree"`). |
-| 10 | `Format` | string | Optional | The specific format of the file or response (e.g., "JSON", "XML", "CSV"). |
+| 7 | `RowIndex` | integer | Conditional | The row number (One of `RowIndex` or `RowKey` required for `structure="Tabular"`). |
+| 8 | `RowKey` | string/integer | Conditional | The Primary Key field (One of `RowIndex` or `RowKey` required for `structure="Tabular"`). |
+| 9 | `RowKeyValue` | string/integer | Conditional | The Primary Key value (Required if `RowKey` is used). |
+| 10 | `ColumnName` | string | Conditional | The header/variable name (Required for `structure="Tabular"`). |
+| 11 | `Path` | string | Conditional | The navigation string (XPath/JSONPath) (Required for `structure="Tree"`). |
+| 12 | `Format` | string | Optional | The specific format of the file or response (e.g., "JSON", "XML", "CSV"). |
 
 ### Coordinates
 
-List of supported coordinates — designed to be extensible by defining the `type` attribute in the XML schema (e.g., `type="Graph"` or `type="Stream"`).
+List of supported coordinates — designed to be extensible by defining the `structure` attribute in the XML schema (e.g., `type="Graph"` or `type="Stream"`).
 
 #### Structural Formats
 
