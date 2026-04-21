@@ -19,7 +19,7 @@ The following table defines the attributes for a single Lineage Map element (Sou
 | Order | Attribute | XML Data Type | Usage | Description |
 |-------|-----------|---------------|-------|-------------|
 | 1 | `uuid` | string (UUIDv5) | Required | A deterministic UUID generated from a hash of the Source+Target coordinates. Ensures ID constancy across regenerations. |
-| 2 | `Transformation` | string | Optional | A description or code representing the logic applied to the Source to achieve the Target (e.g., "Unit Conversion", "Hardcoding"). |
+| 2 | `MethodDefOID` | string | Optional | A reference to MethodDefOID. |
 | 3 | `Source` | Coordinate Object | Required | The Data Point representing the origin (RWD). |
 | 4 | `Target` | Coordinate Object | Required | The Data Point representing the destination (SDTM). |
 
@@ -31,7 +31,7 @@ The following table defines the attributes available within a Coordinate Object.
 
 | Order | Attribute | XML Data Type | Usage | Description |
 |-------|-----------|---------------|-------|-------------|
-| 1 | `storage` | string (Enum) | Required | The container type. Allowed values: `Database`, `Filesystem`, `API`. |
+| 1 | `storage` | string (Enum) | Required | The container type. Allowed values: `Database`, `Filesystem`, `API`, `Messages`. |
 | 2 | `structure` | string (Enum) | Required | The internal organization. Allowed values: `Tabular`, `Tree`, `Files`. |
 | 3 | `URI` | string | Conditional | The full connection string, file path, or API endpoint. |
 | 4 | `Database` | string | Conditional | The specific database name (Required for `storage="Database"`). |
