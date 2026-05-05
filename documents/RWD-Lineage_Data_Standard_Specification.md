@@ -31,42 +31,45 @@ The following table defines the attributes available within a Coordinate Object.
 
 | Order | Attribute | XML Data Type | Usage | Description |
 |-------|-----------|---------------|-------|-------------|
-| 1 | `storage` | string (Enum) | Required | The container type. Allowed values: `Database`, `Filesystem`, `API`, `Messages`. |
-| 2 | `structure` | string (Enum) | Required | The internal organization. Allowed values: `Tabular`, `Tree`, `Files`. |
+| 1 | `storage` | string (Enum) | Required | The container type. Values from the **RWDL Storage Type** codelist (see Controlled Terminology): `DATABASE`, `FILESYSTEM`, `API`, `MESSAGE`. |
+| 2 | `structure` | string (Enum) | Required | The addressing mechanism for locating a value within the source. Values from the **RWDL Structure Type** codelist (see Controlled Terminology): `TABULAR`, `PATH`, `OBJECT`. |
 | 3 | `URI` | string | Conditional | The full connection string, file path, or API endpoint. |
 | 4 | `Database` | string | Conditional | The specific database name (Required for `storage="Database"`). |
 | 5 | `Schema` | string | Conditional | The schema name (Required for `storage="Database"`). |
 | 6 | `Table` | string | Conditional | The table name (Required for `storage="Database"`). |
-| 7 | `RowIndex` | integer | Conditional | The row number (One of `RowIndex` or `RowKey` required for `structure="Tabular"`). |
-| 8 | `RowKey` | string/integer | Conditional | The Primary Key field (One of `RowIndex` or `RowKey` required for `structure="Tabular"`). |
+| 7 | `RowIndex` | integer | Conditional | The row number (One of `RowIndex` or `RowKey` required for `structure="TABULAR"`). |
+| 8 | `RowKey` | string/integer | Conditional | The Primary Key field (One of `RowIndex` or `RowKey` required for `structure="TABULAR"`). |
 | 9 | `RowKeyValue` | string/integer | Conditional | The Primary Key value (Required if `RowKey` is used). |
-| 10 | `ColumnName` | string | Conditional | The header/variable name (Required for `structure="Tabular"`). |
-| 11 | `Path` | string | Conditional | The navigation string (XPath/JSONPath) (Required for `structure="Tree"`). |
-| 12 | `Format` | string | Optional | The specific format of the file or response (e.g., "JSON", "XML", "CSV"). |
+| 10 | `ColumnName` | string | Conditional | The header/variable name (Optional for `structure="TABULAR"` — omitted for key-value-shaped data with row identifiers but no distinct column dimension). |
+| 11 | `Path` | string | Conditional | The navigation string used to address a value (e.g., XPath, JSONPath, FHIRPath, Cypher, SPARQL) (Required for `structure="PATH"`). The syntax is declared on the `Path` element via the `syntax` attribute. |
+| 12 | `Format` | string (Enum) | Optional | The serialization format of the source. Values from the **RWDL Data Format** codelist (see Controlled Terminology), e.g., `JSON`, `XML`, `CSV`, `PARQUET`, `XLSX`, `PDF`. |
 
 ### Coordinates
 
-List of supported coordinates — designed to be extensible by defining the `structure` attribute in the XML schema (e.g., `type="Graph"` or `type="Stream"`).
+The `structure` and `storage` attributes are governed by controlled terminology. See the Controlled Terminology section for the full codelists, definitions, and submission values.
 
 #### Structural Formats
 
-- **Tabular** — Data organized in a row-and-column format (e.g., CSV, SQL Tables, SAS Datasets).
-- **Tree** — Data organized in a hierarchical, nested format (e.g., JSON, XML, FHIR resources).
-- **Files** — Data treated as a singular object or blob within a directory structure (e.g., PDF reports, images).
+The `structure` attribute classifies how a value within a source is addressed, not the data model of the source itself.
+
+- **TABULAR** — Value addressed by row identifier (index or key) and column name (e.g., SQL tables, SAS XPT, CSV files, key-value stores).
+- **PATH** — Value addressed by a path or query expression that locates the value within a structured source (e.g., JSON, XML, FHIR resources, property graphs, RDF triplestores). The syntax of the path expression is declared on the `Path` element.
+- **OBJECT** — Value addressed as a whole object with no sub-addressing; the URI is the location (e.g., PDF reports, medical images, binary blobs).
 
 **Scope:**
-- *In Scope (Current):* Deterministic, static structures where a value's location can be explicitly defined by a rigid index, key, or path (e.g., "Row 5, Col A" or `$.patient.id`).
-- *Out of Scope (Extensible):* Non-deterministic or unstructured data requiring semantic interpretation (e.g., free-text clinical notes requiring NLP, video/audio streams, graph databases relying on complex pattern matching).
+- *In Scope (Current):* Deterministic, static structures where a value's location can be explicitly defined by an index, key, path expression, or URI alone.
+- *Out of Scope:* Non-deterministic or unstructured data requiring semantic interpretation (e.g., free-text clinical notes requiring NLP, video/audio streams).
 
 #### Storage Formats
 
-- **Database** — Structured data engines requiring connection protocols (e.g., SQL, NoSQL).
-- **Filesystem** — Flat files stored on a local disk, network drive, or object storage (e.g., S3).
-- **API** — Data accessible via web service endpoints (e.g., REST, SOAP).
+- **DATABASE** — Structured data engines accessed via connection protocol (e.g., SQL, NoSQL).
+- **FILESYSTEM** — Flat files on local disk, network share, or object storage (e.g., POSIX, S3, Azure Blob, GCS).
+- **API** — Data accessed via request/response web service endpoint (e.g., REST, SOAP, GraphQL, FHIR API).
+- **MESSAGE** — Data delivered as discrete units over a message transport or event stream (e.g., HL7 v2 over MLLP, FHIR Messaging, Kafka, Kinesis, AMQP, MQTT, webhooks).
 
 **Scope:**
-- *In Scope (Current):* Standard digital repositories accessible via common, widely supported protocols (JDBC/ODBC, POSIX/S3, HTTP/REST).
-- *Out of Scope (Extensible):* Physical media (paper records requiring OCR), proprietary legacy systems without standard connectivity, and Distributed Ledger Technology (blockchain).
+- *In Scope (Current):* Standard digital repositories accessible via common, widely supported protocols (JDBC/ODBC, POSIX/S3, HTTP/REST, message broker protocols).
+- *Out of Scope:* Physical media (paper records requiring OCR), proprietary legacy systems without standard connectivity, and Distributed Ledger Technology (blockchain).
 
 ### Lineage Trail Attributes
 
@@ -87,28 +90,110 @@ List of supported coordinates — designed to be extensible by defining the `str
 
 #### Storage Coordinates
 
-**Database:**
+**Database (`storage="DATABASE"`):**
 - `URI` — The connection string (e.g., `jdbc:postgresql://host:port/db`).
 - `Database` — The specific database name context.
 - `Schema` — The schema name (e.g., `public`, `dbo`, `clinical_data`).
+- `Table` — The table name.
 
-**Filesystem:**
+**Filesystem (`storage="FILESYSTEM"`):**
 - `URI` — The full file path or object storage URI (e.g., `file://server/share/data.csv` or `s3://bucket/key`).
 
-**API:**
+**API (`storage="API"`):**
 - `URI` — The full endpoint URL including query parameters (e.g., `https://api.hospital.org/fhir/Patient/123`).
+
+**Message (`storage="MESSAGE"`):**
+- `URI` — The transport endpoint or topic identifier (e.g., `kafka://broker:9092/topic-adt`, `mllp://hospital-feed:2575`).
 
 #### Structural Coordinates
 
-**Tabular Data:**
-- `RowIndex` — The specific row number or Primary Key value identifying the record.
-- `ColumnName` — The header name or variable name of the specific cell.
+**Tabular (`structure="TABULAR"`):**
+- `RowIndex` — The specific row number, OR
+- `RowKey` + `RowKeyValue` — The primary key field name and its value.
+- `ColumnName` — The header or variable name (omitted for key-value-shaped data).
 
-**Tree:**
-- `Path` — The navigation string used to traverse the hierarchy (e.g., XPath for XML, JSONPath for JSON).
+**Path-Addressable (`structure="PATH"`):**
+- `Path` — The navigation or query expression used to address the value, with `syntax` attribute declaring the expression language (e.g., XPath for XML, JSONPath for JSON, FHIRPath for FHIR resources, Cypher for property graphs, SPARQL for RDF triplestores).
 
-**Files:**
-- `URI` — The identifier of the specific file if the lineage points to the file as a whole object.
+**Object (`structure="OBJECT"`):**
+- `URI` — The identifier of the object as a whole. No sub-addressing.
+
+
+
+## Controlled Terminology
+
+This section defines the controlled terminology (codelists) governing enumerated attributes in RWD Lineage. Codelists are submitted to the CDISC Controlled Terminology team under the `RWDL` prefix and are intended to be published through CDISC and NCI Enterprise Vocabulary Services (NCI-EVS) on the standard CDISC release cadence.
+
+The codelists in this section are finalized for V1. Additional codelists (Path Syntax, Data Model) are under discussion and will be added in a future revision once decisions are settled.
+
+### RWDL Storage Type
+
+Governs the `storage` attribute on the Coordinate element.
+
+**Extensibility:** Non-extensible. The four values comprehensively cover the architectural categories of data access (query-connection, file-path, request/response, message transport).
+
+| Submission Value | Preferred Term | Definition |
+|------------------|----------------|------------|
+| `DATABASE` | Database | Structured data engine accessed via connection protocol (SQL, NoSQL). |
+| `FILESYSTEM` | Filesystem | Flat files on local disk, network share, or object storage (POSIX, S3, Azure Blob, GCS). |
+| `API` | Application Programming Interface | Data accessed via request/response web service endpoint (REST, SOAP, GraphQL, FHIR API). |
+| `MESSAGE` | Messages | Data delivered as discrete units over a message transport or event stream (HL7 v2, FHIR Messaging, Kafka, Kinesis, AMQP, MQTT, webhooks). |
+
+### RWDL Structure Type
+
+Governs the `structure` attribute on the Coordinate element. Each value corresponds to a distinct addressing mechanism rather than to the data model of the source.
+
+**Extensibility:** Non-extensible. The three values correspond directly to the addressing mechanisms the specification itself defines (row-and-column, path expression, whole-object).
+
+| Submission Value | Preferred Term | Definition | Required Addressing |
+|------------------|----------------|------------|---------------------|
+| `TABULAR` | Tabular | Value addressed by row identifier and column name. | `RowIndex` or (`RowKey` + `RowKeyValue`); plus `ColumnName` (optional for key-value-shaped data). |
+| `PATH` | Path-Addressable | Value addressed by a path or query expression that locates the value within a structured source. | `Path` element with `syntax` attribute. |
+| `OBJECT` | Object | Value is addressed as a whole object with no sub-addressing; the URI is the location. | `URI` only. No `RowIndex`, `ColumnName`, or `Path`. |
+
+**Coverage notes:**
+- Tree-structured sources (JSON, XML, FHIR resources) are addressed as `structure="PATH"` with `syntax="JSONPath"`, `"XPath"`, or `"FHIRPath"`.
+- Graph sources (property graphs, RDF triplestores) are addressed as `structure="PATH"` with `syntax="Cypher"` or `"SPARQL"`.
+- Key-value stores (Redis, DynamoDB) are addressed as `structure="TABULAR"` with `RowKey`/`RowKeyValue` populated and `ColumnName` omitted.
+- Whole-object sources (PDF reports, medical images, opaque blobs) are addressed as `structure="OBJECT"`.
+
+### RWDL Data Format
+
+Governs the `Format` attribute on the Coordinate element. Scoped strictly to serialization layer: how bytes are arranged.
+
+**Extensibility:** Extensible. Sponsors populating a value not present in the published codelist flag the value as an extension using the Define-XML convention (`def:ExtendedValue="Yes"` on the relevant CodeList element) and are encouraged to contribute commonly-used extensions back to CDISC for consideration in future codelist versions.
+
+| Submission Value | Preferred Term | Definition |
+|------------------|----------------|------------|
+| `CSV` | Comma-Separated Values | Delimited text, comma-separated. |
+| `TSV` | Tab-Separated Values | Delimited text, tab-separated. |
+| `JSON` | JavaScript Object Notation | Tree-structured text format per RFC 8259. |
+| `XML` | Extensible Markup Language | Tree-structured markup format per W3C XML 1.0. |
+| `NDJSON` | Newline-Delimited JSON | One JSON object per line. |
+| `YAML` | YAML | Human-readable structured data serialization format. |
+| `PARQUET` | Apache Parquet | Columnar binary format common in data science and analytics pipelines. |
+| `AVRO` | Apache Avro | Row-based binary format with embedded schema. |
+| `ORC` | Apache ORC | Columnar binary format common in Hadoop and Spark ecosystems. |
+| `FEATHER` | Apache Arrow Feather | Arrow-based columnar format for fast dataframe interchange between R and Python. |
+| `ARROW` | Apache Arrow IPC | Apache Arrow inter-process communication streaming format. |
+| `HDF5` | HDF5 | Hierarchical Data Format v5; used for large numerical datasets, scientific arrays, and clinical waveforms. |
+| `NPY` | NumPy Array | NumPy single-array binary format. |
+| `PKL` | Python Pickle | Python Pickle format. |
+| `XPT` | SAS Transport File | SAS XPORT v5 or v8 format. |
+| `SAS7BDAT` | SAS Dataset | Native SAS dataset format. |
+| `RDS` | R Data Serialization | R single-object serialization format. |
+| `RDA` | R Data | R workspace serialization format (multiple objects). |
+| `SPSS-SAV` | SPSS Dataset | IBM SPSS Statistics dataset (.sav). |
+| `STATA-DTA` | Stata Dataset | Stata dataset (.dta). |
+| `XLSX` | Excel Workbook | Microsoft Excel Office Open XML workbook. |
+| `XLS` | Excel Legacy Workbook | Microsoft Excel legacy binary workbook (pre-2007). |
+| `DOCX` | Word Document | Microsoft Word Office Open XML document. |
+| `RTF` | Rich Text Format | Microsoft Rich Text Format document. |
+| `PDF` | Portable Document Format | ISO 32000 document format. |
+| `DICOM` | DICOM | ISO 12052 medical imaging format. |
+| `JPEG` | JPEG | JPEG image format. |
+| `HL7V2` | HL7 v2 Message | Pipe-delimited HL7 v2 message syntax. |
+| `TXT` | Plain Text | Unstructured or semi-structured plain text. |
 
 
 
@@ -130,7 +215,7 @@ The core of the RWD-Lineage file is a collection (array) of `<MapID>` elements. 
     <Transformation type="Direct Map">None</Transformation>
     <!-- Source: Hospital SQL DB -->
     <Source>
-        <Coordinate storage="Database" structure="Tabular">
+        <Coordinate storage="DATABASE" structure="TABULAR">
             <URI>jdbc:postgresql://hospital-db:5432/ehr</URI>
             <Database>ehr_prod</Database>
             <Schema>cardiology</Schema>
@@ -141,7 +226,7 @@ The core of the RWD-Lineage file is a collection (array) of `<MapID>` elements. 
     </Source>
     <!-- Target: SDTM VS Domain -->
     <Target>
-        <Coordinate storage="Filesystem" structure="Tabular">
+        <Coordinate storage="FILESYSTEM" structure="TABULAR">
             <URI>./sdtm/vs.xpt</URI>
             <RowIndex>42</RowIndex>
             <ColumnName>VSORRES</ColumnName>
@@ -158,7 +243,7 @@ The core of the RWD-Lineage file is a collection (array) of `<MapID>` elements. 
     <Transformation type="Unit Conversion">lb to kg</Transformation>
     <!-- Source: CSV Lab Report -->
     <Source>
-        <Coordinate storage="Filesystem" structure="Tabular">
+        <Coordinate storage="FILESYSTEM" structure="TABULAR">
             <URI>file://server/raw_data/labs_2023.csv</URI>
             <RowIndex>501</RowIndex>
             <ColumnName>RESULT_VAL</ColumnName>
@@ -166,7 +251,7 @@ The core of the RWD-Lineage file is a collection (array) of `<MapID>` elements. 
     </Source>
     <!-- Target: SDTM LB Domain -->
     <Target>
-        <Coordinate storage="Filesystem" structure="Tabular">
+        <Coordinate storage="FILESYSTEM" structure="TABULAR">
             <URI>./sdtm/lb.xpt</URI>
             <RowIndex>15</RowIndex>
             <ColumnName>LBORRES</ColumnName>
@@ -182,14 +267,14 @@ The core of the RWD-Lineage file is a collection (array) of `<MapID>` elements. 
     <Transformation type="Extraction">JSON Path Extraction</Transformation>
     <!-- Source: FHIR API Endpoint -->
     <Source>
-        <Coordinate storage="API" structure="Tree">
+        <Coordinate storage="API" structure="PATH">
             <URI>https://api.hospital.org/fhir/R4/MedicationRequest/med-abc-123</URI>
             <Path syntax="JSONPath">$.medicationCodeableConcept.coding[0].code</Path>
         </Coordinate>
     </Source>
     <!-- Target: SDTM CM Domain -->
     <Target>
-        <Coordinate storage="Filesystem" structure="Tabular">
+        <Coordinate storage="FILESYSTEM" structure="TABULAR">
             <URI>./sdtm/cm.xpt</URI>
             <RowIndex>8</RowIndex>
             <ColumnName>CMDECOD</ColumnName>
@@ -205,14 +290,14 @@ The core of the RWD-Lineage file is a collection (array) of `<MapID>` elements. 
     <Transformation type="Date Format">ISO8601 to SAS Date</Transformation>
     <!-- Source: HL7 CDA XML File -->
     <Source>
-        <Coordinate storage="Filesystem" structure="Tree">
+        <Coordinate storage="FILESYSTEM" structure="PATH">
             <URI>file://server/records/patient_001.xml</URI>
             <Path syntax="XPath">/ClinicalDocument/recordTarget/patientRole/patient/birthTime/@value</Path>
         </Coordinate>
     </Source>
     <!-- Target: SDTM DM Domain -->
     <Target>
-        <Coordinate storage="Filesystem" structure="Tabular">
+        <Coordinate storage="FILESYSTEM" structure="TABULAR">
             <URI>./sdtm/dm.xpt</URI>
             <RowIndex>1</RowIndex>
             <ColumnName>BRTHDTC</ColumnName>
