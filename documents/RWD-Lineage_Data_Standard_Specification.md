@@ -124,7 +124,7 @@ The `structure` attribute classifies how a value within a source is addressed, n
 
 This section defines the controlled terminology (codelists) governing enumerated attributes in RWD Lineage. Codelists are submitted to the CDISC Controlled Terminology team under the `RWDL` prefix and are intended to be published through CDISC and NCI Enterprise Vocabulary Services (NCI-EVS) on the standard CDISC release cadence.
 
-The codelists in this section are finalized for V1. Additional codelists (Path Syntax, Data Model) are under discussion and will be added in a future revision once decisions are settled.
+The codelists in this section are finalized for V1. Source data model conformance (e.g., FHIR R4, OMOP CDM 5.4, PCORnet CDM) is not governed by an RWDL codelist; it is declared at the submission level via Define-XML's existing `def:Standards` mechanism. See "Source Data Standards" below.
 
 ### RWDL Storage Type
 
@@ -152,8 +152,8 @@ Governs the `structure` attribute on the Coordinate element. Each value correspo
 | `OBJECT` | Object | Value is addressed as a whole object with no sub-addressing; the URI is the location. | `URI` only. No `RowIndex`, `ColumnName`, or `Path`. |
 
 **Coverage notes:**
-- Tree-structured sources (JSON, XML, FHIR resources) are addressed as `structure="PATH"` with `syntax="JSONPath"`, `"XPath"`, or `"FHIRPath"`.
-- Graph sources (property graphs, RDF triplestores) are addressed as `structure="PATH"` with `syntax="Cypher"` or `"SPARQL"`.
+- Tree-structured sources (JSON, XML, FHIR resources) are addressed as `structure="PATH"` with `syntax="JSONPATH"`, `"XPATH"`, or `"FHIRPATH"`.
+- Graph sources (property graphs, RDF triplestores) are addressed as `structure="PATH"` with `syntax="CYPHER"`, `"GREMLIN"`, or `"SPARQL"`.
 - Key-value stores (Redis, DynamoDB) are addressed as `structure="TABULAR"` with `RowKey`/`RowKeyValue` populated and `ColumnName` omitted.
 - Whole-object sources (PDF reports, medical images, opaque blobs) are addressed as `structure="OBJECT"`.
 
@@ -171,6 +171,7 @@ Governs the `Format` attribute on the Coordinate element. Scoped strictly to ser
 | `XML` | Extensible Markup Language | Tree-structured markup format per W3C XML 1.0. |
 | `NDJSON` | Newline-Delimited JSON | One JSON object per line. |
 | `YAML` | YAML | Human-readable structured data serialization format. |
+| `TTL` | Turtle | Terse RDF Triple Language per W3C Turtle specification; text serialization of RDF graph data. |
 | `PARQUET` | Apache Parquet | Columnar binary format common in data science and analytics pipelines. |
 | `AVRO` | Apache Avro | Row-based binary format with embedded schema. |
 | `ORC` | Apache ORC | Columnar binary format common in Hadoop and Spark ecosystems. |
@@ -193,7 +194,64 @@ Governs the `Format` attribute on the Coordinate element. Scoped strictly to ser
 | `DICOM` | DICOM | ISO 12052 medical imaging format. |
 | `JPEG` | JPEG | JPEG image format. |
 | `HL7V2` | HL7 v2 Message | Pipe-delimited HL7 v2 message syntax. |
+| `X12` | ASC X12 EDI | ASC X12 Electronic Data Interchange transaction sets used in healthcare claims and eligibility (e.g., 837 claims, 835 remittance, 270/271 eligibility). |
 | `TXT` | Plain Text | Unstructured or semi-structured plain text. |
+
+### RWDL Path Syntax
+
+Governs the `syntax` attribute on the `Path` element. Required when `structure="PATH"`.
+
+**Extensibility:** Extensible. Sponsors populating a value not present in the published codelist flag the value as an extension using the Define-XML convention (`def:ExtendedValue="Yes"`).
+
+| Submission Value | Preferred Term | Definition |
+|------------------|----------------|------------|
+| `XPATH` | XPath | XML Path Language expression per W3C XPath specification. |
+| `JSONPATH` | JSONPath | JSON path expression per RFC 9535. |
+| `JSONPOINTER` | JSON Pointer | JSON Pointer syntax per RFC 6901, used to address values within JSON documents (distinct from JSONPath). |
+| `FHIRPATH` | FHIRPath | FHIRPath expression per HL7 FHIRPath specification. |
+| `JMESPATH` | JMESPath | JMESPath query expression. |
+| `GRAPHQL` | GraphQL | GraphQL query expression used to extract values from a GraphQL API response. |
+| `SQL` | Structured Query Language | SQL `SELECT` statement used to address values that are not naturally captured by the decomposed `Database`/`Schema`/`Table`/`RowKey`/`ColumnName` fields, e.g., values produced by joins, computed expressions, views, or materialized views. |
+| `CYPHER` | Cypher | Cypher query language for property graphs (Neo4j and openCypher-compatible databases, ISO/IEC 39075 GQL). |
+| `GREMLIN` | Gremlin | Apache TinkerPop Gremlin graph traversal language for property graphs (JanusGraph, Amazon Neptune, Azure Cosmos DB Gremlin API). |
+| `SPARQL` | SPARQL | SPARQL query language for RDF triplestores per W3C SPARQL specification. |
+| `HL7V2` | HL7 v2 Segment Notation | Segment-field-component-subcomponent addressing used to locate values within HL7 v2 pipe-delimited messages (e.g., `PID-5.1.1`). |
+| `DICOMTAG` | DICOM Tag Reference | DICOM data element tag in `(group,element)` notation used to locate metadata within DICOM files (e.g., `(0010,0010)` for Patient Name). |
+| `REGEX` | Regular Expression | Regular expression with capture group locating the target value within a text source. |
+
+**Note:** Several values appear in both this codelist and the Data Format codelist (`HL7V2`, `DICOM`/`DICOMTAG`). They are governing different attributes and are not redundant: the Data Format value declares what kind of bytes the source contains; the Path Syntax value declares what addressing language locates a value within those bytes. They commonly co-occur for the same data point.
+
+### Source Data Standards
+
+The data model that a source conforms to (e.g., FHIR R4, OMOP CDM 5.4, PCORnet CDM, FDA Sentinel CDM, HL7 CDA R2) is not governed by an RWDL codelist. It is declared at the submission level via Define-XML's existing `def:Standards` element (Define-XML v2.1, Section 5.3.6).
+
+A sponsor pulling from one or more RWD source systems declares each source standard as a `def:Standard` child element of the `def:Standards` container, alongside the CDISC target standards. Per-coordinate declaration of source data model is therefore unnecessary: each Coordinate's source data model is implicit from the URI and the submission-level `def:Standards` declaration.
+
+**Example:**
+
+```xml
+<def:Standards>
+    <def:Standard OID="STD.SDTMIG-3.4"
+                  Name="SDTMIG"
+                  Type="IG"
+                  Version="3.4"
+                  Status="Final"/>
+    <def:Standard OID="STD.OMOP-CDM-5.4"
+                  Name="OMOP-CDM"
+                  Type="IG"
+                  Version="5.4"
+                  Status="Final"/>
+    <def:Standard OID="STD.FHIR-R4"
+                  Name="FHIR"
+                  Type="IG"
+                  Version="R4"
+                  Status="Final"/>
+</def:Standards>
+```
+
+The `def:Standard/@Name` attribute is constrained by an extensible CDISC Controlled Terminology codelist that currently scopes allowed values to CDISC standards (SDTMIG, SENDIG, ADaMIG, etc.). RWD Lineage submissions require this codelist to be extended to include common source-data standards (`OMOP-CDM`, `FHIR`, `PCORNET-CDM`, `SENTINEL-CDM`, `CDA`, etc.). This extension is submitted to the CDISC Controlled Terminology team as a separate, smaller ask alongside the four RWDL codelists.
+
+Sponsors with multiple source data models (e.g., FHIR for EHR data and OMOP-CDM for warehouse data) declare each as a separate `def:Standard` element. Coordinates that need to reference a specific source data model in their lineage MAY do so via implementer-defined conventions (for example, embedding the standard OID in the source URI), but the controlled declaration of which standards the submission uses is centralized in `def:Standards`.
 
 
 
@@ -269,7 +327,7 @@ The core of the RWD-Lineage file is a collection (array) of `<MapID>` elements. 
     <Source>
         <Coordinate storage="API" structure="PATH">
             <URI>https://api.hospital.org/fhir/R4/MedicationRequest/med-abc-123</URI>
-            <Path syntax="JSONPath">$.medicationCodeableConcept.coding[0].code</Path>
+            <Path syntax="JSONPATH">$.medicationCodeableConcept.coding[0].code</Path>
         </Coordinate>
     </Source>
     <!-- Target: SDTM CM Domain -->
@@ -292,7 +350,7 @@ The core of the RWD-Lineage file is a collection (array) of `<MapID>` elements. 
     <Source>
         <Coordinate storage="FILESYSTEM" structure="PATH">
             <URI>file://server/records/patient_001.xml</URI>
-            <Path syntax="XPath">/ClinicalDocument/recordTarget/patientRole/patient/birthTime/@value</Path>
+            <Path syntax="XPATH">/ClinicalDocument/recordTarget/patientRole/patient/birthTime/@value</Path>
         </Coordinate>
     </Source>
     <!-- Target: SDTM DM Domain -->
