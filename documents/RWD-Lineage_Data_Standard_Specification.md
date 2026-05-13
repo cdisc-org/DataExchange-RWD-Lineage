@@ -124,7 +124,7 @@ The `structure` attribute classifies how a value within a source is addressed, n
 
 This section defines the controlled terminology (codelists) governing enumerated attributes in RWD Lineage. Codelists are submitted to the CDISC Controlled Terminology team under the `RWDL` prefix and are intended to be published through CDISC and NCI Enterprise Vocabulary Services (NCI-EVS) on the standard CDISC release cadence.
 
-The codelists in this section are finalized for V1. Source data model conformance (e.g., FHIR R4, OMOP CDM 5.4, PCORnet CDM) is not governed by an RWDL codelist; it is declared at the submission level via Define-XML's existing `def:Standards` mechanism. See "Source Data Standards" below.
+The codelists in this section are finalized for V1. Source data model conformance (e.g., FHIR R4, OMOP CDM 5.4, PCORnet CDM) is not governed by an RWDL codelist; it is declared at the document level via the `rwdl:sourceMetadata` element. See "Source Metadata" below.
 
 ### RWDL Storage Type
 
@@ -221,37 +221,108 @@ Governs the `syntax` attribute on the `Path` element. Required when `structure="
 
 **Note:** Several values appear in both this codelist and the Data Format codelist (`HL7V2`, `DICOM`/`DICOMTAG`). They are governing different attributes and are not redundant: the Data Format value declares what kind of bytes the source contains; the Path Syntax value declares what addressing language locates a value within those bytes. They commonly co-occur for the same data point.
 
-### Source Data Standards
 
-The data model that a source conforms to (e.g., FHIR R4, OMOP CDM 5.4, PCORnet CDM, FDA Sentinel CDM, HL7 CDA R2) is not governed by an RWDL codelist. It is declared at the submission level via Define-XML's existing `def:Standards` element (Define-XML v2.1, Section 5.3.6).
 
-A sponsor pulling from one or more RWD source systems declares each source standard as a `def:Standard` child element of the `def:Standards` container, alongside the CDISC target standards. Per-coordinate declaration of source data model is therefore unnecessary: each Coordinate's source data model is implicit from the URI and the submission-level `def:Standards` declaration.
+## Source Metadata
 
-**Example:**
+RWD Lineage provides a top-level `rwdl:sourceMetadata` element for declaring metadata about the source data systems referenced in the lineage file. This element sits at the root of the RWD Lineage document (alongside the array of `MapID` elements) and is populated once per source system rather than per data point.
+
+The element is OPTIONAL. Source data characterization is authoritatively documented in the sponsor's Study Data Reviewer's Guide (SDRG) and, for RWE submissions, in the RWD Reliability Assessment. The `rwdl:sourceMetadata` element provides a structured pointer to the same information for reviewers and tooling working directly within the RWD Lineage file, but is not intended to replace the narrative documents that authoritatively characterize source data.
+
+### Structure
+
+`rwdl:sourceMetadata` contains one or more `rwdl:source` child elements. Each `rwdl:source` describes one source system (the physical or logical origin) and MAY contain a nested `rwdl:standard` child element describing the data model or standard to which the source conforms.
+
+#### `rwdl:source` Attributes
+
+| Attribute | XML Data Type | Usage | Description |
+|-----------|---------------|-------|-------------|
+| `OID` | string | Optional | A unique identifier for the source system, used if any MapID or Coordinate needs to reference this source explicitly. By convention, OIDs identify distinct source systems (e.g., `SRC.EHR.1`, `SRC.EDW.1`, `SRC.CLAIMS.1`, `SRC.EDC.1`). |
+| `name` | string | Optional | The physical or logical name of the origin system (e.g., `University Hospital Epic Interconnect`, `Memorial Healthcare Enterprise Data Warehouse`, `Optum Claims Repository`, `Site 042 Medidata Rave EDC`). |
+| `description` | string | Optional | Free-text description of the source. Use when the source is bespoke or when additional context is helpful beyond the structured attributes. |
+
+#### `rwdl:standard` Child Element
+
+The `rwdl:standard` element is OPTIONAL and is used to declare that the parent `rwdl:source` conforms to a named data model or interoperability standard. A sponsor populates this element when the source system implements a recognizable standard; sources without a named standard omit the element and rely on the parent `description` attribute.
+
+| Attribute | XML Data Type | Usage | Description |
+|-----------|---------------|-------|-------------|
+| `name` | string | Optional | The specific data model or standard utilized by the source (e.g., `FHIR`, `OMOP-CDM`, `PCORNET-CDM`, `SENTINEL-CDM`, `CDA`). Free-text; not constrained by an RWDL codelist in V1. |
+| `version` | string | Optional | The version of the standard (e.g., `5.4`, `R4`, `1.0`). |
+| `status` | string | Optional | Publication status of the standard. Allowed values mirror Define-XML `def:Standard/@Status`: `Draft`, `Provisional`, `Final`. |
+
+A sponsor populates whichever attributes meaningfully apply to their source. The `rwdl:standard` element is appropriate for sources that conform to a named, versioned standard. The `description` attribute on `rwdl:source` is appropriate for bespoke sources, or as a supplement to the structured attributes.
+
+### Examples
+
+A sponsor with a single OMOP CDM source:
 
 ```xml
-<def:Standards>
-    <def:Standard OID="STD.SDTMIG-3.4"
-                  Name="SDTMIG"
-                  Type="IG"
-                  Version="3.4"
-                  Status="Final"/>
-    <def:Standard OID="STD.OMOP-CDM-5.4"
-                  Name="OMOP-CDM"
-                  Type="IG"
-                  Version="5.4"
-                  Status="Final"/>
-    <def:Standard OID="STD.FHIR-R4"
-                  Name="FHIR"
-                  Type="IG"
-                  Version="R4"
-                  Status="Final"/>
-</def:Standards>
+<rwdl:sourceMetadata>
+    <rwdl:source OID="SRC.EDW.1"
+                 name="Hospital X Enterprise Data Warehouse"
+                 description="Hospital X OMOP warehouse, refreshed quarterly">
+        <rwdl:standard name="OMOP-CDM" version="5.4" status="Final"/>
+    </rwdl:source>
+</rwdl:sourceMetadata>
 ```
 
-The `def:Standard/@Name` attribute is constrained by an extensible CDISC Controlled Terminology codelist that currently scopes allowed values to CDISC standards (SDTMIG, SENDIG, ADaMIG, etc.). RWD Lineage submissions require this codelist to be extended to include common source-data standards (`OMOP-CDM`, `FHIR`, `PCORNET-CDM`, `SENTINEL-CDM`, `CDA`, etc.). This extension is submitted to the CDISC Controlled Terminology team as a separate, smaller ask alongside the four RWDL codelists.
+A sponsor with multiple source systems (an EHR exposed via FHIR and a research data warehouse on OMOP CDM):
 
-Sponsors with multiple source data models (e.g., FHIR for EHR data and OMOP-CDM for warehouse data) declare each as a separate `def:Standard` element. Coordinates that need to reference a specific source data model in their lineage MAY do so via implementer-defined conventions (for example, embedding the standard OID in the source URI), but the controlled declaration of which standards the submission uses is centralized in `def:Standards`.
+```xml
+<rwdl:sourceMetadata>
+    <rwdl:source OID="SRC.EHR.1"
+                 name="University Hospital Epic Interconnect"
+                 description="EHR FHIR API at api.hospital.org">
+        <rwdl:standard name="FHIR" version="R4" status="Final"/>
+    </rwdl:source>
+    <rwdl:source OID="SRC.EDW.1"
+                 name="Memorial Healthcare Enterprise Data Warehouse"
+                 description="Research data warehouse">
+        <rwdl:standard name="OMOP-CDM" version="5.4" status="Final"/>
+    </rwdl:source>
+</rwdl:sourceMetadata>
+```
+
+A sponsor combining claims data and EDC data alongside an EHR feed:
+
+```xml
+<rwdl:sourceMetadata>
+    <rwdl:source OID="SRC.EHR.1"
+                 name="University Hospital Epic Interconnect"
+                 description="EHR FHIR API at api.hospital.org">
+        <rwdl:standard name="FHIR" version="R4" status="Final"/>
+    </rwdl:source>
+    <rwdl:source OID="SRC.CLAIMS.1"
+                 name="Optum Claims Repository"
+                 description="Adjudicated medical and pharmacy claims feed">
+        <rwdl:standard name="PCORNET-CDM" version="6.1" status="Final"/>
+    </rwdl:source>
+    <rwdl:source OID="SRC.EDC.1"
+                 name="Site 042 Medidata Rave EDC"
+                 description="Clinical trial EDC export, Q2 2025">
+        <rwdl:standard name="CDISC ODM" version="1.3.2" status="Final"/>
+    </rwdl:source>
+</rwdl:sourceMetadata>
+```
+
+A sponsor with a bespoke source that does not conform to a named standard (the `rwdl:standard` child element is simply omitted):
+
+```xml
+<rwdl:sourceMetadata>
+    <rwdl:source OID="SRC.EDC.1"
+                 name="Site 17 CSV Export"
+                 description="CSV exports from clinical trial site EDC system, Q2 2025; bespoke schema documented in SDRG Section 3.2"/>
+</rwdl:sourceMetadata>
+```
+
+### Notes
+
+- The `name` attribute on `rwdl:source` identifies the physical or logical origin system; the `name` attribute on the nested `rwdl:standard` element identifies the data model the system implements. Two distinct source systems implementing the same standard (e.g., two hospitals both exposing FHIR R4) are represented as two separate `rwdl:source` elements.
+- The `name` attribute on `rwdl:standard` is free-text in V1. If RWDL submissions accumulate enough usage of common standardized names (OMOP-CDM, FHIR, etc.) to warrant a controlled vocabulary, a Data Model codelist may be submitted to CDISC CT in a future RWDL revision, informed by actual usage patterns.
+- OID conventions: recommended forms use a source-class prefix and a system index, e.g., `SRC.EHR.1`, `SRC.EHR.2`, `SRC.EDW.1`, `SRC.CLAIMS.1`, `SRC.EDC.1`. This keeps OIDs stable when a source system's underlying standard or version changes, and lets multiple sources implementing the same standard be distinguished.
+- Coordinates within MapID elements do not declare source data model on a per-data-point basis. The data model of a source is implicit from the source URI and the submission-level `rwdl:sourceMetadata` declaration, with authoritative characterization in the SDRG and RWD Reliability Assessment.
+- Sponsors who want to bind a specific MapID or Coordinate to a specific declared source MAY do so via implementer-defined conventions referencing the `rwdl:source/@OID`, but no formal mechanism is specified in V1.
 
 
 
@@ -320,25 +391,43 @@ The core of the RWD-Lineage file is a collection (array) of `<MapID>` elements. 
 
 ### Example 3 — FHIR data via API
 
+This example illustrates how `rwdl:sourceMetadata` is declared once at the document root using the nested `rwdl:source`/`rwdl:standard` architecture, and how the per-coordinate MapID then carries only the addressing information. The FHIR R4 conformance of the source is captured on the nested `rwdl:standard` element; the parent `rwdl:source` names the origin system. The conformance is declared once at the document root.
+
 ```xml
-<MapID uuid="e5e13010-0dg1-5222-9180-3f76452845c3">
-    <Transformation type="Extraction">JSON Path Extraction</Transformation>
-    <!-- Source: FHIR API Endpoint -->
-    <Source>
-        <Coordinate storage="API" structure="PATH">
-            <URI>https://api.hospital.org/fhir/R4/MedicationRequest/med-abc-123</URI>
-            <Path syntax="JSONPATH">$.medicationCodeableConcept.coding[0].code</Path>
-        </Coordinate>
-    </Source>
-    <!-- Target: SDTM CM Domain -->
-    <Target>
-        <Coordinate storage="FILESYSTEM" structure="TABULAR">
-            <URI>./sdtm/cm.xpt</URI>
-            <RowIndex>8</RowIndex>
-            <ColumnName>CMDECOD</ColumnName>
-        </Coordinate>
-    </Target>
-</MapID>
+<rwdl:lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+
+    <!-- Document-level source declaration: declared once for the file -->
+    <rwdl:sourceMetadata>
+        <rwdl:source OID="SRC.EHR.1"
+                     name="University Hospital Epic Interconnect"
+                     description="Hospital FHIR API at api.hospital.org">
+            <rwdl:standard name="FHIR" version="R4" status="Final"/>
+        </rwdl:source>
+    </rwdl:sourceMetadata>
+
+    <MapID uuid="e5e13010-0dg1-5222-9180-3f76452845c3">
+        <Transformation type="Extraction">JSON Path Extraction</Transformation>
+        <!-- Source: FHIR API Endpoint -->
+        <Source>
+            <Coordinate storage="API" structure="PATH">
+                <URI>https://api.hospital.org/fhir/R4/MedicationRequest/med-abc-123</URI>
+                <Path syntax="JSONPATH">$.medicationCodeableConcept.coding[0].code</Path>
+            </Coordinate>
+        </Source>
+        <!-- Target: SDTM CM Domain -->
+        <Target>
+            <Coordinate storage="FILESYSTEM" structure="TABULAR">
+                <URI>./sdtm/cm.xpt</URI>
+                <RowIndex>8</RowIndex>
+                <ColumnName>CMDECOD</ColumnName>
+            </Coordinate>
+        </Target>
+    </MapID>
+
+    <!-- Additional MapID elements pulling from the same FHIR source follow;
+         each carries only addressing information, not source metadata -->
+
+</rwdl:lineage>
 ```
 
 ### Example 4 — XML data in filesystem
