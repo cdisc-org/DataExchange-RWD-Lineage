@@ -4,9 +4,11 @@
 
 RWD Lineage is a machine-readable CDISC data exchange standard for lineage metadata supplied along with RWD-derived SDTM. It provides the data reliability required by FDA to use RWE as primary evidence.
 
+RWD Lineage is an XML-formatted extension to Define-XML, implemented as a Namespace Extension. It can be embedded directly within Define-XML using a custom tag (e.g., `rwdl:lineage`) or referenced as a separate XML file.
+
 ## Document Structure
 
-An RWD Lineage document has a single root element, `rwdl:lineage`, with exactly two kinds of top-level child:
+An RWD Lineage document has a single root element, `rwdl:lineage`, with exactly two kinds of top-level children:
 
 - **`rwdl:sourceMetadata`** — the *source metadata layer*. A single OPTIONAL element describing the source systems the lineage draws from: their names, the data models or standards they conform to, and the controlled terminologies in which their coded values are encoded. This layer carries *assertions* about the sources.
 - **`rwdl:lineageTrail`** — the *lineage trail*. A single element containing an array of `rwdl:MapID` elements, each a Source–Target pair recording that a value at one physical coordinate became a value at another. This layer carries *forensic facts* about data movement.
@@ -31,8 +33,6 @@ The root element `rwdl:lineage` is the document as a whole; `rwdl:lineageTrail` 
 **The two layers are parallel and independent.** The lineage trail does not reference the source metadata layer, and the source metadata layer does not depend on the trail. Removing `rwdl:sourceMetadata` does not invalidate the lineage — the bytes still flowed from source coordinate to target coordinate. This separation is deliberate: it keeps the trail a record of *what physically happened* and confines *interpretive claims about what the data means* (for example, the controlled terminology a source column is encoded in) to the source metadata layer. A reviewer can always distinguish what the lineage observed from what it asserted about its sources.
 
 The remainder of this specification describes the two layers in turn — first the **Lineage Trail** (the `rwdl:MapID` array and the Coordinate model that addresses values within sources), then the **Source Metadata** layer — followed by the **Controlled Terminology** that governs the enumerated attributes used by both, worked **Examples**, and the mechanism for attaching an RWD Lineage document to **Define-XML**.
-
-RWD Lineage is an XML-formatted extension to Define-XML, implemented as a Namespace Extension. The `rwdl:lineage` document may be embedded directly within Define-XML or supplied as a separate referenced file; see "Attaching RWD Lineage to Define-XML" below.
 
 ## Lineage Trail
 
