@@ -4,41 +4,39 @@
 
 RWD Lineage is a machine-readable CDISC data exchange standard for lineage metadata supplied along with RWD-derived SDTM. It provides the data reliability required by FDA to use RWE as primary evidence.
 
-RWD Lineage is an XML-formatted extension to Define-XML, implemented as a Namespace Extension. It can be embedded directly within Define-XML using a custom tag (e.g., `rwdl:lineage`) or referenced as a separate XML file.
+RWD Lineage is an XML-formatted extension to Define-XML, implemented as a Namespace Extension. It can be embedded directly within Define-XML using a custom tag (e.g., `rwdl:Lineage`) or referenced as a separate XML file.
 
 ## Document Structure
 
-An RWD Lineage document has a single root element, `rwdl:lineage`, with one or two kinds of top-level children:
+An RWD Lineage document has a single root element, `rwdl:Lineage`, with one or two kinds of top-level children:
 
-- **`rwdl:sourceMetadata`** — the *source metadata layer*. A single OPTIONAL element describing the source systems the lineage draws from: their names, the data models or standards they conform to, and the controlled terminologies in which their coded values are encoded. This layer carries *assertions* about the sources.
-- **`rwdl:lineageTrail`** — the *lineage trail*. A single element containing an array of `rwdl:MapID` elements, each a Source–Target pair recording that a value at one physical coordinate became a value at another. This layer carries *forensic facts* about data movement.
+- **`rwdl:SourceMetadata`** — the *source metadata layer*. A single OPTIONAL element describing the source systems the lineage draws from: their names, the data models or standards they conform to, and the controlled terminologies in which their coded values are encoded. This layer carries *assertions* about the sources.
+- **`rwdl:LineageTrail`** — the *lineage trail*. A single element containing an array of `rwdl:MapID` elements, each a Source–Target pair recording that a value at one physical coordinate became a value at another. This layer carries *forensic facts* about data movement.
 
-The root element `rwdl:lineage` is the document as a whole; `rwdl:lineageTrail` is the one part of it that holds the trail. The two top-level layers are each a named element, so the parallel between them is structural, not merely conventional.
+The root element `rwdl:Lineage` is the document as a whole; `rwdl:LineageTrail` is the one part of it that holds the trail. The two top-level layers are each a named element, so the parallel between them is structural, not merely conventional.
 
 ```xml
-<rwdl:lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+<rwdl:Lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
 
-    <rwdl:sourceMetadata>      <!-- source metadata layer: assertions about the sources -->
-        <rwdl:source> ... </rwdl:source>
-    </rwdl:sourceMetadata>
+    <rwdl:SourceMetadata>      <!-- source metadata layer: assertions about the sources -->
+        <rwdl:SourceSystem> ... </rwdl:SourceSystem>
+    </rwdl:SourceMetadata>
 
-    <rwdl:lineageTrail>        <!-- lineage trail: an array of Source -> Target pairs -->
+    <rwdl:LineageTrail>        <!-- lineage trail: an array of Source -> Target pairs -->
         <rwdl:MapID> ... </rwdl:MapID>
         <rwdl:MapID> ... </rwdl:MapID>
-    </rwdl:lineageTrail>
+    </rwdl:LineageTrail>
 
-</rwdl:lineage>
+</rwdl:Lineage>
 ```
 
-**The two layers are parallel and independent.** By default, the specification defines no formal reference from the lineage trail to the source metadata layer, and the source metadata layer does not depend on the trail. Removing `rwdl:sourceMetadata` does not invalidate the lineage — the bytes still flowed from source coordinate to target coordinate. This separation is deliberate: it keeps the trail a record of *what physically happened* and confines *interpretive claims about what the data means* (for example, the controlled terminology a source column is encoded in) to the source metadata layer. A reviewer can always distinguish what the lineage observed from what it asserted about its sources.
+**The two layers are parallel and independent.** By default, the specification defines no formal reference from the lineage trail to the source metadata layer, and the source metadata layer does not depend on the trail. Removing `rwdl:SourceMetadata` does not invalidate the lineage — the bytes still flowed from source coordinate to target coordinate. This separation is deliberate: it keeps the trail a record of *what physically happened* and confines *interpretive claims about what the data means* (for example, the controlled terminology a source column is encoded in) to the source metadata layer. A reviewer can always distinguish what the lineage observed from what it asserted about its sources.
 
 The remainder of this specification describes the two layers in turn — first the **Lineage Trail** (the `rwdl:MapID` array and the Coordinate model that addresses values within sources), then the **Source Metadata** layer — followed by the **Controlled Terminology** that governs the enumerated attributes used by both, worked **Examples**, and the mechanism for attaching an RWD Lineage document to **Define-XML**.
 
-**Note on Attribute Casing:** To maintain consistency with CDISC Define-XML conventions, attributes and elements adapted from Define-XML (such as `OID`, `Dictionary`, and `Version`) retain their original PascalCase casing. Native RWDL-defined elements and attributes use camelCase or lowercase (such as `name`, `description`, and `appliesTo`).
-
 ## Lineage Trail
 
-The lineage trail is carried in a single `rwdl:lineageTrail` element containing a collection (array) of `rwdl:MapID` elements. Each `rwdl:MapID` contains exactly one Source Coordinate and one Target Coordinate, establishing a direct link between a raw real-world data value and the standardized clinical data value derived from it. The trail is forensic: it records where a value came from, where it went, and — by reference — the transformation applied, without making semantic claims about what the value means.
+The lineage trail is carried in a single `rwdl:LineageTrail` element containing a collection (array) of `rwdl:MapID` elements. Each `rwdl:MapID` contains exactly one Source Coordinate and one Target Coordinate, establishing a direct link between a raw real-world data value and the standardized clinical data value derived from it. The trail is forensic: it records where a value came from, where it went, and — by reference — the transformation applied, without making semantic claims about what the value means.
 
 ### MapID Attributes
 
@@ -46,7 +44,7 @@ The following table defines the attributes for a single `rwdl:MapID` element (a 
 
 | Order | Attribute / Element | XML Node Type | XML Data Type | Usage | Description |
 |-------|---------------------|---------------|---------------|-------|-------------|
-| 1 | `uuid` | XML Attribute | string (UUIDv5) | Required | A deterministic UUID generated from a hash of the Source+Target coordinates. Ensures ID constancy across regenerations. |
+| 1 | `UUID` | XML Attribute | string (UUIDv5) | Required | A deterministic UUID generated from a hash of the Source+Target coordinates. Ensures ID constancy across regenerations. |
 | 2 | `MethodDefOID` | XML Attribute | string | Optional | An OID reference to a Define-XML `MethodDef` element describing the transformation logic applied from Source to Target. Omitted for direct (1:1) maps with no transformation. RWD Lineage reuses the existing Define-XML `MethodDef` mechanism rather than defining a transformation taxonomy of its own. |
 | 3 | `rwdl:Source` | Child Element | Coordinate Object | Required | The Data Point representing the origin (RWD). |
 | 4 | `rwdl:Target` | Child Element | Coordinate Object | Required | The Data Point representing the destination (SDTM). |
@@ -59,32 +57,32 @@ A Coordinate Object locates a single value within a source or target system. Bot
 
 #### Coordinate Attributes and Elements
 
-The following table defines the attributes and child elements available within a `<rwdl:Coordinate>` element. Usage depends on the storage and structure types selected.
+The following table defines the attributes and child elements available within a `<rwdl:Coordinate>` element. Usage depends on the Storage and Structure types selected.
 
 | Order | Attribute / Element | XML Node Type | XML Data Type | Usage | Description |
 |-------|------|---------------|---------------|-------|-------------|
-| 1 | `storage` | XML Attribute | string (Enum) | Required | The container type. Values from the **RWDL Storage Type** codelist (see Controlled Terminology): `DATABASE`, `FILESYSTEM`, `API`, `MESSAGE`. |
-| 2 | `structure` | XML Attribute | string (Enum) | Required | The addressing mechanism for locating a value within the source. Values from the **RWDL Structure Type** codelist (see Controlled Terminology): `TABULAR`, `PATH`, `OBJECT`. |
+| 1 | `Storage` | XML Attribute | string (Enum) | Required | The container type. Values from the **RWDL Storage Type** codelist (see Controlled Terminology): `DATABASE`, `FILESYSTEM`, `API`, `MESSAGE`. |
+| 2 | `Structure` | XML Attribute | string (Enum) | Required | The addressing mechanism for locating a value within the source. Values from the **RWDL Structure Type** codelist (see Controlled Terminology): `TABULAR`, `PATH`, `OBJECT`. |
 | 3 | `Format` | XML Attribute | string (Enum) | Optional | The serialization format of the source. Values from the **RWDL Data Format** codelist (see Controlled Terminology), e.g., `JSON`, `XML`, `CSV`, `PARQUET`, `XLSX`, `PDF`. |
 | 4 | `rwdl:URI` | Child Element | string | Conditional | The full connection string, file path, or API endpoint. |
-| 5 | `rwdl:Database` | Child Element | string | Conditional | The specific database name (Required for `storage="DATABASE"`). |
-| 6 | `rwdl:Schema` | Child Element | string | Conditional | The schema name (Required for `storage="DATABASE"`). |
-| 7 | `rwdl:Table` | Child Element | string | Conditional | The table name (Required for `storage="DATABASE"`). |
-| 8 | `rwdl:RowIndex` | Child Element | integer | Conditional | The row number (One of `RowIndex` or `RowKey` required for `structure="TABULAR"`). |
-| 9 | `rwdl:RowKey` | Child Element | string | Conditional | The Primary Key field name (One of `RowIndex` or `RowKey` required for `structure="TABULAR"`). |
+| 5 | `rwdl:Database` | Child Element | string | Conditional | The specific database name (Required for `Storage="DATABASE"`). |
+| 6 | `rwdl:Schema` | Child Element | string | Conditional | The schema name (Required for `Storage="DATABASE"`). |
+| 7 | `rwdl:Table` | Child Element | string | Conditional | The table name (Required for `Storage="DATABASE"`). |
+| 8 | `rwdl:RowIndex` | Child Element | integer | Conditional | The row number (One of `RowIndex` or `RowKey` required for `Structure="TABULAR"`). |
+| 9 | `rwdl:RowKey` | Child Element | string | Conditional | The Primary Key field name (One of `RowIndex` or `RowKey` required for `Structure="TABULAR"`). |
 | 10 | `rwdl:RowKeyValue` | Child Element | string | Conditional | The Primary Key value (Required if `RowKey` is used; can be a string or numeric identifier). |
-| 11 | `rwdl:ColumnName` | Child Element | string | Conditional | The header/variable name (Optional for `structure="TABULAR"` — omitted for key-value-shaped data with row identifiers but no distinct column dimension). |
-| 12 | `rwdl:Path` | Child Element | string | Conditional | The navigation string used to address a value (e.g., XPath, JSONPath, FHIRPath, Cypher, SPARQL) (Required for `structure="PATH"`). The syntax is declared on the `rwdl:Path` element via the `syntax` attribute. |
+| 11 | `rwdl:ColumnName` | Child Element | string | Conditional | The header/variable name (Optional for `Structure="TABULAR"` — omitted for key-value-shaped data with row identifiers but no distinct column dimension). |
+| 12 | `rwdl:Path` | Child Element | string | Conditional | The navigation string used to address a value (e.g., XPath, JSONPath, FHIRPath, Cypher, SPARQL) (Required for `Structure="PATH"`). The syntax is declared on the `rwdl:Path` element via the `Syntax` attribute. |
 
-*(Note: In the Coordinate representation, `storage`, `structure`, and `Format` are XML attributes on the `<rwdl:Coordinate>` element itself, while others are nested XML child elements prefixed with `rwdl:`).*
+*(Note: In the Coordinate representation, `Storage`, `Structure`, and `Format` are XML attributes on the `<rwdl:Coordinate>` element itself, while others are nested XML child elements prefixed with `rwdl:`).*
 
 #### Storage and Structure Types
 
-The `structure` and `storage` attributes are governed by controlled terminology. See the Controlled Terminology section for the full codelists, definitions, and submission values.
+The `Structure` and `Storage` attributes are governed by controlled terminology. See the Controlled Terminology section for the full codelists, definitions, and submission values.
 
 ##### Structure Types
 
-The `structure` attribute classifies how a value within a source is addressed, not the data model of the source itself.
+The `Structure` attribute classifies how a value within a source is addressed, not the data model of the source itself.
 
 - **TABULAR** — Value addressed by row identifier (index or key) and column name (e.g., SQL tables, SAS XPT, CSV files, key-value stores).
 - **PATH** — Value addressed by a path or query expression that locates the value within a structured source (e.g., JSON, XML, FHIR resources, property graphs, RDF triplestores). The syntax of the path expression is declared on the `rwdl:Path` element.
@@ -109,70 +107,70 @@ The `structure` attribute classifies how a value within a source is addressed, n
 
 ##### Storage Field Reference
 
-**Database (`storage="DATABASE"`):**
+**Database (`Storage="DATABASE"`):**
 - `rwdl:URI` — The connection string (e.g., `jdbc:postgresql://host:port/db`).
 - `rwdl:Database` — The specific database name context.
 - `rwdl:Schema` — The schema name (e.g., `public`, `dbo`, `clinical_data`).
 - `rwdl:Table` — The table name.
 
-**Filesystem (`storage="FILESYSTEM"`):**
+**Filesystem (`Storage="FILESYSTEM"`):**
 - `rwdl:URI` — The full file path or object storage URI (e.g., `file://server/share/data.csv` or `s3://bucket/key`).
 
-**API (`storage="API"`):**
+**API (`Storage="API"`):**
 - `rwdl:URI` — The full endpoint URL including query parameters (e.g., `https://api.hospital.org/fhir/Patient/123`).
 
-**Message (`storage="MESSAGE"`):**
+**Message (`Storage="MESSAGE"`):**
 - `rwdl:URI` — The transport endpoint or topic identifier (e.g., `kafka://broker:9092/topic-adt`, `mllp://hospital-feed:2575`).
 
 ##### Structure Field Reference
 
-**Tabular (`structure="TABULAR"`):**
+**Tabular (`Structure="TABULAR"`):**
 - `rwdl:RowIndex` — The specific row number, OR
 - `rwdl:RowKey` + `rwdl:RowKeyValue` — The primary key field name and its value.
 - `rwdl:ColumnName` — The header or variable name (omitted for key-value-shaped data).
 
-**Path-Addressable (`structure="PATH"`):**
-- `rwdl:Path` — The navigation or query expression used to address the value, with `syntax` attribute declaring the expression language (e.g., XPath for XML, JSONPath for JSON, FHIRPath for FHIR resources, Cypher for property graphs, SPARQL for RDF triplestores).
+**Path-Addressable (`Structure="PATH"`):**
+- `rwdl:Path` — The navigation or query expression used to address the value, with `Syntax` attribute declaring the expression language (e.g., XPath for XML, JSONPath for JSON, FHIRPath for FHIR resources, Cypher for property graphs, SPARQL for RDF triplestores).
 
-**Object (`structure="OBJECT"`):**
+**Object (`Structure="OBJECT"`):**
 - `rwdl:URI` — The identifier of the object as a whole. No sub-addressing.
 
 
 ## Source Metadata
 
-The source metadata layer is one of the two top-level layers introduced in Document Structure. It is carried in a single OPTIONAL `rwdl:sourceMetadata` element and is populated once per source system rather than per data point. It holds *assertions* about the sources — their data models and the controlled terminologies their values are encoded in — kept separate from the forensic lineage trail.
+The source metadata layer is one of the two top-level layers introduced in Document Structure. It is carried in a single OPTIONAL `rwdl:SourceMetadata` element and is populated once per source system rather than per data point. It holds *assertions* about the sources — their data models and the controlled terminologies their values are encoded in — kept separate from the forensic lineage trail.
 
-Source data characterization is authoritatively documented in the sponsor's Study Data Reviewer's Guide (SDRG) and, for RWE submissions, in the RWD Reliability Assessment. The `rwdl:sourceMetadata` element provides a structured, machine-readable pointer to the same information for reviewers and tooling working directly within the RWD Lineage file, but is not intended to replace the narrative documents that authoritatively characterize source data.
+Source data characterization is authoritatively documented in the sponsor's Study Data Reviewer's Guide (SDRG) and, for RWE submissions, in the RWD Reliability Assessment. The `rwdl:SourceMetadata` element provides a structured, machine-readable pointer to the same information for reviewers and tooling working directly within the RWD Lineage file, but is not intended to replace the narrative documents that authoritatively characterize source data.
 
 ### Structure
 
-`rwdl:sourceMetadata` contains one or more `rwdl:source` child elements. Each `rwdl:source` describes one source system (the physical or logical origin). It MAY contain a nested `rwdl:standard` child element describing the data model or standard to which the source conforms, and one or more `rwdl:externalCodeList` child elements declaring the controlled terminologies in which the source's coded values are encoded.
+`rwdl:SourceMetadata` contains one or more `rwdl:SourceSystem` child elements. Each `rwdl:SourceSystem` describes one source system (the physical or logical origin). It MAY contain a nested `rwdl:Standard` child element describing the data model or standard to which the source conforms, and one or more `rwdl:ExternalCodeList` child elements declaring the controlled terminologies in which the source's coded values are encoded.
 
-#### `rwdl:source` Attributes
+#### `rwdl:SourceSystem` Attributes
 
 | Attribute | XML Data Type | Usage | Description |
 |-----------|---------------|-------|-------------|
 | `OID` | string | Optional | A unique identifier for the source system, used if any MapID or Coordinate needs to reference this source explicitly. By convention, OIDs identify distinct source systems (e.g., `SRC.EHR.1`, `SRC.EDW.1`, `SRC.CLAIMS.1`, `SRC.EDC.1`). |
-| `name` | string | Optional | The physical or logical name of the origin system (e.g., `University Hospital Epic Interconnect`, `Memorial Healthcare Enterprise Data Warehouse`, `Optum Claims Repository`, `Site 042 Medidata Rave EDC`). |
-| `description` | string | Optional | Free-text description of the source. Use when the source is bespoke or when additional context is helpful beyond the structured attributes. |
+| `Name` | string | Optional | The physical or logical name of the origin system (e.g., `University Hospital Epic Interconnect`, `Memorial Healthcare Enterprise Data Warehouse`, `Optum Claims Repository`, `Site 042 Medidata Rave EDC`). |
+| `Description` | string | Optional | Free-text description of the source. Use when the source is bespoke or when additional context is helpful beyond the structured attributes. |
 
-#### `rwdl:standard` Child Element
+#### `rwdl:Standard` Child Element
 
-The `rwdl:standard` element is OPTIONAL and is used to declare that the parent `rwdl:source` conforms to a named data model or interoperability standard. A sponsor populates this element when the source system implements a recognizable standard; sources without a named standard omit the element and rely on the parent `description` attribute.
+The `rwdl:Standard` element is OPTIONAL and is used to declare that the parent `rwdl:SourceSystem` conforms to a named data model or interoperability standard. A sponsor populates this element when the source system implements a recognizable standard; sources without a named standard omit the element and rely on the parent `Description` attribute.
 
 | Attribute | XML Data Type | Usage | Description |
 |-----------|---------------|-------|-------------|
-| `name` | string | Optional | The specific data model or standard utilized by the source (e.g., `FHIR`, `OMOP-CDM`, `PCORNET-CDM`, `SENTINEL-CDM`, `CDA`). Free-text; not constrained by an RWDL codelist in V1. |
-| `version` | string | Optional | The version of the standard (e.g., `5.4`, `R4`, `1.0`). |
-| `status` | string | Optional | Publication status of the standard. Allowed values mirror Define-XML `def:Standard/@Status`: `Draft`, `Provisional`, `Final`. |
+| `Name` | string | Optional | The specific data model or standard utilized by the source (e.g., `FHIR`, `OMOP-CDM`, `PCORNET-CDM`, `SENTINEL-CDM`, `CDA`). Free-text; not constrained by an RWDL codelist in V1. |
+| `Version` | string | Optional | The version of the standard (e.g., `5.4`, `R4`, `1.0`). |
+| `Status` | string | Optional | Publication status of the standard. Allowed values mirror Define-XML `def:Standard/@Status`: `Draft`, `Provisional`, `Final`. |
 
-A sponsor populates whichever attributes meaningfully apply to their source. The `rwdl:standard` element is appropriate for sources that conform to a named, versioned standard. The `description` attribute on `rwdl:source` is appropriate for bespoke sources, or as a supplement to the structured attributes.
+A sponsor populates whichever attributes meaningfully apply to their source. The `rwdl:Standard` element is appropriate for sources that conform to a named, versioned standard. The `Description` attribute on `rwdl:SourceSystem` is appropriate for bespoke sources, or as a supplement to the structured attributes.
 
-#### `rwdl:externalCodeList` Child Element
+#### `rwdl:ExternalCodeList` Child Element
 
-The `rwdl:externalCodeList` element declares the controlled terminology (e.g., ICD-10-CM, LOINC, RxNorm, NDC, SNOMED CT) in which coded values in the source are encoded. It is OPTIONAL and a single `rwdl:source` MAY carry multiple `rwdl:externalCodeList` elements — one per coded element in the source.
+The `rwdl:ExternalCodeList` element declares the controlled terminology (e.g., ICD-10-CM, LOINC, RxNorm, NDC, SNOMED CT) in which coded values in the source are encoded. It is OPTIONAL and a single `rwdl:SourceSystem` MAY carry multiple `rwdl:ExternalCodeList` elements — one per coded element in the source.
 
-`rwdl:externalCodeList` is modeled on the Define-XML `ExternalCodeList` element, which declares external controlled terminology dictionaries on the target side. The `Dictionary`, `Version`, and `href` attributes are carried over directly, so Define-XML readers recognize the pattern. RWD Lineage adds an `appliesTo` attribute, identifying which element or column within the source the declaration governs, and an optional `rwdl:Scope` child element for declarations that apply only to part of a source (for example, a column whose encoding changed over time).
+`rwdl:ExternalCodeList` is modeled on the Define-XML `ExternalCodeList` element, which declares external controlled terminology dictionaries on the target side. The `Dictionary`, `Version`, and `href` attributes are carried over directly, so Define-XML readers recognize the pattern. RWD Lineage adds an `AppliesTo` attribute, identifying which element or column within the source the declaration governs, and an optional `rwdl:Scope` child element for declarations that apply only to part of a source (for example, a column whose encoding changed over time).
 
 **Why source terminology is an assertion, not an observable fact.** As Document Structure notes, interpretive claims about what the data means are kept out of the lineage trail. Source terminology is exactly such a claim. A row identifier or column name is an observable property of the source; the claim that a given column is encoded in "ICD-10-CM 2024" is different in kind, because in many EHR and claims sources the encoding vocabulary is not explicit in the data and the claim is an inference made by a person or process applying judgment to sample data. Recording it on the Coordinate or MapID would make interpretive content indistinguishable from forensic fact to a downstream reviewer. Keeping it in the source metadata layer, declared on the source, keeps that boundary clean.
 
@@ -185,120 +183,120 @@ This source-side layer gives the controlled-terminology documentation called for
 | `Dictionary` | string | Required | The name of the external controlled terminology (e.g., `ICD-10-CM`, `LOINC`, `RxNorm`, `NDC`, `SNOMED CT`). Mirrors Define-XML `ExternalCodeList/@Dictionary`. Free-text and not governed by a CDISC Controlled Terminology codelist; published terminology lists such as the NCI Metathesaurus may be consulted as a reference for dictionary names, but values are not constrained to a CDISC-controlled set. |
 | `Version` | string | Conditional | The version or release of the dictionary (e.g., `2024`, `2024-09-03`). Required where the dictionary is versioned; the literal `continuous` MAY be used for dictionaries that are continuously updated without discrete versions (e.g., NDC). Mirrors Define-XML `ExternalCodeList/@Version`. |
 | `href` | string (URI) | Optional | A resolvable reference to the dictionary or its publisher. Mirrors Define-XML `ExternalCodeList/@href`. |
-| `appliesTo` | string | Optional | Identifies the element, field, or column within the source the declaration applies to. The expression follows the source's own conventions (e.g., FHIRPath for FHIR sources such as `Condition.code`; dot notation for CDM tables such as `DIAGNOSIS.DX`). When omitted, the declaration applies to the source as a whole. |
+| `AppliesTo` | string | Optional | Identifies the element, field, or column within the source the declaration applies to. The expression follows the source's own conventions (e.g., FHIRPath for FHIR sources such as `Condition.code`; dot notation for CDM tables such as `DIAGNOSIS.DX`). When omitted, the declaration applies to the source as a whole. |
 
 ##### Child Elements
 
-The `rwdl:externalCodeList` element MAY carry one or more `rwdl:Scope` child elements. A declaration that applies to the whole of the element named in `appliesTo` carries no `rwdl:Scope`.
+The `rwdl:ExternalCodeList` element MAY carry one or more `rwdl:Scope` child elements. A declaration that applies to the whole of the element named in `AppliesTo` carries no `rwdl:Scope`.
 
 | Element | Cardinality | Description |
 |---------|-------------|-------------|
-| `rwdl:Scope` | 0..n | Qualifies when or to which subset of records the assertion applies. Carries an optional `condition` attribute (a predicate in the source's own expression conventions, e.g., `encounter_date >= 2015-10-01`) and an optional `description` attribute (free-text explanation). When no `rwdl:Scope` is present, the assertion applies unconditionally ("Always"). Multiple `rwdl:Scope` elements partition a column whose encoding changed over time or across subsets (e.g., an ICD-9-CM → ICD-10-CM transition). |
+| `rwdl:Scope` | 0..n | Qualifies when or to which subset of records the assertion applies. Carries an optional `Condition` attribute (a predicate in the source's own expression conventions, e.g., `encounter_date >= 2015-10-01`) and an optional `Description` attribute (free-text explanation). When no `rwdl:Scope` is present, the assertion applies unconditionally ("Always"). Multiple `rwdl:Scope` elements partition a column whose encoding changed over time or across subsets (e.g., an ICD-9-CM → ICD-10-CM transition). |
 
 ### Source Metadata Examples
 
 A sponsor with a single OMOP CDM source:
 
 ```xml
-<rwdl:sourceMetadata xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
-    <rwdl:source OID="SRC.EDW.1"
-                 name="Hospital X Enterprise Data Warehouse"
-                 description="Hospital X OMOP warehouse, refreshed quarterly">
-        <rwdl:standard name="OMOP-CDM" version="5.4" status="Final"/>
-    </rwdl:source>
-</rwdl:sourceMetadata>
+<rwdl:SourceMetadata xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+    <rwdl:SourceSystem OID="SRC.EDW.1"
+                 Name="Hospital X Enterprise Data Warehouse"
+                 Description="Hospital X OMOP warehouse, refreshed quarterly">
+        <rwdl:Standard Name="OMOP-CDM" Version="5.4" Status="Final"/>
+    </rwdl:SourceSystem>
+</rwdl:SourceMetadata>
 ```
 
 A sponsor with multiple source systems (an EHR exposed via FHIR and a research data warehouse on OMOP CDM):
 
 ```xml
-<rwdl:sourceMetadata xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
-    <rwdl:source OID="SRC.EHR.1"
-                 name="University Hospital Epic Interconnect"
-                 description="EHR FHIR API at api.hospital.org">
-        <rwdl:standard name="FHIR" version="R4" status="Final"/>
-    </rwdl:source>
-    <rwdl:source OID="SRC.EDW.1"
-                 name="Memorial Healthcare Enterprise Data Warehouse"
-                 description="Research data warehouse">
-        <rwdl:standard name="OMOP-CDM" version="5.4" status="Final"/>
-    </rwdl:source>
-</rwdl:sourceMetadata>
+<rwdl:SourceMetadata xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+    <rwdl:SourceSystem OID="SRC.EHR.1"
+                 Name="University Hospital Epic Interconnect"
+                 Description="EHR FHIR API at api.hospital.org">
+        <rwdl:Standard Name="FHIR" Version="R4" Status="Final"/>
+    </rwdl:SourceSystem>
+    <rwdl:SourceSystem OID="SRC.EDW.1"
+                 Name="Memorial Healthcare Enterprise Data Warehouse"
+                 Description="Research data warehouse">
+        <rwdl:Standard Name="OMOP-CDM" Version="5.4" Status="Final"/>
+    </rwdl:SourceSystem>
+</rwdl:SourceMetadata>
 ```
 
 A sponsor combining claims data and EDC data alongside an EHR feed:
 
 ```xml
-<rwdl:sourceMetadata xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
-    <rwdl:source OID="SRC.EHR.1"
-                 name="University Hospital Epic Interconnect"
-                 description="EHR FHIR API at api.hospital.org">
-        <rwdl:standard name="FHIR" version="R4" status="Final"/>
-    </rwdl:source>
-    <rwdl:source OID="SRC.CLAIMS.1"
-                 name="Optum Claims Repository"
-                 description="Adjudicated medical and pharmacy claims feed">
-        <rwdl:standard name="PCORNET-CDM" version="6.1" status="Final"/>
-    </rwdl:source>
-    <rwdl:source OID="SRC.EDC.1"
-                 name="Site 042 Medidata Rave EDC"
-                 description="Clinical trial EDC export, Q2 2025">
-        <rwdl:standard name="CDISC ODM" version="1.3.2" status="Final"/>
-    </rwdl:source>
-</rwdl:sourceMetadata>
+<rwdl:SourceMetadata xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+    <rwdl:SourceSystem OID="SRC.EHR.1"
+                 Name="University Hospital Epic Interconnect"
+                 Description="EHR FHIR API at api.hospital.org">
+        <rwdl:Standard Name="FHIR" Version="R4" Status="Final"/>
+    </rwdl:SourceSystem>
+    <rwdl:SourceSystem OID="SRC.CLAIMS.1"
+                 Name="Optum Claims Repository"
+                 Description="Adjudicated medical and pharmacy claims feed">
+        <rwdl:Standard Name="PCORNET-CDM" Version="6.1" Status="Final"/>
+    </rwdl:SourceSystem>
+    <rwdl:SourceSystem OID="SRC.EDC.1"
+                 Name="Site 042 Medidata Rave EDC"
+                 Description="Clinical trial EDC export, Q2 2025">
+        <rwdl:Standard Name="CDISC ODM" Version="1.3.2" Status="Final"/>
+    </rwdl:SourceSystem>
+</rwdl:SourceMetadata>
 ```
 
 A sponsor declaring the controlled terminologies in which source values are encoded. The EHR source carries an ICD-10-CM declaration scoped across the ICD-9/ICD-10 transition date (two `rwdl:Scope` elements partition the column) plus an RxNorm declaration; the claims source declares ICD-10-CM and NDC for its respective columns:
 
 ```xml
-<rwdl:sourceMetadata xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
-    <rwdl:source OID="SRC.EHR.1"
-                 name="University Hospital Epic Interconnect"
-                 description="EHR FHIR API at api.hospital.org">
-        <rwdl:standard name="FHIR" version="R4" status="Final"/>
+<rwdl:SourceMetadata xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+    <rwdl:SourceSystem OID="SRC.EHR.1"
+                 Name="University Hospital Epic Interconnect"
+                 Description="EHR FHIR API at api.hospital.org">
+        <rwdl:Standard Name="FHIR" Version="R4" Status="Final"/>
         <!-- ICD-10-CM coding, date-scoped across the ICD-9 to ICD-10 transition -->
-        <rwdl:externalCodeList Dictionary="ICD-10-CM" Version="2024"
+        <rwdl:ExternalCodeList Dictionary="ICD-10-CM" Version="2024"
                                href="https://www.cms.gov/medicare/icd-10/2024-icd-10-cm"
-                               appliesTo="Condition.code">
-            <rwdl:Scope condition="encounter_date &gt;= 2015-10-01"
-                        description="Codes on or after 2015-10-01 are ICD-10-CM; transition date approximate"/>
-            <rwdl:Scope condition="encounter_date &lt; 2015-10-01"
-                        description="Codes prior to 2015-10-01 are ICD-9-CM"/>
-        </rwdl:externalCodeList>
-        <rwdl:externalCodeList Dictionary="RxNorm" Version="2024-09-03"
+                               AppliesTo="Condition.code">
+            <rwdl:Scope Condition="encounter_date &gt;= 2015-10-01"
+                        Description="Codes on or after 2015-10-01 are ICD-10-CM; transition date approximate"/>
+            <rwdl:Scope Condition="encounter_date &lt; 2015-10-01"
+                        Description="Codes prior to 2015-10-01 are ICD-9-CM"/>
+        </rwdl:ExternalCodeList>
+        <rwdl:ExternalCodeList Dictionary="RxNorm" Version="2024-09-03"
                                href="https://www.nlm.nih.gov/research/umls/rxnorm/"
-                               appliesTo="MedicationRequest.medicationCodeableConcept"/>
-    </rwdl:source>
-    <rwdl:source OID="SRC.CLAIMS.1"
-                 name="Optum Claims Repository"
-                 description="Adjudicated medical and pharmacy claims feed">
-        <rwdl:standard name="PCORNET-CDM" version="6.1" status="Final"/>
-        <rwdl:externalCodeList Dictionary="ICD-10-CM" Version="2024"
-                               appliesTo="DIAGNOSIS.DX"/>
-        <rwdl:externalCodeList Dictionary="NDC" Version="continuous"
-                               appliesTo="DISPENSING.NDC"/>
-    </rwdl:source>
-</rwdl:sourceMetadata>
+                               AppliesTo="MedicationRequest.medicationCodeableConcept"/>
+    </rwdl:SourceSystem>
+    <rwdl:SourceSystem OID="SRC.CLAIMS.1"
+                 Name="Optum Claims Repository"
+                 Description="Adjudicated medical and pharmacy claims feed">
+        <rwdl:Standard Name="PCORNET-CDM" Version="6.1" Status="Final"/>
+        <rwdl:ExternalCodeList Dictionary="ICD-10-CM" Version="2024"
+                               AppliesTo="DIAGNOSIS.DX"/>
+        <rwdl:ExternalCodeList Dictionary="NDC" Version="continuous"
+                               AppliesTo="DISPENSING.NDC"/>
+    </rwdl:SourceSystem>
+</rwdl:SourceMetadata>
 ```
 
-A sponsor with a bespoke source that does not conform to a named standard (the `rwdl:standard` child element is simply omitted):
+A sponsor with a bespoke source that does not conform to a named standard (the `rwdl:Standard` child element is simply omitted):
 
 ```xml
-<rwdl:sourceMetadata xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
-    <rwdl:source OID="SRC.EDC.1"
-                 name="Site 17 CSV Export"
-                 description="CSV exports from clinical trial site EDC system, Q2 2025; bespoke schema documented in SDRG Section 3.2"/>
-</rwdl:sourceMetadata>
+<rwdl:SourceMetadata xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+    <rwdl:SourceSystem OID="SRC.EDC.1"
+                 Name="Site 17 CSV Export"
+                 Description="CSV exports from clinical trial site EDC system, Q2 2025; bespoke schema documented in SDRG Section 3.2"/>
+</rwdl:SourceMetadata>
 ```
 
 ### Notes
 
-- The `name` attribute on `rwdl:source` identifies the physical or logical origin system; the `name` attribute on the nested `rwdl:standard` element identifies the data model the system implements. Two distinct source systems implementing the same standard (e.g., two hospitals both exposing FHIR R4) are represented as two separate `rwdl:source` elements.
-- The `name` attribute on `rwdl:standard` is free-text in V1. If RWDL submissions accumulate enough usage of common standardized names (OMOP-CDM, FHIR, etc.) to warrant a controlled vocabulary, a Data Model codelist may be submitted to CDISC CT in a future RWDL revision, informed by actual usage patterns.
+- The `Name` attribute on `rwdl:SourceSystem` identifies the physical or logical origin system; the `Name` attribute on the nested `rwdl:Standard` element identifies the data model the system implements. Two distinct source systems implementing the same standard (e.g., two hospitals both exposing FHIR R4) are represented as two separate `rwdl:SourceSystem` elements.
+- The `Name` attribute on `rwdl:Standard` is free-text in V1. If RWDL submissions accumulate enough usage of common standardized names (OMOP-CDM, FHIR, etc.) to warrant a controlled vocabulary, a Data Model codelist may be submitted to CDISC CT in a future RWDL revision, informed by actual usage patterns.
 - OID conventions: recommended forms use a source-class prefix and a system index, e.g., `SRC.EHR.1`, `SRC.EHR.2`, `SRC.EDW.1`, `SRC.CLAIMS.1`, `SRC.EDC.1`. This keeps OIDs stable when a source system's underlying standard or version changes, and lets multiple sources implementing the same standard be distinguished.
-- Coordinates within `rwdl:MapID` elements do not declare source data model on a per-data-point basis. The data model of a source is implicit from the source URI and the submission-level `rwdl:sourceMetadata` declaration, with authoritative characterization in the SDRG and RWD Reliability Assessment.
-- Sponsors who want to bind a specific `rwdl:MapID` or Coordinate to a specific declared source MAY do so via implementer-defined conventions referencing the `rwdl:source/@OID`, but no formal mechanism is specified in V1.
-- `rwdl:externalCodeList` declarations live inside the `rwdl:source` they describe, alongside `rwdl:standard`. The lineage trail does not reference them and does not depend on them: a Coordinate addresses a physical location; the vocabulary in which the value at that location is encoded is a separate, interpretive claim recorded on the source. This separation is deliberate and preserves the forensic integrity of the trail.
+- Coordinates within `rwdl:MapID` elements do not declare source data model on a per-data-point basis. The data model of a source is implicit from the source URI and the submission-level `rwdl:SourceMetadata` declaration, with authoritative characterization in the SDRG and RWD Reliability Assessment.
+- Sponsors who want to bind a specific `rwdl:MapID` or Coordinate to a specific declared source MAY do so via implementer-defined conventions referencing the `rwdl:SourceSystem/@OID`, but no formal mechanism is specified in V1.
+- `rwdl:ExternalCodeList` declarations live inside the `rwdl:SourceSystem` they describe, alongside `rwdl:Standard`. The lineage trail does not reference them and does not depend on them: a Coordinate addresses a physical location; the vocabulary in which the value at that location is encoded is a separate, interpretive claim recorded on the source. This separation is deliberate and preserves the forensic integrity of the trail.
 - The `Dictionary` attribute is free-text and is deliberately not governed by a CDISC Controlled Terminology codelist. Published terminology lists such as the NCI Metathesaurus may be consulted as a reference for naming source dictionaries, but RWDL does not constrain `Dictionary` to a CDISC-controlled set: the universe of source vocabularies a sponsor may encounter is open-ended, and forcing it through a controlled list would create friction without improving comparability.
 
 
@@ -306,11 +304,11 @@ A sponsor with a bespoke source that does not conform to a named standard (the `
 
 This section defines the controlled terminology (codelists) governing enumerated attributes in RWD Lineage. Codelists are submitted to the CDISC Controlled Terminology team under the `RWDL` prefix and are intended to be published through CDISC and NCI Enterprise Vocabulary Services (NCI-EVS) on the standard CDISC release cadence.
 
-The codelists in this section are finalized for V1. Source data model conformance (e.g., FHIR R4, OMOP CDM 5.4, PCORnet CDM) and source controlled terminology (e.g., ICD-10-CM, LOINC, RxNorm) are not governed by RWDL codelists; both are declared at the document level via the `rwdl:sourceMetadata` element (on `rwdl:standard` and `rwdl:externalCodeList` respectively). See the Source Metadata section.
+The codelists in this section are finalized for V1. Source data model conformance (e.g., FHIR R4, OMOP CDM 5.4, PCORnet CDM) and source controlled terminology (e.g., ICD-10-CM, LOINC, RxNorm) are not governed by RWDL codelists; both are declared at the document level via the `rwdl:SourceMetadata` element (on `rwdl:Standard` and `rwdl:ExternalCodeList` respectively). See the Source Metadata section.
 
 ### RWDL Storage Type
 
-Governs the `storage` attribute on the Coordinate element.
+Governs the `Storage` attribute on the Coordinate element.
 
 **Extensibility:** Non-extensible. The four values comprehensively cover the architectural categories of data access (query-connection, file-path, request/response, message transport).
 
@@ -323,21 +321,21 @@ Governs the `storage` attribute on the Coordinate element.
 
 ### RWDL Structure Type
 
-Governs the `structure` attribute on the Coordinate element. Each value corresponds to a distinct addressing mechanism rather than to the data model of the source.
+Governs the `Structure` attribute on the Coordinate element. Each value corresponds to a distinct addressing mechanism rather than to the data model of the source.
 
 **Extensibility:** Non-extensible. The three values correspond directly to the addressing mechanisms the specification itself defines (row-and-column, path expression, whole-object).
 
 | Submission Value | Preferred Term | Definition | Required Addressing |
 |------------------|----------------|------------|---------------------|
 | `TABULAR` | Tabular | Value addressed by row identifier and column name. | `rwdl:RowIndex` or (`rwdl:RowKey` + `rwdl:RowKeyValue`); plus `rwdl:ColumnName` (optional for key-value-shaped data). |
-| `PATH` | Path-Addressable | Value addressed by a path or query expression that locates the value within a structured source. | `rwdl:Path` element with `syntax` attribute. |
+| `PATH` | Path-Addressable | Value addressed by a path or query expression that locates the value within a structured source. | `rwdl:Path` element with `Syntax` attribute. |
 | `OBJECT` | Object | Value is addressed as a whole object with no sub-addressing; the URI is the location. | `rwdl:URI` only. No `rwdl:RowIndex`, `rwdl:ColumnName`, or `rwdl:Path`. |
 
 **Coverage notes:**
-- Tree-structured sources (JSON, XML, FHIR resources) are addressed as `structure="PATH"` with `syntax="JSONPATH"`, `"XPATH"`, or `"FHIRPATH"`.
-- Graph sources (property graphs, RDF triplestores) are addressed as `structure="PATH"` with `syntax="CYPHER"`, `"GREMLIN"`, or `"SPARQL"`.
-- Key-value stores (Redis, DynamoDB) are addressed as `structure="TABULAR"` with `rwdl:RowKey`/`rwdl:RowKeyValue` populated and `rwdl:ColumnName` omitted.
-- Whole-object sources (PDF reports, medical images, opaque blobs) are addressed as `structure="OBJECT"`.
+- Tree-structured sources (JSON, XML, FHIR resources) are addressed as `Structure="PATH"` with `Syntax="JSONPATH"`, `"XPATH"`, or `"FHIRPATH"`.
+- Graph sources (property graphs, RDF triplestores) are addressed as `Structure="PATH"` with `Syntax="CYPHER"`, `"GREMLIN"`, or `"SPARQL"`.
+- Key-value stores (Redis, DynamoDB) are addressed as `Structure="TABULAR"` with `rwdl:RowKey`/`rwdl:RowKeyValue` populated and `rwdl:ColumnName` omitted.
+- Whole-object sources (PDF reports, medical images, opaque blobs) are addressed as `Structure="OBJECT"`.
 
 ### RWDL Data Format
 
@@ -381,7 +379,7 @@ Governs the `Format` attribute on the Coordinate element. Scoped strictly to ser
 
 ### RWDL Path Syntax
 
-Governs the `syntax` attribute on the `rwdl:Path` element. Required when `structure="PATH"`.
+Governs the `Syntax` attribute on the `rwdl:Path` element. Required when `Structure="PATH"`.
 
 **Extensibility:** Extensible. Sponsors populating a value not present in the published codelist flag the value as an extension using the Define-XML convention (`def:ExtendedValue="Yes"`).
 
@@ -408,61 +406,61 @@ Governs the `syntax` attribute on the `rwdl:Path` element. Required when `struct
 
 ### Example 1 — A complete document (source metadata + lineage trail)
 
-This example shows both top-level layers of an `rwdl:lineage` document together. The `rwdl:sourceMetadata` block declares one source — a hospital EHR exposed via FHIR — and records that its condition codes are encoded in ICD-10-CM. The `rwdl:MapID` that follows is the forensic trail: it addresses a value in that same source and maps it to an SDTM target. The trail does not reference the source metadata; the two layers stand side by side.
+This example shows both top-level layers of an `rwdl:Lineage` document together. The `rwdl:SourceMetadata` block declares one source — a hospital EHR exposed via FHIR — and records that its condition codes are encoded in ICD-10-CM. The `rwdl:MapID` that follows is the forensic trail: it addresses a value in that same source and maps it to an SDTM target. The trail does not reference the source metadata; the two layers stand side by side.
 
 ```xml
-<rwdl:lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+<rwdl:Lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
 
     <!-- LAYER 1: Source metadata - assertions about the source -->
-    <rwdl:sourceMetadata>
-        <rwdl:source OID="SRC.EHR.1"
-                     name="University Hospital Epic Interconnect"
-                     description="EHR FHIR API at api.hospital.org">
-            <rwdl:standard name="FHIR" version="R4" status="Final"/>
-            <rwdl:externalCodeList Dictionary="ICD-10-CM" Version="2024"
+    <rwdl:SourceMetadata>
+        <rwdl:SourceSystem OID="SRC.EHR.1"
+                     Name="University Hospital Epic Interconnect"
+                     Description="EHR FHIR API at api.hospital.org">
+            <rwdl:Standard Name="FHIR" Version="R4" Status="Final"/>
+            <rwdl:ExternalCodeList Dictionary="ICD-10-CM" Version="2024"
                                    href="https://www.cms.gov/medicare/icd-10/2024-icd-10-cm"
-                                   appliesTo="Condition.code"/>
-        </rwdl:source>
-    </rwdl:sourceMetadata>
+                                   AppliesTo="Condition.code"/>
+        </rwdl:SourceSystem>
+    </rwdl:SourceMetadata>
 
     <!-- LAYER 2: Lineage trail - a forensic Source -> Target pair -->
-    <rwdl:lineageTrail>
-        <rwdl:MapID uuid="b7c0290f-1cf0-5222-907f-3e75341845c3">
+    <rwdl:LineageTrail>
+        <rwdl:MapID UUID="b7c0290f-1cf0-5222-907f-3e75341845c3">
             <!-- Source: a condition code in the EHR FHIR API -->
             <rwdl:Source>
-                <rwdl:Coordinate storage="API" structure="PATH">
+                <rwdl:Coordinate Storage="API" Structure="PATH">
                     <rwdl:URI>https://api.hospital.org/fhir/R4/Condition/cond-456</rwdl:URI>
-                    <rwdl:Path syntax="JSONPATH">$.code.coding[0].code</rwdl:Path>
+                    <rwdl:Path Syntax="JSONPATH">$.code.coding[0].code</rwdl:Path>
                 </rwdl:Coordinate>
             </rwdl:Source>
             <!-- Target: SDTM MH Domain -->
             <rwdl:Target>
-                <rwdl:Coordinate storage="FILESYSTEM" structure="TABULAR">
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR">
                     <rwdl:URI>./sdtm/mh.xpt</rwdl:URI>
                     <rwdl:RowIndex>12</rwdl:RowIndex>
                     <rwdl:ColumnName>MHDECOD</rwdl:ColumnName>
                 </rwdl:Coordinate>
             </rwdl:Target>
         </rwdl:MapID>
-    </rwdl:lineageTrail>
+    </rwdl:LineageTrail>
 
-</rwdl:lineage>
+</rwdl:Lineage>
 ```
 
-The examples that follow focus on individual storage and structure patterns. Each is shown wrapped in its `rwdl:lineage` root and `rwdl:lineageTrail` element; in a real document, all `rwdl:MapID` elements share one `rwdl:lineageTrail` and a single `rwdl:sourceMetadata` block sits alongside it, as above.
+The examples that follow focus on individual Storage and Structure patterns. Each is shown wrapped in its `rwdl:Lineage` root and `rwdl:LineageTrail` element; in a real document, all `rwdl:MapID` elements share one `rwdl:LineageTrail` and a single `rwdl:SourceMetadata` block sits alongside it, as above.
 
 ### Example 2 — Tabular data in a database
 
 ```xml
-<rwdl:lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+<rwdl:Lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
 
-    <rwdl:lineageTrail>
+    <rwdl:LineageTrail>
         <!-- UUID v5 generated from namespace + "jdbc...ehr_prod...vitals...10055...sys_bp" -->
         <!-- Direct (1:1) map: no transformation, so no MethodDefOID -->
-        <rwdl:MapID uuid="a3bb189e-8bf9-5888-996e-1d54230623a1">
+        <rwdl:MapID UUID="a3bb189e-8bf9-5888-996e-1d54230623a1">
             <!-- Source: Hospital SQL DB -->
             <rwdl:Source>
-                <rwdl:Coordinate storage="DATABASE" structure="TABULAR">
+                <rwdl:Coordinate Storage="DATABASE" Structure="TABULAR">
                     <rwdl:URI>jdbc:postgresql://hospital-db:5432/ehr</rwdl:URI>
                     <rwdl:Database>ehr_prod</rwdl:Database>
                     <rwdl:Schema>cardiology</rwdl:Schema>
@@ -474,16 +472,16 @@ The examples that follow focus on individual storage and structure patterns. Eac
             </rwdl:Source>
             <!-- Target: SDTM VS Domain -->
             <rwdl:Target>
-                <rwdl:Coordinate storage="FILESYSTEM" structure="TABULAR">
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR">
                     <rwdl:URI>./sdtm/vs.xpt</rwdl:URI>
                     <rwdl:RowIndex>42</rwdl:RowIndex>
                     <rwdl:ColumnName>VSORRES</rwdl:ColumnName>
                 </rwdl:Coordinate>
             </rwdl:Target>
         </rwdl:MapID>
-    </rwdl:lineageTrail>
+    </rwdl:LineageTrail>
 
-</rwdl:lineage>
+</rwdl:Lineage>
 ```
 
 ### Example 3 — Tabular data in filesystem
@@ -502,14 +500,14 @@ This example shows a transformation (pounds to kilograms). The transformation is
 
 **RWD Lineage Traceability Document:**
 ```xml
-<rwdl:lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+<rwdl:Lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
 
-    <rwdl:lineageTrail>
+    <rwdl:LineageTrail>
         <!-- UUID v5 generated from namespace + Source Coordinate Hash -->
-        <rwdl:MapID uuid="c4d0290f-9cf0-5111-807f-2e65341734b2" MethodDefOID="MT.LB2KG">
+        <rwdl:MapID UUID="c4d0290f-9cf0-5111-807f-2e65341734b2" MethodDefOID="MT.LB2KG">
             <!-- Source: CSV Lab Report -->
             <rwdl:Source>
-                <rwdl:Coordinate storage="FILESYSTEM" structure="TABULAR">
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR">
                     <rwdl:URI>file://server/raw_data/labs_2023.csv</rwdl:URI>
                     <rwdl:RowIndex>501</rwdl:RowIndex>
                     <rwdl:ColumnName>RESULT_VAL</rwdl:ColumnName>
@@ -517,21 +515,21 @@ This example shows a transformation (pounds to kilograms). The transformation is
             </rwdl:Source>
             <!-- Target: SDTM LB Domain -->
             <rwdl:Target>
-                <rwdl:Coordinate storage="FILESYSTEM" structure="TABULAR">
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR">
                     <rwdl:URI>./sdtm/lb.xpt</rwdl:URI>
                     <rwdl:RowIndex>15</rwdl:RowIndex>
                     <rwdl:ColumnName>LBORRES</rwdl:ColumnName>
                 </rwdl:Coordinate>
             </rwdl:Target>
         </rwdl:MapID>
-    </rwdl:lineageTrail>
+    </rwdl:LineageTrail>
 
-</rwdl:lineage>
+</rwdl:Lineage>
 ```
 
 ### Example 4 — FHIR data via API
 
-This example illustrates how `rwdl:sourceMetadata` is declared once at the document root using the nested `rwdl:source`/`rwdl:standard` architecture, and how the per-coordinate `rwdl:MapID` then carries only the addressing information. The FHIR R4 conformance of the source is captured on the nested `rwdl:standard` element; the parent `rwdl:source` names the origin system.
+This example illustrates how `rwdl:SourceMetadata` is declared once at the document root using the nested `rwdl:SourceSystem`/`rwdl:Standard` architecture, and how the per-coordinate `rwdl:MapID` then carries only the addressing information. The FHIR R4 conformance of the source is captured on the nested `rwdl:Standard` element; the parent `rwdl:SourceSystem` names the origin system.
 
 **Define-XML Metadata Definition (inside `define.xml`):**
 ```xml
@@ -545,29 +543,29 @@ This example illustrates how `rwdl:sourceMetadata` is declared once at the docum
 
 **RWD Lineage Traceability Document:**
 ```xml
-<rwdl:lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+<rwdl:Lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
 
     <!-- Document-level source declaration: declared once for the file -->
-    <rwdl:sourceMetadata>
-        <rwdl:source OID="SRC.EHR.1"
-                     name="University Hospital Epic Interconnect"
-                     description="Hospital FHIR API at api.hospital.org">
-            <rwdl:standard name="FHIR" version="R4" status="Final"/>
-        </rwdl:source>
-    </rwdl:sourceMetadata>
+    <rwdl:SourceMetadata>
+        <rwdl:SourceSystem OID="SRC.EHR.1"
+                     Name="University Hospital Epic Interconnect"
+                     Description="Hospital FHIR API at api.hospital.org">
+            <rwdl:Standard Name="FHIR" Version="R4" Status="Final"/>
+        </rwdl:SourceSystem>
+    </rwdl:SourceMetadata>
 
-    <rwdl:lineageTrail>
-        <rwdl:MapID uuid="e5e13010-0db1-5222-9180-3f76452845c3" MethodDefOID="MT.FHIR.MEDCODE">
+    <rwdl:LineageTrail>
+        <rwdl:MapID UUID="e5e13010-0db1-5222-9180-3f76452845c3" MethodDefOID="MT.FHIR.MEDCODE">
             <!-- Source: FHIR API Endpoint -->
             <rwdl:Source>
-                <rwdl:Coordinate storage="API" structure="PATH">
+                <rwdl:Coordinate Storage="API" Structure="PATH">
                     <rwdl:URI>https://api.hospital.org/fhir/R4/MedicationRequest/med-abc-123</rwdl:URI>
-                    <rwdl:Path syntax="JSONPATH">$.medicationCodeableConcept.coding[0].code</rwdl:Path>
+                    <rwdl:Path Syntax="JSONPATH">$.medicationCodeableConcept.coding[0].code</rwdl:Path>
                 </rwdl:Coordinate>
             </rwdl:Source>
             <!-- Target: SDTM CM Domain -->
             <rwdl:Target>
-                <rwdl:Coordinate storage="FILESYSTEM" structure="TABULAR">
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR">
                     <rwdl:URI>./sdtm/cm.xpt</rwdl:URI>
                     <rwdl:RowIndex>8</rwdl:RowIndex>
                     <rwdl:ColumnName>CMDECOD</rwdl:ColumnName>
@@ -578,14 +576,14 @@ This example illustrates how `rwdl:sourceMetadata` is declared once at the docum
         <!-- Additional MapID elements pulling from the same FHIR source follow;
              each carries only addressing information, not source metadata -->
 
-    </rwdl:lineageTrail>
+    </rwdl:LineageTrail>
 
-</rwdl:lineage>
+</rwdl:Lineage>
 ```
 
 ### Example 5 — XML data in filesystem
 
-This example uses an HL7 CDA document as a source and demonstrates `rwdl:sourceMetadata` declaring a CDA-conformant source alongside a date-format transformation.
+This example uses an HL7 CDA document as a source and demonstrates `rwdl:SourceMetadata` declaring a CDA-conformant source alongside a date-format transformation.
 
 **Define-XML Metadata Definition (inside `define.xml`):**
 ```xml
@@ -599,38 +597,38 @@ This example uses an HL7 CDA document as a source and demonstrates `rwdl:sourceM
 
 **RWD Lineage Traceability Document:**
 ```xml
-<rwdl:lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+<rwdl:Lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
 
     <!-- Document-level source declaration -->
-    <rwdl:sourceMetadata>
-        <rwdl:source OID="SRC.CDA.1"
-                     name="Regional HIE CDA Repository"
-                     description="Continuity of Care Documents retrieved from the regional health information exchange">
-            <rwdl:standard name="CDA" version="R2" status="Final"/>
-        </rwdl:source>
-    </rwdl:sourceMetadata>
+    <rwdl:SourceMetadata>
+        <rwdl:SourceSystem OID="SRC.CDA.1"
+                     Name="Regional HIE CDA Repository"
+                     Description="Continuity of Care Documents retrieved from the regional health information exchange">
+            <rwdl:Standard Name="CDA" Version="R2" Status="Final"/>
+        </rwdl:SourceSystem>
+    </rwdl:SourceMetadata>
 
-    <rwdl:lineageTrail>
-        <rwdl:MapID uuid="f6f24121-1eb2-5333-0291-4087563956d4" MethodDefOID="MT.ISO2SASDATE">
+    <rwdl:LineageTrail>
+        <rwdl:MapID UUID="f6f24121-1eb2-5333-0291-4087563956d4" MethodDefOID="MT.ISO2SASDATE">
             <!-- Source: HL7 CDA XML File -->
             <rwdl:Source>
-                <rwdl:Coordinate storage="FILESYSTEM" structure="PATH">
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="PATH">
                     <rwdl:URI>file://server/records/patient_001.xml</rwdl:URI>
-                    <rwdl:Path syntax="XPATH">/ClinicalDocument/recordTarget/patientRole/patient/birthTime/@value</rwdl:Path>
+                    <rwdl:Path Syntax="XPATH">/ClinicalDocument/recordTarget/patientRole/patient/birthTime/@value</rwdl:Path>
                 </rwdl:Coordinate>
             </rwdl:Source>
             <!-- Target: SDTM DM Domain -->
             <rwdl:Target>
-                <rwdl:Coordinate storage="FILESYSTEM" structure="TABULAR">
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR">
                     <rwdl:URI>./sdtm/dm.xpt</rwdl:URI>
                     <rwdl:RowIndex>1</rwdl:RowIndex>
                     <rwdl:ColumnName>BRTHDTC</rwdl:ColumnName>
                 </rwdl:Coordinate>
             </rwdl:Target>
         </rwdl:MapID>
-    </rwdl:lineageTrail>
+    </rwdl:LineageTrail>
 
-</rwdl:lineage>
+</rwdl:Lineage>
 ```
 
 
@@ -638,12 +636,12 @@ This example uses an HL7 CDA document as a source and demonstrates `rwdl:sourceM
 
 RWD Lineage may be supplied in either of two mutually exclusive ways:
 
-- **Embedded** — the `rwdl:lineage` root element (containing `rwdl:sourceMetadata` and the `rwdl:lineageTrail` array of `rwdl:MapID` elements) appears directly inside the Define-XML document.
-- **Referenced** — the `rwdl:lineage` content lives in a separate XML file, and the Define-XML document points at it. The external file uses `rwdl:lineage` as its root element.
+- **Embedded** — the `rwdl:Lineage` root element (containing `rwdl:SourceMetadata` and the `rwdl:LineageTrail` array of `rwdl:MapID` elements) appears directly inside the Define-XML document.
+- **Referenced** — the `rwdl:Lineage` content lives in a separate XML file, and the Define-XML document points at it. The external file uses `rwdl:Lineage` as its root element.
 
-For the referenced case, the pointer reuses the standard Define-XML external-document mechanism: a `<def:leaf>` declares the physical file (carrying the filename in `xlink:href`), and `<rwdl:lineageRef>` references it by `leafID` under the standard metadata block.
+For the referenced case, the pointer reuses the standard Define-XML external-document mechanism: a `<def:leaf>` declares the physical file (carrying the filename in `xlink:href`), and `<rwdl:LineageRef>` references it by `leafID` under the standard metadata block.
 
-**Migration Note:** This structure replaces the `<rwdl:ref>` element used in the initial draft with `<rwdl:lineageRef>` referencing a standard `<def:leaf>` element. This aligns with Define-XML standards for external documents.
+**Migration Note:** This structure replaces the `<rwdl:ref>` element used in the initial draft with `<rwdl:LineageRef>` referencing a standard `<def:leaf>` element. This aligns with Define-XML standards for external documents.
 
 ```xml
 <ODM xmlns="http://www.cdisc.org/ns/odm/v1.3"
@@ -670,8 +668,8 @@ For the referenced case, the pointer reuses the standard Define-XML external-doc
                 <def:title>RWD Lineage Traceability</def:title>
             </def:leaf>
 
-            <!-- rwdl:lineageRef points at the external file by leafID -->
-            <rwdl:lineageRef leafID="LF.RWDLINEAGE"/>
+            <!-- rwdl:LineageRef points at the external file by leafID -->
+            <rwdl:LineageRef leafID="LF.RWDLINEAGE"/>
 
         </MetaDataVersion>
     </Study>
@@ -685,20 +683,20 @@ For the referenced case, the pointer reuses the standard Define-XML external-doc
 |------|-----------|
 | API | Application Programming Interface |
 | CDISC | Clinical Data Interchange Standards Consortium |
-| ExternalCodeList | A Define-XML element declaring an external controlled terminology dictionary. RWD Lineage adapts it as `rwdl:externalCodeList` to declare the source-side vocabulary in which coded values are encoded. |
+| ExternalCodeList | A Define-XML element declaring an external controlled terminology dictionary. RWD Lineage adapts it as `rwdl:ExternalCodeList` to declare the source-side vocabulary in which coded values are encoded. |
 | FHIR | Fast Healthcare Interoperability Resources |
 | JSONPath | A query language for selecting nodes in a JSON document |
 | MethodDef | A Define-XML element defining a computation or derivation. RWD Lineage references it via `MethodDefOID` to describe the transformation applied from source to target value. |
 | RWD | Real-World Data |
 | RWE | Real-World Evidence |
 | rwdl:Coordinate | The `rwdl:Coordinate` element: locates a single data point within a storage container and structural format. |
-| rwdl:externalCodeList | The `rwdl:externalCodeList` element: declares the external controlled terminology dictionary (e.g., ICD-10-CM) used for a source element. |
-| rwdl:lineage | The root element of an RWD Lineage metadata document. |
-| rwdl:lineageTrail | The `rwdl:lineageTrail` element: one of the two top-level layers of an RWD Lineage document, containing the array of `rwdl:MapID` Source–Target pairs that form the forensic trail. |
+| rwdl:ExternalCodeList | The `rwdl:ExternalCodeList` element: declares the external controlled terminology dictionary (e.g., ICD-10-CM) used for a source element. |
+| rwdl:Lineage | The root element of an RWD Lineage metadata document. |
+| rwdl:LineageTrail | The `rwdl:LineageTrail` element: one of the two top-level layers of an RWD Lineage document, containing the array of `rwdl:MapID` Source–Target pairs that form the forensic trail. |
 | rwdl:MapID | The `rwdl:MapID` element: a Source–Target pair linking a raw real-world data point coordinate to a standardized clinical target coordinate. |
-| rwdl:source | The `rwdl:source` element: describes a single real-world source system within `rwdl:sourceMetadata`. |
-| rwdl:sourceMetadata | The `rwdl:sourceMetadata` element: one of the two top-level layers of an RWD Lineage document, containing machine-readable assertions about the source data systems. |
-| rwdl:standard | The `rwdl:standard` element: declares the data model or standard (e.g., FHIR, OMOP) to which a source conforms. |
+| rwdl:SourceSystem | The `rwdl:SourceSystem` element: describes a single real-world source system within `rwdl:SourceMetadata`. |
+| rwdl:SourceMetadata | The `rwdl:SourceMetadata` element: one of the two top-level layers of an RWD Lineage document, containing machine-readable assertions about the source data systems. |
+| rwdl:Standard | The `rwdl:Standard` element: declares the data model or standard (e.g., FHIR, OMOP) to which a source conforms. |
 | SDTM | Study Data Tabulation Model |
 | URI | Uniform Resource Identifier |
 | UUID | Universally Unique Identifier |
