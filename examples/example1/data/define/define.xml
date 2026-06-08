@@ -1,5 +1,19 @@
-<?xml version="1.0" ?>
-<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:def="http://www.cdisc.org/ns/def/v2.1" xmlns:rwdl="http://www.cdisc.org/ns/rwd-lineage/v1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 https://www.cdisc.org/standards/odm/v1.3.2/ODM1-3-2.xsd" FileType="Snapshot" FileOID="Define.Example1" CreationDateTime="2026-03-16T11:49:52" AsOfDateTime="2026-03-16T11:49:52" Originator="CDISC RWD Lineage Project" SourceSystem="Example" SourceSystemVersion="1.0" def:Context="Submission">
+<?xml version="1.0" encoding="UTF-8"?>
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3"
+     xmlns:def="http://www.cdisc.org/ns/def/v2.1"
+     xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 https://www.cdisc.org/standards/odm/v1.3.2/ODM1-3-2.xsd"
+     FileType="Snapshot"
+     FileOID="Define.Example1"
+     CreationDateTime="2026-03-16T11:49:52"
+     AsOfDateTime="2026-03-16T11:49:52"
+     Originator="CDISC RWD Lineage Project"
+     SourceSystem="Example"
+     SourceSystemVersion="1.0"
+     def:Context="Submission">
+
   <Study OID="Study.Example1">
     <GlobalVariables>
       <StudyName>RWD Lineage Example 1</StudyName>
@@ -7,13 +21,39 @@
       <ProtocolName>RWDL-EX1</ProtocolName>
     </GlobalVariables>
     <MetaDataVersion OID="MDV.Example1" Name="Example 1 Define-XML" def:DefineVersion="2.1.0">
+
       <def:Standards>
         <def:Standard OID="STD.1" Name="SDTM" Version="1.9" Type="Tabulation" Status="Final"/>
       </def:Standards>
-      <rwdl:lineage>
-        <rwdl:ref leafID="LF.RWDLINEAGE">rwd-lineage.xml</rwdl:ref>
-      </rwdl:lineage>
-      <ItemGroupDef OID="IG.CE" Name="CE" Repeating="Yes" IsReferenceData="No" SASDatasetName="CE" def:Structure="One record per subject per clinical event" def:StandardOID="STD.1" def:ArchiveLocationID="LF.CE">
+
+      <!-- MethodDef elements describing transformations referenced by rwd-lineage.xml -->
+      <MethodDef OID="MT.AFTERIDXDATE" Name="After Index Date filter" Type="Computation">
+        <Description>
+          <TranslatedText xml:lang="en">Include source records only when the source date falls on or after the patient's index date. The index date is defined as the date of the first qualifying clinical event for the subject.</TranslatedText>
+        </Description>
+      </MethodDef>
+
+      <MethodDef OID="MT.FILTERBYVAL" Name="Filter by vital type value" Type="Computation">
+        <Description>
+          <TranslatedText xml:lang="en">Filter source vital sign records by matching the Vital column value to the target clinical event type (e.g., retain only BP records when mapping to a hypertension-related clinical event).</TranslatedText>
+        </Description>
+      </MethodDef>
+
+      <MethodDef OID="MT.NLPEXTRACTION" Name="NLP extraction from clinical notes" Type="Computation">
+        <Description>
+          <TranslatedText xml:lang="en">Natural language processing is applied to free-text clinical note content to identify and extract coded clinical concepts. The extracted concept mention is mapped to the target SDTM variable value.</TranslatedText>
+        </Description>
+      </MethodDef>
+
+      <!-- RWD Lineage reference: def:leaf declares the file; rwdl:LineageRef points to it -->
+      <def:leaf ID="LF.RWDLINEAGE" xlink:href="rwd-lineage.xml">
+        <def:title>RWD Lineage Traceability</def:title>
+      </def:leaf>
+      <rwdl:LineageRef leafID="LF.RWDLINEAGE"/>
+
+      <ItemGroupDef OID="IG.CE" Name="CE" Repeating="Yes" IsReferenceData="No" SASDatasetName="CE"
+                    def:Structure="One record per subject per clinical event"
+                    def:StandardOID="STD.1" def:ArchiveLocationID="LF.CE">
         <Description>
           <TranslatedText>Clinical Events</TranslatedText>
         </Description>
@@ -25,41 +65,29 @@
         <ItemRef ItemOID="IT.CE.CEPRESP" Mandatory="No"/>
         <ItemRef ItemOID="IT.CE.CEOCCUR" Mandatory="No"/>
       </ItemGroupDef>
+
       <ItemDef OID="IT.CE.STUDYID" Name="STUDYID" DataType="text" Length="8">
-        <Description>
-          <TranslatedText>Study Identifier</TranslatedText>
-        </Description>
+        <Description><TranslatedText>Study Identifier</TranslatedText></Description>
       </ItemDef>
       <ItemDef OID="IT.CE.DOMAIN" Name="DOMAIN" DataType="text" Length="2">
-        <Description>
-          <TranslatedText>Domain Abbreviation</TranslatedText>
-        </Description>
+        <Description><TranslatedText>Domain Abbreviation</TranslatedText></Description>
       </ItemDef>
       <ItemDef OID="IT.CE.USUBJID" Name="USUBJID" DataType="text" Length="50">
-        <Description>
-          <TranslatedText>Unique Subject Identifier</TranslatedText>
-        </Description>
+        <Description><TranslatedText>Unique Subject Identifier</TranslatedText></Description>
       </ItemDef>
       <ItemDef OID="IT.CE.CESEQ" Name="CESEQ" DataType="integer" Length="8">
-        <Description>
-          <TranslatedText>Sequence Number</TranslatedText>
-        </Description>
+        <Description><TranslatedText>Sequence Number</TranslatedText></Description>
       </ItemDef>
       <ItemDef OID="IT.CE.CETERM" Name="CETERM" DataType="text" Length="200">
-        <Description>
-          <TranslatedText>Reported Term for the CE</TranslatedText>
-        </Description>
+        <Description><TranslatedText>Reported Term for the CE</TranslatedText></Description>
       </ItemDef>
       <ItemDef OID="IT.CE.CEPRESP" Name="CEPRESP" DataType="text" Length="1">
-        <Description>
-          <TranslatedText>CE Pre-Specified</TranslatedText>
-        </Description>
+        <Description><TranslatedText>CE Pre-Specified</TranslatedText></Description>
       </ItemDef>
       <ItemDef OID="IT.CE.CEOCCUR" Name="CEOCCUR" DataType="text" Length="1">
-        <Description>
-          <TranslatedText>CE Occurrence</TranslatedText>
-        </Description>
+        <Description><TranslatedText>CE Occurrence</TranslatedText></Description>
       </ItemDef>
+
       <def:leaf ID="LF.CE" xlink:href="https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv">
         <def:title>CE.xpt</def:title>
       </def:leaf>
@@ -72,9 +100,7 @@
       <def:leaf ID="LF.NOTES" xlink:href="https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv">
         <def:title>NOTES.csv</def:title>
       </def:leaf>
-      <def:leaf ID="LF.RWDLINEAGE" xlink:href="rwd-lineage.xml">
-        <def:title>rwd-lineage.xml</def:title>
-      </def:leaf>
+
     </MetaDataVersion>
   </Study>
 </ODM>
