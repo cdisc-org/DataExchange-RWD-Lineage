@@ -1,348 +1,366 @@
-<?xml version="1.0" ?>
-<RWDLineage xmlns="http://www.cdisc.org/ns/rwd-lineage/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cdisc.org/ns/rwd-lineage/v1 rwd-lineage.xsd" FileType="Snapshot" FileOID="RWDLineage.Example1" CreationDateTime="2026-03-16T11:49:52" AsOfDateTime="2026-03-16T11:49:52" Originator="CDISC RWD Lineage Project" SourceSystem="Example" SourceSystemVersion="1.0">
-  <MapID uuid="35060134-fc2f-4cdf-9abe-491924739bd5">
-    <Transformation type="DirectMap">Direct Map</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>ICD10</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>2</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="77d5b278-692e-4d9b-8232-179b34f8e6b3">
-    <Transformation type="DirectMap">Direct Map</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>TERM</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>2</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="7e376beb-7dad-4f5c-a212-88283ac22eba">
-    <Transformation type="AfterIndexDate">After Index Date</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>DATE</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>2</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="880af520-a197-44c7-976c-3770bdc46575">
-    <Transformation type="DirectMap">Direct Map</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
-        <RowIndex>3</RowIndex>
-        <ColumnName>Vital</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="99e07ea5-bdef-4726-9f8d-aacdb06745d3">
-    <Transformation type="FilterByValue">Filter By Value</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
-        <RowIndex>3</RowIndex>
-        <ColumnName>Value</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="9a5e2706-c919-465f-a8d9-4ad774037122">
-    <Transformation type="AfterIndexDate">After Index Date</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
-        <RowIndex>3</RowIndex>
-        <ColumnName>Date</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="897e5ede-3913-44b8-b45c-5341e92bc018">
-    <Transformation type="DirectMap">Direct Map</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
-        <RowIndex>5</RowIndex>
-        <ColumnName>Vital</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="0a44299a-87c5-4f4a-95e2-c93794bd3757">
-    <Transformation type="FilterByValue">Filter By Value</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
-        <RowIndex>5</RowIndex>
-        <ColumnName>Value</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="b8fb983e-6d14-4902-b3e8-8e7aa519892a">
-    <Transformation type="AfterIndexDate">After Index Date</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
-        <RowIndex>5</RowIndex>
-        <ColumnName>Date</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="b70adc19-9e75-4118-bacf-6cb23ae0c2f1">
-    <Transformation type="DirectMap">Direct Map</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
-        <RowIndex>7</RowIndex>
-        <ColumnName>Vital</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="44eead9c-8781-4c98-8cf3-4921f7af90ba">
-    <Transformation type="FilterByValue">Filter By Value</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
-        <RowIndex>7</RowIndex>
-        <ColumnName>Value</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="76237584-4c5c-4ce3-b6f8-ab3c027fc378">
-    <Transformation type="AfterIndexDate">After Index Date</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</URI>
-        <RowIndex>7</RowIndex>
-        <ColumnName>Date</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="0465945a-2b61-43c6-8dd1-8b867b601439">
-    <Transformation type="NLPExtraction">NLP Extraction</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
-        <RowIndex>2</RowIndex>
-        <ColumnName>TEXT</ColumnName>
-        <TextSpan begin="707" end="710" />
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="7c8b1ce7-dd0d-4d81-89bf-70c1f17b4f28">
-    <Transformation type="NLPExtraction">NLP Extraction</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
-        <RowIndex>3</RowIndex>
-        <ColumnName>TEXT</ColumnName>
-        <TextSpan begin="100" end="112" />
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="39c0d747-67dc-4ccf-a07b-3293f00f756f">
-    <Transformation type="NLPExtraction">NLP Extraction</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
-        <RowIndex>3</RowIndex>
-        <ColumnName>TEXT</ColumnName>
-        <TextSpan begin="209" end="221" />
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="0f185720-823f-4ee3-9e74-2cade2791ed5">
-    <Transformation type="DirectMap">Direct Map</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</URI>
-        <RowIndex>1</RowIndex>
-        <ColumnName>ICD10</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>1</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="de098b66-7ac9-4695-ab1a-bf4beea45a8d">
-    <Transformation type="DirectMap">Direct Map</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</URI>
-        <RowIndex>1</RowIndex>
-        <ColumnName>TERM</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>1</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="3fefb802-1332-4ff7-9c30-5511d61daf28">
-    <Transformation type="AfterIndexDate">After Index Date</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</URI>
-        <RowIndex>1</RowIndex>
-        <ColumnName>DATE</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>1</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="67e89898-8383-43c4-a8c3-f219c27838c6">
-    <Transformation type="NLPExtraction">NLP Extraction</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
-        <RowIndex>1</RowIndex>
-        <ColumnName>TEXT</ColumnName>
-        <TextSpan begin="278" end="305" />
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>1</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <MapID uuid="8f0f595a-9d6a-46ca-b2c6-ab5b00e18222">
-    <Transformation type="NLPExtraction">NLP Extraction</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</URI>
-        <RowIndex>1</RowIndex>
-        <ColumnName>TEXT</ColumnName>
-        <TextSpan begin="1211" end="1234" />
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</URI>
-        <RowIndex>1</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-</RWDLineage>
+<?xml version="1.0" encoding="UTF-8"?>
+<rwdl:Lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+
+    <!-- LAYER 1: Source metadata - assertions about the source systems -->
+    <rwdl:SourceMetadata>
+        <rwdl:SourceSystem OID="SRC.CSV.1"
+                     Name="Example 1 Clinical Source CSV Files"
+                     Description="CSV exports from clinical source system; includes patient diagnoses (pt_dx.csv), vitals (vitals.csv), and clinical notes (notes.csv)">
+            <rwdl:ExternalCodeList Dictionary="ICD-10-CM" Version="2024"
+                                   AppliesTo="pt_dx.csv ICD10"/>
+        </rwdl:SourceSystem>
+    </rwdl:SourceMetadata>
+
+    <!-- LAYER 2: Lineage trail - Source -> Target pairs -->
+    <rwdl:LineageTrail>
+
+        <!-- pt_dx.csv row 4 -> ce.csv row 2 -->
+        <rwdl:MapID UUID="35060134-fc2f-4cdf-9abe-491924739bd5">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>ICD10</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>2</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="77d5b278-692e-4d9b-8232-179b34f8e6b3">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>TERM</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>2</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="7e376beb-7dad-4f5c-a212-88283ac22eba" MethodDefOID="MT.AFTERIDXDATE">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>DATE</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>2</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <!-- vitals.csv row 3 -> ce.csv row 4 -->
+        <rwdl:MapID UUID="880af520-a197-44c7-976c-3770bdc46575">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</rwdl:URI>
+                    <rwdl:RowIndex>3</rwdl:RowIndex>
+                    <rwdl:ColumnName>Vital</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="99e07ea5-bdef-4726-9f8d-aacdb06745d3" MethodDefOID="MT.FILTERBYVAL">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</rwdl:URI>
+                    <rwdl:RowIndex>3</rwdl:RowIndex>
+                    <rwdl:ColumnName>Value</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="9a5e2706-c919-465f-a8d9-4ad774037122" MethodDefOID="MT.AFTERIDXDATE">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</rwdl:URI>
+                    <rwdl:RowIndex>3</rwdl:RowIndex>
+                    <rwdl:ColumnName>Date</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <!-- vitals.csv row 5 -> ce.csv row 4 -->
+        <rwdl:MapID UUID="897e5ede-3913-44b8-b45c-5341e92bc018">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</rwdl:URI>
+                    <rwdl:RowIndex>5</rwdl:RowIndex>
+                    <rwdl:ColumnName>Vital</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="0a44299a-87c5-4f4a-95e2-c93794bd3757" MethodDefOID="MT.FILTERBYVAL">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</rwdl:URI>
+                    <rwdl:RowIndex>5</rwdl:RowIndex>
+                    <rwdl:ColumnName>Value</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="b8fb983e-6d14-4902-b3e8-8e7aa519892a" MethodDefOID="MT.AFTERIDXDATE">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</rwdl:URI>
+                    <rwdl:RowIndex>5</rwdl:RowIndex>
+                    <rwdl:ColumnName>Date</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <!-- vitals.csv row 7 -> ce.csv row 4 -->
+        <rwdl:MapID UUID="b70adc19-9e75-4118-bacf-6cb23ae0c2f1">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</rwdl:URI>
+                    <rwdl:RowIndex>7</rwdl:RowIndex>
+                    <rwdl:ColumnName>Vital</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="44eead9c-8781-4c98-8cf3-4921f7af90ba" MethodDefOID="MT.FILTERBYVAL">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</rwdl:URI>
+                    <rwdl:RowIndex>7</rwdl:RowIndex>
+                    <rwdl:ColumnName>Value</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="76237584-4c5c-4ce3-b6f8-ab3c027fc378" MethodDefOID="MT.AFTERIDXDATE">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/vitals.csv</rwdl:URI>
+                    <rwdl:RowIndex>7</rwdl:RowIndex>
+                    <rwdl:ColumnName>Date</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <!-- notes.csv NLP extractions -> ce.csv row 4 -->
+        <rwdl:MapID UUID="0465945a-2b61-43c6-8dd1-8b867b601439" MethodDefOID="MT.NLPEXTRACTION">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</rwdl:URI>
+                    <rwdl:RowIndex>2</rwdl:RowIndex>
+                    <rwdl:ColumnName>TEXT</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="7c8b1ce7-dd0d-4d81-89bf-70c1f17b4f28" MethodDefOID="MT.NLPEXTRACTION">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</rwdl:URI>
+                    <rwdl:RowIndex>3</rwdl:RowIndex>
+                    <rwdl:ColumnName>TEXT</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="39c0d747-67dc-4ccf-a07b-3293f00f756f" MethodDefOID="MT.NLPEXTRACTION">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</rwdl:URI>
+                    <rwdl:RowIndex>3</rwdl:RowIndex>
+                    <rwdl:ColumnName>TEXT</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>4</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <!-- pt_dx.csv row 1 -> ce.csv row 1 -->
+        <rwdl:MapID UUID="0f185720-823f-4ee3-9e74-2cade2791ed5">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</rwdl:URI>
+                    <rwdl:RowIndex>1</rwdl:RowIndex>
+                    <rwdl:ColumnName>ICD10</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>1</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="de098b66-7ac9-4695-ab1a-bf4beea45a8d">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</rwdl:URI>
+                    <rwdl:RowIndex>1</rwdl:RowIndex>
+                    <rwdl:ColumnName>TERM</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>1</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="3fefb802-1332-4ff7-9c30-5511d61daf28" MethodDefOID="MT.AFTERIDXDATE">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/pt_dx.csv</rwdl:URI>
+                    <rwdl:RowIndex>1</rwdl:RowIndex>
+                    <rwdl:ColumnName>DATE</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>1</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <!-- notes.csv NLP extractions -> ce.csv row 1 -->
+        <rwdl:MapID UUID="67e89898-8383-43c4-a8c3-f219c27838c6" MethodDefOID="MT.NLPEXTRACTION">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</rwdl:URI>
+                    <rwdl:RowIndex>1</rwdl:RowIndex>
+                    <rwdl:ColumnName>TEXT</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>1</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+        <rwdl:MapID UUID="8f0f595a-9d6a-46ca-b2c6-ab5b00e18222" MethodDefOID="MT.NLPEXTRACTION">
+            <rwdl:Source>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/source/notes.csv</rwdl:URI>
+                    <rwdl:RowIndex>1</rwdl:RowIndex>
+                    <rwdl:ColumnName>TEXT</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Source>
+            <rwdl:Target>
+                <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+                    <rwdl:URI>https://github.com/cdisc-org/DataExchange-RWD-Lineage/blob/main/examples/example1/data/sdtm/ce.csv</rwdl:URI>
+                    <rwdl:RowIndex>1</rwdl:RowIndex>
+                    <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+                </rwdl:Coordinate>
+            </rwdl:Target>
+        </rwdl:MapID>
+
+    </rwdl:LineageTrail>
+
+</rwdl:Lineage>
