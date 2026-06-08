@@ -10,8 +10,9 @@ Each example provides a complete, self-contained package: source EHR data, targe
 
 ```
 examples/
-├── README.md              ← You are here
-├── example1/              ← CE domain: diagnoses, vitals, and clinical notes
+├── README.md                  ← You are here
+├── RWD-Lineage-Examples.pdf   ← Slide deck: background, motivation, and example walkthroughs
+├── example1/                  ← CE domain: diagnoses, vitals, and clinical notes
 │   ├── README.md
 │   ├── Example1.xlsx
 │   └── data/
@@ -24,7 +25,7 @@ examples/
 │           ├── pt_dx.csv
 │           ├── vitals.csv
 │           └── notes.csv
-└── example2/              ← AE + LB domains: lab results and adverse events
+└── example2/                  ← AE + LB domains: lab results and adverse events
     ├── README.md
     ├── Example2.xlsx
     └── data/
@@ -37,6 +38,8 @@ examples/
         └── source/
             └── LabResults.csv
 ```
+
+`RWD-Lineage-Examples.pdf` is a presentation deck covering the background and motivation for the standard, the RWD Lineage in Define-XML architecture, and annotated walkthroughs of both examples. It is a good starting point for understanding why the standard exists before reading the XML files.
 
 ### Validating an example
 
@@ -59,51 +62,51 @@ See the [repository README](../README.md) for full validation instructions and r
 
 ## Example Summaries
 
-### Example 1 — Clinical Events (CE) from EHR Diagnoses, Vitals, and Notes
+### Example 1 — Clinical Events (CE): Hypertension and Myocardial Infarction
 
 **SDTM domain:** CE (Clinical Events)
 **Source tables:** `pt_dx` (ICD-10 diagnoses), `vitals` (blood pressure, BMI), `notes` (free-text clinical notes)
 **Subjects:** 2 (001, 002) &nbsp;×&nbsp; 2 prespecified conditions = 4 CE records
-**Lineage entries:** 20 `<MapID>` elements
+**Lineage entries:** 20 `<rwdl:MapID>` elements
 
 This example models two prespecified clinical events — **hypertension** and **acute myocardial infarction** — and shows how each `CEOCCUR` determination draws on multiple evidence sources:
 
-| Transformation Type | Count | Description |
-|---------------------|-------|-------------|
-| `DirectMap`         | 7     | One-to-one mapping of a source value to a target field (e.g., ICD-10 code → `CEOCCUR` evidence) |
-| `AfterIndexDate`    | 5     | Temporal filter ensuring the source event falls within the study follow-up period |
-| `NLPExtraction`     | 5     | Structured data extracted from free-text clinical notes via NLP |
-| `FilterByValue`     | 3     | Conditional inclusion based on a source value (e.g., blood pressure ≥ threshold) |
+| `MethodDefOID` | Count | Description |
+|----------------|-------|-------------|
+| *(none — direct map)* | 7 | Source record directly supports the target determination; no algorithmic transformation |
+| `MT.AFTERIDXDATE` | 5 | Temporal filter — include only source records dated on or after the patient's study index date |
+| `MT.NLPEXTRACTION` | 5 | Structured data extracted from free-text clinical notes via NLP |
+| `MT.FILTERBYVAL` | 3 | Source vitals filtered by vital type to match the target clinical event |
 
 **Key concepts illustrated:**
-- Multi-source evidence: a single SDTM cell (`CEOCCUR`) can trace to diagnosis codes, vital-sign measurements, *and* NLP-extracted findings simultaneously.
-- Prespecified event algorithms: the lineage captures each step of a composite clinical algorithm (diagnosis code check → temporal filter → vitals threshold → NLP confirmation).
-- NLP lineage: free-text clinical notes are treated as a legitimate source, with the `NLPExtraction` transformation type documenting the extraction.
+- **Multi-source evidence:** a single SDTM cell (`CEOCCUR`) can trace to diagnosis codes, vital-sign measurements, *and* NLP-extracted findings simultaneously.
+- **Prespecified event algorithms:** the lineage captures each step of a composite clinical algorithm (diagnosis code check → temporal filter → vitals threshold → NLP confirmation).
+- **NLP lineage:** free-text clinical notes are a legitimate source, with `MT.NLPEXTRACTION` referencing the Define-XML `MethodDef` that documents the extraction logic.
 
 → See [`example1/README.md`](example1/README.md) for the full algorithm definitions.
 
 ---
 
-### Example 2 — Laboratory Results (LB) and Adverse Events (AE) from EHR Labs
+### Example 2 — Labs (LB) and Adverse Events (AE): Elevated Liver Enzyme
 
 **SDTM domains:** LB (Laboratory Test Results), AE (Adverse Events)
 **Source table:** `LabResults` (LOINC-coded lab results with raw values in original units)
 **Subjects:** 2 (001, 002) &nbsp;×&nbsp; 3 liver-enzyme tests &nbsp;×&nbsp; 2 visits = 12 LB records + 1 AE record
-**Lineage entries:** 99 `<MapID>` elements
+**Lineage entries:** 101 `<rwdl:MapID>` elements
 
 This example traces LOINC-coded EHR lab data through unit conversion into the SDTM LB domain, then derives an adverse event (hepatic enzyme elevation) in the AE domain:
 
-| Transformation Type      | Count | Description |
-|--------------------------|-------|-------------|
-| `DirectMap`              | 39    | One-to-one mappings (LOINC → `LBTESTCD`, visit date → `LBDTC`, patient ID → `USUBJID`, etc.) |
-| `LabValueParsing`        | 24    | Parsing composite result strings (e.g., `"0.3507 µkat/L"`) into numeric value and unit components |
-| `UnitConversion`         | 24    | Converting original units (µkat/L) to standard units (U/L) with stored results in `LBSTRES`/`LBSTRESU` |
-| `ElevatedLiverEnzyme`    | 12    | Algorithmic derivation identifying elevated ALT/AST/ALP to produce the AE record |
+| `MethodDefOID` | Count | Description |
+|----------------|-------|-------------|
+| *(none — direct map)* | 39 | LOINC code → `LBTEST`, visit date → `LBDTC`, `AETERM` → `AEDECOD`/`AELLTCD`, etc. |
+| `MT.LABVALPARSING` | 24 | Parse composite result strings (e.g., `"0.3507 µkat/L"`) into numeric value and unit components |
+| `MT.UNITCONV` | 24 | Convert original units (µkat/L) to standard units (U/L); results in `LBSTRES`/`LBSTRESU` |
+| `MT.ELEVATEDLIVERENZYME` | 12 | Evaluate ALT/AST/ALP against reference range upper limits to derive the AE record |
 
 **Key concepts illustrated:**
-- Multi-step transformations: a single lab result passes through parsing → conversion → standardization, each step recorded as a separate lineage entry.
-- Cross-domain derivation: the AE domain record is derived from the LB domain, which is itself derived from source EHR data — the lineage captures both hops.
-- High coverage density: 99 lineage entries across 13 SDTM records demonstrates cell-level traceability at scale, including every standard-range indicator (`LBSTNRLO`, `LBSTNRHI`, `LBNRIND`).
+- **Multi-step transformations:** a single lab result passes through parsing → conversion → standardization, each step a separate lineage entry.
+- **Cross-domain derivation:** the AE domain record is derived from the LB domain, which is itself derived from source EHR data — the lineage captures both hops.
+- **High coverage density:** 101 lineage entries across 13 SDTM records demonstrates cell-level traceability at scale, including every standard-range indicator (`LBSTNRLO`, `LBSTNRHI`, `LBNRIND`).
 
 → See [`example2/README.md`](example2/README.md) for the full algorithm definitions.
 
@@ -129,15 +132,32 @@ exampleN/
 
 ### `define.xml`
 
-A standard [CDISC Define-XML 2.1](https://www.cdisc.org/standards/data-exchange/define-xml) file with one addition — the `rwdl` namespace extension that references the companion lineage file:
+A standard [CDISC Define-XML 2.1](https://www.cdisc.org/standards/data-exchange/define-xml) file extended with two additions:
+
+1. **`MethodDef` elements** — one per non-direct transformation, describing the algorithm applied. Each `MethodDefOID` in `rwd-lineage.xml` resolves to one of these.
+2. **`rwdl:LineageRef`** — points to the companion lineage file via a standard `def:leaf` reference.
 
 ```xml
-<ODM xmlns:rwdl="http://www.cdisc.org/ns/rwd-lineage/v1" ...>
+<ODM xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0"
+     xmlns:def="http://www.cdisc.org/ns/def/v2.1" ...>
   <Study>
     <MetaDataVersion>
-      <rwdl:lineage>
-        <rwdl:ref leafID="LF.RWDLINEAGE">rwd-lineage.xml</rwdl:ref>
-      </rwdl:lineage>
+
+      <!-- Transformation definitions referenced by MethodDefOID in rwd-lineage.xml -->
+      <MethodDef OID="MT.AFTERIDXDATE" Name="After Index Date filter" Type="Computation">
+        <Description>
+          <TranslatedText xml:lang="en">Include source records only when the source date
+          falls on or after the patient's index date.</TranslatedText>
+        </Description>
+      </MethodDef>
+      <!-- ... additional MethodDef elements ... -->
+
+      <!-- Lineage file reference: def:leaf declares the file; rwdl:LineageRef points to it -->
+      <def:leaf ID="LF.RWDLINEAGE" xlink:href="rwd-lineage.xml">
+        <def:title>RWD Lineage Traceability</def:title>
+      </def:leaf>
+      <rwdl:LineageRef leafID="LF.RWDLINEAGE"/>
+
       <!-- Standard ItemGroupDef / ItemDef elements follow -->
     </MetaDataVersion>
   </Study>
@@ -146,32 +166,73 @@ A standard [CDISC Define-XML 2.1](https://www.cdisc.org/standards/data-exchange/
 
 ### `rwd-lineage.xml`
 
-The core deliverable. Each `<MapID>` element represents one source-to-target cell mapping:
+The core deliverable. The document has two top-level layers inside `rwdl:Lineage`:
+
+- **`rwdl:SourceMetadata`** (optional) — assertions about the source systems: their names, data models, and the controlled terminologies their coded values are encoded in.
+- **`rwdl:LineageTrail`** — the forensic record: an array of `rwdl:MapID` elements, each a Source→Target pair.
+
+Each `rwdl:MapID` element represents one source-to-target data point mapping:
 
 ```xml
-<RWDLineage xmlns="http://www.cdisc.org/ns/rwd-lineage/v1" ...>
-  <MapID uuid="35060134-fc2f-4cdf-9abe-491924739bd5">
-    <Transformation type="DirectMap">Direct Map</Transformation>
-    <Source>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>...source/pt_dx.csv</URI>
-        <RowIndex>4</RowIndex>
-        <ColumnName>ICD10</ColumnName>
-      </Coordinate>
-    </Source>
-    <Target>
-      <Coordinate storage="Filesystem" structure="Tabular">
-        <URI>...sdtm/ce.csv</URI>
-        <RowIndex>2</RowIndex>
-        <ColumnName>CEOCCUR</ColumnName>
-      </Coordinate>
-    </Target>
-  </MapID>
-  <!-- ... -->
-</RWDLineage>
+<rwdl:Lineage xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
+
+  <!-- LAYER 1: Assertions about the source systems -->
+  <rwdl:SourceMetadata>
+    <rwdl:SourceSystem OID="SRC.CSV.1"
+                 Name="Example 1 Clinical Source CSV Files"
+                 Description="CSV exports from clinical source system">
+      <rwdl:ExternalCodeList Dictionary="ICD-10-CM" Version="2024"
+                             AppliesTo="pt_dx.csv ICD10"/>
+    </rwdl:SourceSystem>
+  </rwdl:SourceMetadata>
+
+  <!-- LAYER 2: Forensic trail — Source -> Target pairs -->
+  <rwdl:LineageTrail>
+
+    <!-- Direct map: no MethodDefOID -->
+    <rwdl:MapID UUID="35060134-fc2f-4cdf-9abe-491924739bd5">
+      <rwdl:Source>
+        <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+          <rwdl:URI>.../source/pt_dx.csv</rwdl:URI>
+          <rwdl:RowIndex>4</rwdl:RowIndex>
+          <rwdl:ColumnName>ICD10</rwdl:ColumnName>
+        </rwdl:Coordinate>
+      </rwdl:Source>
+      <rwdl:Target>
+        <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+          <rwdl:URI>.../sdtm/ce.csv</rwdl:URI>
+          <rwdl:RowIndex>2</rwdl:RowIndex>
+          <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+        </rwdl:Coordinate>
+      </rwdl:Target>
+    </rwdl:MapID>
+
+    <!-- Non-direct map: MethodDefOID references the MethodDef in define.xml -->
+    <rwdl:MapID UUID="7e376beb-7dad-4f5c-a212-88283ac22eba"
+                MethodDefOID="MT.AFTERIDXDATE">
+      <rwdl:Source>
+        <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+          <rwdl:URI>.../source/pt_dx.csv</rwdl:URI>
+          <rwdl:RowIndex>4</rwdl:RowIndex>
+          <rwdl:ColumnName>DATE</rwdl:ColumnName>
+        </rwdl:Coordinate>
+      </rwdl:Source>
+      <rwdl:Target>
+        <rwdl:Coordinate Storage="FILESYSTEM" Structure="TABULAR" Format="CSV">
+          <rwdl:URI>.../sdtm/ce.csv</rwdl:URI>
+          <rwdl:RowIndex>2</rwdl:RowIndex>
+          <rwdl:ColumnName>CEOCCUR</rwdl:ColumnName>
+        </rwdl:Coordinate>
+      </rwdl:Target>
+    </rwdl:MapID>
+
+    <!-- ... -->
+  </rwdl:LineageTrail>
+
+</rwdl:Lineage>
 ```
 
-Key attributes are documented in the [RWD-Lineage Data Standard Specification](../documents/RWD-Lineage_Data_Standard_Specification.md).
+Key attributes and elements are documented in the [RWD-Lineage Data Standard Specification](../documents/RWD-Lineage_Data_Standard_Specification.md).
 
 ### `ExampleN.xlsx`
 
@@ -179,17 +240,19 @@ A companion Excel workbook containing all source tables, SDTM output tables, and
 
 ---
 
-## Transformation Types Used Across Examples
+## Transformations Across Examples
 
-| Type | Example 1 | Example 2 | Description |
-|------|-----------|-----------|-------------|
-| `DirectMap` | ✓ | ✓ | One-to-one value copy from source to target |
-| `AfterIndexDate` | ✓ | | Temporal filter relative to a study index date |
-| `FilterByValue` | ✓ | | Conditional inclusion based on source data value |
-| `NLPExtraction` | ✓ | | Value extracted from unstructured text via NLP |
-| `LabValueParsing` | | ✓ | Numeric/unit parsing from composite lab result strings |
-| `UnitConversion` | | ✓ | Conversion between measurement unit systems |
-| `ElevatedLiverEnzyme` | | ✓ | Algorithmic derivation of adverse events from lab data |
+Transformations are expressed via the `MethodDefOID` attribute on `rwdl:MapID`, which references a `MethodDef` element in `define.xml`. Direct maps — where the source record directly supports the target without an algorithmic transformation — carry no `MethodDefOID`.
+
+| `MethodDefOID` | Example 1 | Example 2 | Description |
+|----------------|-----------|-----------|-------------|
+| *(none)* | ✓ | ✓ | Direct map — no transformation applied |
+| `MT.AFTERIDXDATE` | ✓ | | Temporal filter relative to the patient's study index date |
+| `MT.FILTERBYVAL` | ✓ | | Conditional inclusion based on source vital type value |
+| `MT.NLPEXTRACTION` | ✓ | | Concept extracted from free-text clinical notes via NLP |
+| `MT.LABVALPARSING` | | ✓ | Numeric value and unit parsed from a composite lab result string |
+| `MT.UNITCONV` | | ✓ | Conversion between measurement unit systems (µkat/L → U/L) |
+| `MT.ELEVATEDLIVERENZYME` | | ✓ | Algorithmic derivation of an AE record from elevated lab results |
 
 ---
 
