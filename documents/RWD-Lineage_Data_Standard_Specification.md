@@ -162,7 +162,7 @@ The `rwdl:Standard` element is OPTIONAL and is used to declare that the parent `
 |-----------|---------------|-------|-------------|
 | `Name` | string | Optional | The specific data model or standard utilized by the source (e.g., `FHIR`, `OMOP-CDM`, `PCORNET-CDM`, `SENTINEL-CDM`, `CDA`). Free-text; not constrained by an RWDL codelist in V1. |
 | `Version` | string | Optional | The version of the standard (e.g., `5.4`, `R4`, `1.0`). |
-| `Status` | string | Optional | Publication status of the standard. Allowed values mirror Define-XML `def:Standard/@Status`: `Draft`, `Provisional`, `Final`. |
+| `Status` | string | Optional | Publication status of the standard. |
 
 A sponsor populates whichever attributes meaningfully apply to their source. The `rwdl:Standard` element is appropriate for sources that conform to a named, versioned standard. The `Description` attribute on `rwdl:SourceSystem` is appropriate for bespoke sources, or as a supplement to the structured attributes.
 
