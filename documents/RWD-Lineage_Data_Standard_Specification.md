@@ -170,7 +170,7 @@ A sponsor populates whichever attributes meaningfully apply to their source. The
 
 The `rwdl:ExternalCodeList` element declares the controlled terminology (e.g., ICD-10-CM, LOINC, RxNorm, NDC, SNOMED CT) in which coded values in the source are encoded. It is OPTIONAL and a single `rwdl:SourceSystem` MAY carry multiple `rwdl:ExternalCodeList` elements — one per coded element in the source.
 
-`rwdl:ExternalCodeList` is modeled on the Define-XML `ExternalCodeList` element, which declares external controlled terminology dictionaries on the target side. The `Dictionary`, `Version`, and `href` attributes are carried over directly, so Define-XML readers recognize the pattern. RWD Lineage adds an `AppliesTo` attribute, identifying which element or column within the source the declaration governs, and an optional `rwdl:Scope` child element for declarations that apply only to part of a source (for example, a column whose encoding changed over time).
+`rwdl:ExternalCodeList` is modeled on the Define-XML `ExternalCodeList` element, which declares external controlled terminology dictionaries on the target side. The `Dictionary`, `Version`, and `href` attributes are carried over directly, so Define-XML readers recognize the pattern. RWD Lineage adds a `rwdl:AppliesTo` child element, identifying which element or column within the source the declaration governs. Each `rwdl:AppliesTo` element carries a `rwdl:Item` child element, and an optional `rwdl:Scope` child element for declarations that apply only to part of a source (for example, a column whose encoding changed over time).
 
 **Why source terminology is an assertion, not an observable fact.** As Document Structure notes, interpretive claims about what the data means are kept out of the lineage trail. Source terminology is exactly such a claim. A row identifier or column name is an observable property of the source; the claim that a given column is encoded in "ICD-10-CM 2024" is different in kind, because in many EHR and claims sources the encoding vocabulary is not explicit in the data and the claim is an inference made by a person or process applying judgment to sample data. Recording it on the Coordinate or MapID would make interpretive content indistinguishable from forensic fact to a downstream reviewer. Keeping it in the source metadata layer, declared on the source, keeps that boundary clean.
 
@@ -183,15 +183,23 @@ This source-side layer gives the controlled-terminology documentation called for
 | `Dictionary` | string | Required | The name of the external controlled terminology (e.g., `ICD-10-CM`, `LOINC`, `RxNorm`, `NDC`, `SNOMED CT`). Mirrors Define-XML `ExternalCodeList/@Dictionary`. Free-text and not governed by a CDISC Controlled Terminology codelist; published terminology lists such as the NCI Metathesaurus may be consulted as a reference for dictionary names, but values are not constrained to a CDISC-controlled set. |
 | `Version` | string | Conditional | The version or release of the dictionary (e.g., `2024`, `2024-09-03`). Required where the dictionary is versioned; the literal `continuous` MAY be used for dictionaries that are continuously updated without discrete versions (e.g., NDC). Mirrors Define-XML `ExternalCodeList/@Version`. |
 | `href` | string (URI) | Optional | A resolvable reference to the dictionary or its publisher. Mirrors Define-XML `ExternalCodeList/@href`. |
-| `AppliesTo` | string | Optional | Identifies the element, field, or column within the source the declaration applies to. The expression follows the source's own conventions (e.g., FHIRPath for FHIR sources such as `Condition.code`; dot notation for CDM tables such as `DIAGNOSIS.DX`). When omitted, the declaration applies to the source as a whole. |
 
 ##### Child Elements
 
-The `rwdl:ExternalCodeList` element MAY carry one or more `rwdl:Scope` child elements. A declaration that applies to the whole of the element named in `AppliesTo` carries no `rwdl:Scope`.
+The `rwdl:ExternalCodeList` element MAY carry one or more `rwdl:AppliesTo` child elements. When no `rwdl:AppliesTo` is present, the declaration applies to the source as a whole.
 
 | Element | Cardinality | Description |
 |---------|-------------|-------------|
-| `rwdl:Scope` | 0..n | Qualifies when or to which subset of records the assertion applies. Carries an optional `Condition` attribute (a predicate in the source's own expression conventions, e.g., `encounter_date >= 2015-10-01`) and an optional `Description` attribute (free-text explanation). When no `rwdl:Scope` is present, the assertion applies unconditionally ("Always"). Multiple `rwdl:Scope` elements partition a column whose encoding changed over time or across subsets (e.g., an ICD-9-CM → ICD-10-CM transition). |
+| `rwdl:AppliesTo` | 0..n | Identifies a specific element, field, or column within the source that the terminology applies to. |
+
+###### `rwdl:AppliesTo` Child Elements
+
+The `rwdl:AppliesTo` element MUST carry one `rwdl:Item` child element, and MAY carry one `rwdl:Scope` child element. A declaration that applies to the whole of the element named in `rwdl:Item` carries no `rwdl:Scope`.
+
+| Element | Cardinality | Description |
+|---------|-------------|-------------|
+| `rwdl:Item` | 1..1 | Identifies the element, field, or column within the source the declaration applies to. The expression follows the source's own conventions (e.g., FHIRPath for FHIR sources such as `Condition.code`; dot notation for CDM tables such as `DIAGNOSIS.DX`). |
+| `rwdl:Scope` | 0..1 | Qualifies when or to which subset of records the assertion applies. Carries an optional `Condition` attribute (a predicate in the source's own expression conventions, e.g., `encounter_date >= 2015-10-01`) and an optional `Description` attribute (free-text explanation). When no `rwdl:Scope` is present, the assertion applies unconditionally ("Always"). If a column's encoding changed over time (e.g., an ICD-9-CM → ICD-10-CM transition), multiple `rwdl:ExternalCodeList` blocks are used, each with its own `rwdl:Scope`. |
 
 ### Source Metadata Examples
 
@@ -246,7 +254,7 @@ A sponsor combining claims data and EDC data alongside an EHR feed:
 </rwdl:SourceMetadata>
 ```
 
-A sponsor declaring the controlled terminologies in which source values are encoded. The EHR source carries an ICD-10-CM declaration scoped across the ICD-9/ICD-10 transition date (two `rwdl:Scope` elements partition the column) plus an RxNorm declaration; the claims source declares ICD-10-CM and NDC for its respective columns:
+A sponsor declaring the controlled terminologies in which source values are encoded. The EHR source carries two condition declarations scoped across the ICD-9/ICD-10 transition date (one for ICD-10-CM and one for ICD-9-CM) plus an RxNorm declaration; the claims source declares ICD-10-CM and NDC for its respective columns:
 
 ```xml
 <rwdl:SourceMetadata xmlns:rwdl="http://www.cdisc.org/ns/rwdl/v1.0">
@@ -254,27 +262,45 @@ A sponsor declaring the controlled terminologies in which source values are enco
                  Name="University Hospital Epic Interconnect"
                  Description="EHR FHIR API at api.hospital.org">
         <rwdl:Standard Name="FHIR" Version="R4" Status="Final"/>
-        <!-- ICD-10-CM coding, date-scoped across the ICD-9 to ICD-10 transition -->
+        <!-- ICD-10-CM coding for conditions on or after the transition date -->
         <rwdl:ExternalCodeList Dictionary="ICD-10-CM" Version="2024"
-                               href="https://www.cms.gov/medicare/icd-10/2024-icd-10-cm"
-                               AppliesTo="Condition.code">
-            <rwdl:Scope Condition="encounter_date &gt;= 2015-10-01"
-                        Description="Codes on or after 2015-10-01 are ICD-10-CM; transition date approximate"/>
-            <rwdl:Scope Condition="encounter_date &lt; 2015-10-01"
-                        Description="Codes prior to 2015-10-01 are ICD-9-CM"/>
+                               href="https://www.cms.gov/medicare/icd-10/2024-icd-10-cm">
+            <rwdl:AppliesTo>
+                <rwdl:Item>Condition.code</rwdl:Item>
+                <rwdl:Scope Condition="encounter_date &gt;= 2015-10-01"
+                            Description="Codes on or after 2015-10-01 are ICD-10-CM; transition date approximate"/>
+            </rwdl:AppliesTo>
+        </rwdl:ExternalCodeList>
+        <!-- ICD-9-CM coding for conditions prior to the transition date -->
+        <rwdl:ExternalCodeList Dictionary="ICD-9-CM" Version="2014"
+                               href="https://www.cms.gov/medicare/icd-9">
+            <rwdl:AppliesTo>
+                <rwdl:Item>Condition.code</rwdl:Item>
+                <rwdl:Scope Condition="encounter_date &lt; 2015-10-01"
+                            Description="Codes prior to 2015-10-01 are ICD-9-CM"/>
+            </rwdl:AppliesTo>
         </rwdl:ExternalCodeList>
         <rwdl:ExternalCodeList Dictionary="RxNorm" Version="2024-09-03"
-                               href="https://www.nlm.nih.gov/research/umls/rxnorm/"
-                               AppliesTo="MedicationRequest.medicationCodeableConcept"/>
+                               href="https://www.nlm.nih.gov/research/umls/rxnorm/">
+            <rwdl:AppliesTo>
+                <rwdl:Item>MedicationRequest.medicationCodeableConcept</rwdl:Item>
+            </rwdl:AppliesTo>
+        </rwdl:ExternalCodeList>
     </rwdl:SourceSystem>
     <rwdl:SourceSystem OID="SRC.CLAIMS.1"
                  Name="Optum Claims Repository"
                  Description="Adjudicated medical and pharmacy claims feed">
         <rwdl:Standard Name="PCORNET-CDM" Version="6.1" Status="Final"/>
-        <rwdl:ExternalCodeList Dictionary="ICD-10-CM" Version="2024"
-                               AppliesTo="DIAGNOSIS.DX"/>
-        <rwdl:ExternalCodeList Dictionary="NDC" Version="continuous"
-                               AppliesTo="DISPENSING.NDC"/>
+        <rwdl:ExternalCodeList Dictionary="ICD-10-CM" Version="2024">
+            <rwdl:AppliesTo>
+                <rwdl:Item>DIAGNOSIS.DX</rwdl:Item>
+            </rwdl:AppliesTo>
+        </rwdl:ExternalCodeList>
+        <rwdl:ExternalCodeList Dictionary="NDC" Version="continuous">
+            <rwdl:AppliesTo>
+                <rwdl:Item>DISPENSING.NDC</rwdl:Item>
+            </rwdl:AppliesTo>
+        </rwdl:ExternalCodeList>
     </rwdl:SourceSystem>
 </rwdl:SourceMetadata>
 ```
@@ -418,8 +444,11 @@ This example shows both top-level layers of an `rwdl:Lineage` document together.
                      Description="EHR FHIR API at api.hospital.org">
             <rwdl:Standard Name="FHIR" Version="R4" Status="Final"/>
             <rwdl:ExternalCodeList Dictionary="ICD-10-CM" Version="2024"
-                                   href="https://www.cms.gov/medicare/icd-10/2024-icd-10-cm"
-                                   AppliesTo="Condition.code"/>
+                                   href="https://www.cms.gov/medicare/icd-10/2024-icd-10-cm">
+                <rwdl:AppliesTo>
+                    <rwdl:Item>Condition.code</rwdl:Item>
+                </rwdl:AppliesTo>
+            </rwdl:ExternalCodeList>
         </rwdl:SourceSystem>
     </rwdl:SourceMetadata>
 
@@ -689,11 +718,14 @@ For the referenced case, the pointer reuses the standard Define-XML external-doc
 | MethodDef | A Define-XML element defining a computation or derivation. RWD Lineage references it via `MethodDefOID` to describe the transformation applied from source to target value. |
 | RWD | Real-World Data |
 | RWE | Real-World Evidence |
+| rwdl:AppliesTo | The `rwdl:AppliesTo` element: identifies the specific element, field, or column to which an external code list applies. |
 | rwdl:Coordinate | The `rwdl:Coordinate` element: locates a single data point within a storage container and structural format. |
 | rwdl:ExternalCodeList | The `rwdl:ExternalCodeList` element: declares the external controlled terminology dictionary (e.g., ICD-10-CM) used for a source element. |
+| rwdl:Item | The `rwdl:Item` element: child of `rwdl:AppliesTo`, identifying the target element, field, or column using the source's native addressing convention. |
 | rwdl:Lineage | The root element of an RWD Lineage metadata document. |
 | rwdl:LineageTrail | The `rwdl:LineageTrail` element: one of the two top-level layers of an RWD Lineage document, containing the array of `rwdl:MapID` Source–Target pairs that form the forensic trail. |
 | rwdl:MapID | The `rwdl:MapID` element: a Source–Target pair linking a raw real-world data point coordinate to a standardized clinical target coordinate. |
+| rwdl:Scope | The `rwdl:Scope` element: child of `rwdl:AppliesTo`, qualifying when or to which subset of records the controlled terminology assertion applies. |
 | rwdl:SourceSystem | The `rwdl:SourceSystem` element: describes a single real-world source system within `rwdl:SourceMetadata`. |
 | rwdl:SourceMetadata | The `rwdl:SourceMetadata` element: one of the two top-level layers of an RWD Lineage document, containing machine-readable assertions about the source data systems. |
 | rwdl:Standard | The `rwdl:Standard` element: declares the data model or standard (e.g., FHIR, OMOP) to which a source conforms. |
