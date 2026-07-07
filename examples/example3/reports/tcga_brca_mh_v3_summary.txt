@@ -1,0 +1,184 @@
+TCGA-BRCA -> SDTM MH DOMAIN BUILD
+=================================
+
+Source
+------
+  Input  : /mnt/user-data/outputs/tcga_brca_cohort_inclusion.xlsx
+           (385-patient TCGA-BRCA screening cohort, one row per patient)
+  Spec   : tcga_to_sdtm_mapping_specs.xlsx (updated version; with in-chat
+           clarifications where needed)
+
+Output
+------
+  File   : /mnt/user-data/outputs/tcga_brca_mh.txt
+  Format : Tab-separated (tab delimiter), UTF-8, .txt extension
+  Shape  : 385 rows (one MH row per subject -- the initial breast cancer
+           diagnosis event), 15 columns.
+
+Column mapping
+--------------
+  STUDYID  : hardcoded 'TCGA-BRCA'
+  DOMAIN   : hardcoded 'MH'
+  USUBJID  : bcr_patient_barcode                   (direct copy)
+  MHSEQ    : 1 for every row; implemented via spec's general logic
+             (sort by USUBJID, VISITNUM, MHTERM; groupby-cumcount + 1)
+  MHTERM   : histological_type                     (source-to-target copy
+                                                    with concatenation for:
+                                                    'Other  specify' ->
+                                                      'Other specify - ' ||
+                                                      histologic_diagnosis_other
+                                                    'Mixed Histology (please specify)' ->
+                                                      'Mixed Histology (please specify) - ' ||
+                                                      histologic_diagnosis_other)
+  MHDECOD  : icd_o_3_histology                     (converted to text via
+                                                    icd-o-3_code_to_text.xlsx
+                                                    lookup dictionary)
+  MHCAT    : hardcoded 'TCGA-PATIENT'
+  MHEVDTYP : hardcoded 'INITIAL PATHOLOGICAL DIAGNOSIS'
+  MHSTDTC  : initial_pathologic_dx_year            (year-only ISO 8601,
+                                                    e.g. '2009'; BLANK if
+                                                    source is non-date,
+                                                    e.g. '[Not Available]')
+  MHDTC    : form_completion_date                  (ISO 8601 YYYY-MM-DD,
+                                                    zero-padded; BLANK if
+                                                    source is non-date)
+  MHSTDY   : days_to_initial_pathologic_diagnosis + 1
+                                                   (Num; = 1 for all 385
+                                                    patients since days = 0
+                                                    for all)
+  MHSTRTPT : hardcoded 'BEFORE'                    (ONLY populated when
+                                                    source year value is
+                                                    literally '[Not Available]';
+                                                    else blank)
+  MHSTTPT  : hardcoded 'SCREENING'                 (same conditional rule
+                                                    as MHSTRTPT)
+  MHPRESP  : hardcoded 'Y'                         (all events pre-specified)
+  MHOCCUR  : hardcoded 'Y'                         (all events occurred)
+  VISITNUM : hardcoded 1                           (Num, per SDTM standard)
+  VISIT    : hardcoded 'VISIT 1'
+
+Not performed
+-------------
+  - MHTERM is NOT validated against any controlled terminology (verbatim
+    collected term with concatenation where specified, per spec v2).
+  - Spec's "Invasive breast cancer / histological_type" screening row was
+    omitted (all TCGA-BRCA patients are breast cancer patients by dataset
+    definition, per user clarification).
+  - pharmaceutical_therapy_type value distribution in the drug file was
+    NOT inspected (the chemo filter used exact-string equality with
+    'Chemotherapy', per the screening cohort spec).
+  - MHSTRTPT/MHSTTPT trigger interpreted LITERALLY: only source value
+    exactly '[Not Available]' triggers population. Other non-date
+    sentinels (e.g. '[Unknown]', '[Discrepancy]') would leave MHSTRTPT
+    and MHSTTPT blank. None of those other sentinels appear in
+    initial_pathologic_dx_year in this dataset.
+
+QC checks performed
+-------------------
+   1. Input row count equals output row count
+   2. USUBJID is unique across rows
+   3. (USUBJID, MHSEQ) natural key is unique
+   4. Missingness per column (NaN and empty-string counts, informational;
+      MHSTDTC, MHDTC, MHSTRTPT, MHSTTPT may be blank by design)
+   5. MHSTDTC: blank OR ISO 8601 year pattern ^\d{4}$
+   6. MHDTC : blank OR ISO 8601 YYYY-MM-DD
+   7. Hardcoded (always-populated) columns uniform = expected value
+   8. Sentinel-string scan -- no '[Not Available]' / '[Not Applicable]' /
+      '[Unknown]' / '[Discrepancy]' in MH output
+   9. MHSTDY is numeric and non-null
+  10. MHSTRTPT / MHSTTPT conditional consistency:
+      - MHSTRTPT values in {'', 'BEFORE'}
+      - MHSTTPT  values in {'', 'SCREENING'}
+      - populated iff source initial_pathologic_dx_year == '[Not Available]'
+      - MHSTRTPT and MHSTTPT always populated together (both blank or
+        both set) on each row
+  11. Column order matches expected SDTM MH order (15 cols)
+  12. No tab characters in any value cell (tab-delimiter safety)
+
+  Warnings are collected but do not abort the write. The output file is
+  produced regardless; the summary below reports PASS/FAIL per check.
+
+============================================================
+RUN LOG / QC RESULTS
+============================================================
+Loaded cohort: 385 rows
+Built MH dataset: 385 rows, 17 columns
+
+============================================================
+QC CHECKS
+============================================================
+  [PASS] Input row count equals output row count -- in=385, out=385
+  [PASS] USUBJID is unique across rows
+  [PASS] (USUBJID, MHSEQ) natural key is unique
+
+  Missingness per column (NaN or empty string) -- informational:
+    STUDYID       0
+    DOMAIN        0
+    USUBJID       0
+    MHSEQ         0
+    MHTERM        0
+    MHDECOD       0
+    MHCAT         0
+    MHEVDTYP      0
+    MHSTDTC       2   (expected -- conditional)
+    MHDTC         0
+    MHSTDY        0
+    MHSTRTPT    383   (expected -- conditional)
+    MHSTTPT     383   (expected -- conditional)
+    MHPRESP       0
+    MHOCCUR       0
+    VISITNUM      0
+    VISIT         0
+  [PASS] MHSTDTC values are blank OR ISO 8601 year ^\d{4}$ -- 2 blank, 383 year-formatted
+  [PASS] MHDTC values are blank OR ISO 8601 YYYY-MM-DD -- 0 blank, 385 date-formatted
+  [PASS] STUDYID is uniform (hardcoded 'TCGA-BRCA')
+  [PASS] DOMAIN is uniform (hardcoded 'MH')
+  [PASS] MHCAT is uniform (hardcoded 'TCGA-PATIENT')
+  [PASS] MHEVDTYP is uniform (hardcoded 'INITIAL PATHOLOGICAL DIAGNOSIS')
+  [PASS] MHPRESP is uniform (hardcoded 'Y')
+  [PASS] MHOCCUR is uniform (hardcoded 'Y')
+  [PASS] VISITNUM is uniform (hardcoded '1')
+  [PASS] VISIT is uniform (hardcoded 'VISIT 1')
+  [PASS] MHTERM: 11 'Other specify' rows correctly concatenated
+  [PASS] MHTERM: 10 'Mixed Histology' rows correctly concatenated
+  [PASS] MHDECOD: all ICD-O-3 codes resolved to text via lookup (no unmapped codes) -- all 385 rows mapped successfully
+
+  MHTERM vs MHDECOD discrepancy report (4 mismatches found):
+    USUBJID              MHTERM                                   MHDECOD                                           
+    -------------------- ---------------------------------------- --------------------------------------------------
+    TCGA-BH-A0HL         Infiltrating Ductal Carcinoma            Intraductal papillary adenocarcinoma with invasion
+    TCGA-EW-A1OW         Infiltrating Ductal Carcinoma            Basal cell carcinoma, NOS                         
+    TCGA-EW-A1OX         Mucinous Carcinoma                       Infiltrating duct mixed with other types of carcinoma
+    TCGA-EW-A1PE         Infiltrating Ductal Carcinoma            Invasive micropapillary carcinoma                 
+
+  7e. Exhaustiveness check -- all non-concatenated histological_type categories:
+    Categories checked: ['Infiltrating Ductal Carcinoma', 'Infiltrating Lobular Carcinoma', 'Medullary Carcinoma', 'Metaplastic Carcinoma', 'Mucinous Carcinoma']
+    Categories with >1 ICD-O-3 code (i.e. potential discrepancies): ['Infiltrating Ductal Carcinoma', 'Mucinous Carcinoma']
+
+  Full cross-tab of non-concatenated rows (histological_type x ICD-O-3 code x decoded text):
+    histological_type                        code       MHDECOD                                                    n
+    ---------------------------------------- ---------- ------------------------------------------------------- ----
+    Infiltrating Ductal Carcinoma            8090/3     Basal cell carcinoma, NOS                                  1  <-- MISMATCH (flagged in 7d)
+    Infiltrating Ductal Carcinoma            8500/3     Infiltrating duct carcinoma, NOS                         286
+    Infiltrating Ductal Carcinoma            8503/3     Intraductal papillary adenocarcinoma with invasion         1  <-- MISMATCH (flagged in 7d)
+    Infiltrating Ductal Carcinoma            8507/3     Invasive micropapillary carcinoma                          1  <-- MISMATCH (flagged in 7d)
+    Infiltrating Lobular Carcinoma           8520/3     Lobular carcinoma, NOS                                    66
+    Medullary Carcinoma                      8510/3     Medullary carcinoma, NOS                                   2
+    Metaplastic Carcinoma                    8575/3     Metaplastic carcinoma, NOS                                 4
+    Mucinous Carcinoma                       8480/3     Mucinous adenocarcinoma                                    2
+    Mucinous Carcinoma                       8523/3     Infiltrating duct mixed with other types of carcinoma      1  <-- MISMATCH (flagged in 7d)
+
+  Sentinel-string scan (should find zero):
+    (none found)
+  [PASS] MHSTDY is numeric and non-null
+  [PASS] MHSTRTPT values are in {'', 'BEFORE'}
+  [PASS] MHSTTPT values are in {'', 'SCREENING'}
+  [PASS] MHSTRTPT populated iff source year == '[Not Available]' -- 2 populated, 2 expected
+  [PASS] MHSTRTPT and MHSTTPT are always populated together
+  [PASS] Column order matches expected SDTM MH order -- got 17 cols, expected 17
+
+WARNINGS (1): ['4 MHTERM/MHDECOD mismatches -- see discrepancy report']
+  [PASS] No tab characters in any value cell (tab-delimiter safety)
+
+Wrote /mnt/user-data/outputs/tcga_brca_mh_v3.txt (385 rows)
+Wrote /mnt/user-data/outputs/tcga_brca_mh_v3_discrepancies.txt (4 mismatches)

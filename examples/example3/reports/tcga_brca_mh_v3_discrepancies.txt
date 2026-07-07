@@ -1,0 +1,5 @@
+bcr_patient_barcode	histological_type	icd_o_3_histology	MHTERM_derived	MHDECOD_derived
+TCGA-BH-A0HL	Infiltrating Ductal Carcinoma	8503/3	Infiltrating Ductal Carcinoma	Intraductal papillary adenocarcinoma with invasion
+TCGA-EW-A1OW	Infiltrating Ductal Carcinoma	8090/3	Infiltrating Ductal Carcinoma	Basal cell carcinoma, NOS
+TCGA-EW-A1OX	Mucinous Carcinoma	8523/3	Mucinous Carcinoma	Infiltrating duct mixed with other types of carcinoma
+TCGA-EW-A1PE	Infiltrating Ductal Carcinoma	8507/3	Infiltrating Ductal Carcinoma	Invasive micropapillary carcinoma

@@ -1,0 +1,98 @@
+section,OID,Name,Type,Version,PublishingSet,Status,Domain,Repeating,Purpose,SASDatasetName,def_Structure,def_Class,def_StandardOID,def_ArchiveLocationID,def_CommentOID,ItemOID,OrderNumber,Mandatory,KeySequence,MethodOID,DataType,Length,SASFieldName,Label,Origin_Type,Origin_Source,CodeListOID,Description,FormalExpression_Context,FormalExpression,def_IsNonStandard,CodedValues_with_NCICodes,xlink_href,Title,Comment
+Standard,STD.SDTMIG-3.3,SDTMIG,IG,3.3,,Final,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Standard,STD.CT.SDTM.2023,CDISC/NCI,CT,2023-06-30,SDTM,Final,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Standard,STD.RWDL-1.0,RWDL,IG,1.0,,Draft,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CommentDef,COM.MDV.MIXEDPRECISION,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,CONFORMANCE NOTE: MHSTDTC and MHDTC contain values of mixed ISO 8601 precision across the two source datasets. TCGA-BRCA values are year-only (YYYY) for MHSTDTC and date-only (YYYY-MM-DD) for MHDTC. MIMIC-IV values are full datetimes (YYYY-MM-DDTHH:MM:SS) for both. Both columns are declared as DataType incompleteDatetime to accommodate both. Downstream analysis should account for this precision difference when comparing across studies.
+CommentDef,COM.MHCAT.COMBINED,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"MHCAT values differ by study: TCGA-BRCA uses 'TCGA-PATIENT'; MIMICIVBC uses 'MALIGNANCY HISTORY'. Both are sponsor-defined, non-CDISC-CT values. See codelist CL.MHCAT.COMBINED."
+ItemGroupDef,IG.MH.COMBINED,MH,,,,,MH,Yes,Tabulation,MH,One record per medical history event per subject,EVENTS,STD.SDTMIG-3.3,LF.MH.COMBINED,COM.MDV.MIXEDPRECISION,,,,,,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.STUDYID,1,Yes,1,,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.DOMAIN,2,Yes,,,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.USUBJID,3,Yes,2,MT.MIMIC.DIRECT,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHSEQ,4,Yes,3,MT.MIMIC.DIRECT,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHTERM,5,Yes,,MT.COMBINED.MHTERM,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHDECOD,6,No,,MT.COMBINED.MHDECOD,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHCAT,7,No,,MT.MIMIC.DIRECT,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHEVDTYP,8,No,,MT.MIMIC.DIRECT,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHPRESP,9,No,,,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHOCCUR,10,No,,MT.MIMIC.DIRECT,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHSTAT,11,No,,MT.MIMIC.DIRECT,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHSTDTC,12,No,,MT.COMBINED.MHSTDTC,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHDTC,13,No,,MT.COMBINED.MHDTC,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHSTDY,14,No,,MT.MHSTDY.DAYSPLUS1,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHDY,15,No,,MT.MIMIC.DIRECT,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHSTRTPT,16,No,,MT.MHSTRTPT.CONDITIONAL,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.MHSTTPT,17,No,,MT.MHSTRTPT.CONDITIONAL,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.VISITNUM,18,No,,MT.MIMIC.DIRECT,,,,,,,,,,,,,,,
+ItemRef,,,,,,,,,,,,,,,,IT.MH.COMBINED.VISIT,19,No,,MT.MIMIC.DIRECT,,,,,,,,,,,,,,,
+ItemDef,IT.MH.COMBINED.STUDYID,STUDYID,,,,,,,,,,,,,,,,,,,text,9,STUDYID,Study Identifier,Protocol,Sponsor,,,,,,,,,
+ItemDef,IT.MH.COMBINED.DOMAIN,DOMAIN,,,,,,,,,,,,,,,,,,,text,2,DOMAIN,Domain Abbreviation,Protocol,Sponsor,,,,,,,,,
+ItemDef,IT.MH.COMBINED.USUBJID,USUBJID,,,,,,,,,,,,,,,,,,,text,18,USUBJID,Unique Subject Identifier,Assigned,Sponsor,,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHSEQ,MHSEQ,,,,,,,,,,,,,,,,,,,integer,2,MHSEQ,Sequence Number,Derived,Sponsor,,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHTERM,MHTERM,,,,,,,,,,,,,,,,,,,text,200,MHTERM,Verbatim History Term,Collected,Investigator,,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHDECOD,MHDECOD,,,,,,,,,,,,,,,,,,,text,200,MHDECOD,Dictionary-Derived Term,Derived,Sponsor,,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHCAT,MHCAT,,,,,,,,,,,,,,,,,,,text,20,MHCAT,Category for History,Assigned,Sponsor,,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHEVDTYP,MHEVDTYP,,,,,,,,,,,,,,,,,,,text,30,MHEVDTYP,Medical History Event Evidence Type,Assigned,Sponsor,,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHPRESP,MHPRESP,,,,,,,,,,,,,,,,,,,text,1,MHPRESP,Medical History Event Pre-Specified,Protocol,Sponsor,CL.NY,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHOCCUR,MHOCCUR,,,,,,,,,,,,,,,,,,,text,1,MHOCCUR,Medical History Event Occurrence,Collected,Investigator,CL.NY,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHSTAT,MHSTAT,,,,,,,,,,,,,,,,,,,text,20,MHSTAT,Completion Status,Collected,Investigator,,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHSTDTC,MHSTDTC,,,,,,,,,,,,,,,,,,,incompleteDatetime,,MHSTDTC,Start Date/Time of Medical History,Collected,Investigator,,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHDTC,MHDTC,,,,,,,,,,,,,,,,,,,incompleteDatetime,,MHDTC,Date/Time of Medical History,Collected,Investigator,,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHSTDY,MHSTDY,,,,,,,,,,,,,,,,,,,integer,1,MHSTDY,Study Day of Start of Medical History,Derived,Sponsor,,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHDY,MHDY,,,,,,,,,,,,,,,,,,,integer,1,MHDY,Study Day of Medical History Collection,Collected,Investigator,,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHSTRTPT,MHSTRTPT,,,,,,,,,,,,,,,,,,,text,10,MHSTRTPT,Start Relative to Reference Time Point,Derived,Sponsor,CL.STENRF,,,,,,,,
+ItemDef,IT.MH.COMBINED.MHSTTPT,MHSTTPT,,,,,,,,,,,,,,,,,,,text,20,MHSTTPT,Start Reference Time Point,Derived,Sponsor,,,,,,,,,
+ItemDef,IT.MH.COMBINED.VISITNUM,VISITNUM,,,,,,,,,,,,,,,,,,,integer,2,VISITNUM,Visit Number,Protocol,Sponsor,,,,,,,,,
+ItemDef,IT.MH.COMBINED.VISIT,VISIT,,,,,,,,,,,,,,,,,,,text,25,VISIT,Visit Name,Protocol,Sponsor,,,,,,,,,
+MethodDef,MT.COMBINED.MHTERM,Algorithm to derive MHTERM (combined TCGA+MIMIC),Computation,,,,,,,,,,,,,,,,,,,,,,,,,"SOURCE DEPENDENT BY STUDYID. TCGA-BRCA (385 rows): Source = histological_type + histologic_diagnosis_other (nationwidechildrens_org_clinical_patient_brca.txt). Rule: if histological_type == 'Other  specify', MHTERM = 'Other specify - ' || histologic_diagnosis_other. If histological_type == 'Mixed Histology (please specify)', MHTERM = 'Mixed Histology (please specify) - ' || histologic_diagnosis_other. Otherwise MHTERM = histological_type verbatim. MIMICIVBC (9 rows): Source = MHTERM column in MH.xlsx (pre-mapped). Value is an ICD code string (e.g. 'C50919'), direct copy.","Python 3.x pandas, study-conditional branching","# TCGA
+if STUDYID == 'TCGA-BRCA':
+    if histological_type == 'Other  specify':
+        MHTERM = 'Other specify - ' + histologic_diagnosis_other
+    elif histological_type == 'Mixed Histology (please specify)':
+        MHTERM = 'Mixed Histology (please specify) - ' + histologic_diagnosis_other
+    else:
+        MHTERM = histological_type
+# MIMIC
+elif STUDYID == 'MIMICIVBC':
+    MHTERM = MH_xlsx.MHTERM  # direct copy",,,,,
+MethodDef,MT.COMBINED.MHDECOD,Algorithm to derive MHDECOD (combined TCGA+MIMIC),Computation,,,,,,,,,,,,,,,,,,,,,,,,,"SOURCE DEPENDENT BY STUDYID. TCGA-BRCA (385 rows): Source = icd_o_3_histology code (e.g. '8500/3') from nationwidechildrens_org_clinical_patient_brca.txt. Mapped to text description via icd-o-3_code_to_text.xlsx lookup (13 codes, complete cohort coverage). NOTE: 4 subjects have MHTERM/MHDECOD mismatch — see discrepancy report (TCGA-BH-A0HL, TCGA-EW-A1OW, TCGA-EW-A1OX, TCGA-EW-A1PE). MIMICIVBC (9 rows): Source = MHDECOD column in MH.xlsx (pre-mapped). Value is ICD description text, direct copy.","Python 3.x pandas, study-conditional branching","# TCGA
+if STUDYID == 'TCGA-BRCA':
+    lookup = pd.read_excel('icd-o-3_code_to_text.xlsx')
+             .set_index('icd_o_3_code')['icd_o_3_text']
+    MHDECOD = icd_o_3_histology.map(lookup)
+# MIMIC
+elif STUDYID == 'MIMICIVBC':
+    MHDECOD = MH_xlsx.MHDECOD  # direct copy",,,,,
+MethodDef,MT.COMBINED.MHSTDTC,Algorithm to derive MHSTDTC (combined TCGA+MIMIC),Computation,,,,,,,,,,,,,,,,,,,,,,,,,"SOURCE AND FORMAT DEPENDENT BY STUDYID. TCGA-BRCA (385 rows): Source = initial_pathologic_dx_year. If 4-digit year (regex ^\d{4}$), assign as-is (year-only ISO 8601). If sentinel '[Not Available]', MHSTDTC is blank. Result DataType: partialDate (YYYY). 2 subjects have blank MHSTDTC. MIMICIVBC (9 rows): Source = MHSTDTC column in MH.xlsx (pre-mapped). Value is full ISO 8601 datetime (YYYY-MM-DDTHH:MM:SS), direct copy. NOTE — CONFORMANCE GAP: MHSTDTC values differ in precision across studies (year-only for TCGA vs full datetime for MIMIC). The combined column cannot be declared with a single DataType that satisfies both.","Python 3.x pandas, study-conditional branching","# TCGA
+if STUDYID == 'TCGA-BRCA':
+    is_year = initial_pathologic_dx_year.str.match(r'^\d{4}$', na=False)
+    MHSTDTC = initial_pathologic_dx_year.where(is_year, '')
+# MIMIC
+elif STUDYID == 'MIMICIVBC':
+    MHSTDTC = MH_xlsx.MHSTDTC  # direct copy ISO8601 datetime",,,,,
+MethodDef,MT.COMBINED.MHDTC,Algorithm to derive MHDTC (combined TCGA+MIMIC),Computation,,,,,,,,,,,,,,,,,,,,,,,,,"SOURCE AND FORMAT DEPENDENT BY STUDYID. TCGA-BRCA (385 rows): Source = form_completion_date (format YYYY-M-D). Reformatted to zero-padded ISO 8601 YYYY-MM-DD via pd.to_datetime. Represents BCR form completion date, NOT the event date. MIMICIVBC (9 rows): Source = MHDTC column in MH.xlsx (pre-mapped). Value is full ISO 8601 datetime (YYYY-MM-DDTHH:MM:SS), direct copy. NOTE — CONFORMANCE GAP: MHDTC values differ in precision across studies (date-only YYYY-MM-DD for TCGA vs full datetime for MIMIC). The combined column cannot be declared with a single DataType.","Python 3.x pandas, study-conditional branching","# TCGA
+if STUDYID == 'TCGA-BRCA':
+    MHDTC = pd.to_datetime(form_completion_date, errors='coerce')
+            .dt.strftime('%Y-%m-%d').fillna('')
+# MIMIC
+elif STUDYID == 'MIMICIVBC':
+    MHDTC = MH_xlsx.MHDTC  # direct copy ISO8601 datetime",,,,,
+MethodDef,MT.MHSTDY.DAYSPLUS1,Algorithm to derive MHSTDY (TCGA-BRCA only),Computation,,,,,,,,,,,,,,,,,,,,,,,,,"TCGA-BRCA ONLY. MHSTDY is blank for all MIMICIVBC rows. Source = days_to_initial_pathologic_diagnosis from nationwidechildrens_org_clinical_patient_brca.txt. Rule: MHSTDY = days_to_initial_pathologic_diagnosis + 1. In TCGA-BRCA, source = 0 for all 385 cohort subjects, so MHSTDY = 1 for all.",Python 3.x pandas to_numeric(),"if STUDYID == 'TCGA-BRCA':
+    MHSTDY = pd.to_numeric(days_to_initial_pathologic_diagnosis,
+                           errors='coerce') + 1
+elif STUDYID == 'MIMICIVBC':
+    MHSTDY = ''  # not applicable",,,,,
+MethodDef,MT.MHSTRTPT.CONDITIONAL,Algorithm to derive MHSTRTPT and MHSTTPT (TCGA-BRCA only),Computation,,,,,,,,,,,,,,,,,,,,,,,,,"TCGA-BRCA ONLY. Both MHSTRTPT and MHSTTPT are blank for all MIMICIVBC rows. Source = initial_pathologic_dx_year from nationwidechildrens_org_clinical_patient_brca.txt. Rule: populated iff source == '[Not Available]' (exact, case-sensitive). When triggered: MHSTRTPT = 'BEFORE', MHSTTPT = 'SCREENING'. 2 TCGA subjects trigger the condition (TCGA-HN-A2NL, TCGA-HN-A2OB).",Python 3.x pandas Series.map(),"if STUDYID == 'TCGA-BRCA':
+    trigger  = (initial_pathologic_dx_year == '[Not Available]')
+    MHSTRTPT = trigger.map({True: 'BEFORE',    False: ''})
+    MHSTTPT  = trigger.map({True: 'SCREENING', False: ''})
+elif STUDYID == 'MIMICIVBC':
+    MHSTRTPT = MHSTTPT = ''  # not applicable",,,,,
+MethodDef,MT.MIMIC.DIRECT,Algorithm for MIMIC direct-copy variables,Computation,,,,,,,,,,,,,,,,,,,,,,,,,"MIMICIVBC ONLY. For MIMIC rows, the following variables are direct copies from the pre-mapped MH.xlsx source file with no transformation: USUBJID, MHSEQ, MHCAT, MHOCCUR, MHSTAT, MHDY, VISITNUM, VISIT, MHEVDTYP. MHTERM and MHDECOD are also direct copies for MIMIC (see MT.COMBINED.MHTERM and MT.COMBINED.MHDECOD). NOTE — SPEC GAP: The MH.xlsx file is itself a pre-mapped SDTM output, not raw RWD. True RWD lineage for MIMIC would require tracing back to the MIMIC-IV PostgreSQL database (tables: hosp.diagnoses_icd, hosp.admissions, etc.). That level of traceability is not represented in this lineage file.",Python 3.x pandas concat / no transformation,"if STUDYID == 'MIMICIVBC':
+    <variable> = MH_xlsx.<variable>  # direct copy, no transformation",,,,,
+CodeList,CL.MHCAT.COMBINED,Medical History Category (Combined),,,,,,,,,,,,,,,,,,,text,,,,,,,,,,Yes,TCGA-PATIENT; MALIGNANCY HISTORY,,,
+CodeList,CL.NY,No Yes Response,,,,,,,,,,,STD.CT.SDTM.2023,,,,,,,,text,,,,,,,,,,,Y [C66742]; N [C49487],,,
+CodeList,CL.STENRF,Start/End Relative to Reference Time Point,,,,,,,,,,,STD.CT.SDTM.2023,,,,,,,,text,,,,,,,,,,,BEFORE [C25629]; AFTER [C25630]; COINCIDENT [C25551]; ONGOING [C25669]; UNKNOWN [C17998],,,
+Leaf,LF.MH.COMBINED,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,tcga_mimic_mh_combined.txt,tcga_mimic_mh_combined.txt,
+Leaf,LF.MH.COMBINED,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,tcga_mimic_mh_combined.txt,Combined TCGA+MIMIC MH Domain Dataset,
+Leaf,LF.RWDLINEAGE.COMBINED,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,rwd_lineage_combined_mh_celllevel.xml,RWD Lineage Traceability File — Combined (cell-level),
+Leaf,LF.SPECGAPS,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,rwdl_spec_gaps.txt,RWDL Specification Gaps and Implementation Notes,

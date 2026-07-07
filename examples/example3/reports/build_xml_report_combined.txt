@@ -1,0 +1,151 @@
+BUILD REPORT: Combined TCGA-BRCA + MIMIC-IV MH Domain XMLs
+=================================================================
+
+SOURCE DATA
+-----------
+  Combined MH file : tcga_mimic_mh_combined.txt  (394 rows, 19 cols)
+  TCGA source      : tcga_brca_cohort_inclusion.xlsx  (385 subjects)
+  MIMIC source     : MH.xlsx  (9 subjects)
+  Discrepancies    : tcga_brca_mh_v3_discrepancies.txt  (4 MHTERM/MHDECOD mismatches)
+
+OUTPUTS
+-------
+  define_combined_mh.xml                                      21,432 bytes
+  define_combined_mh.csv                                      13,016 bytes
+  rwd_lineage_combined_mh_celllevel.xml                    3,358,326 bytes
+  rwd_lineage_combined_mh_celllevel.csv                    1,137,917 bytes
+  build_xml_report_combined.txt                                    0 bytes
+
+DEFINE-XML 2.1 STRUCTURE
+------------------------
+  StudyOID         : STUDY.COMBINED.BRCA.MH
+  MetaDataVersion  : MDV.COMBINED.MH.001  (def:DefineVersion=2.1)
+  def:Context      : Submission
+  def:Standards    : 3 standards referenced
+    STD.SDTMIG-3.3            SDTMIG v3.3 (Final)
+    STD.CT.SDTM.2023          CDISC/NCI v2023-06-30 (Final)
+    STD.RWDL-1.0              RWDL v1.0 (Draft)
+  ItemGroupDef     : IG.MH.COMBINED  (Repeating=Yes, Class=EVENTS)
+  Key sequence     : STUDYID(1), USUBJID(2), MHSEQ(3)
+  ItemDefs         : 19 (one per column)
+  MethodDefs       : 7
+    MT.COMBINED.MHTERM                  Algorithm to derive MHTERM (combined TCGA+MIMIC)
+    MT.COMBINED.MHDECOD                 Algorithm to derive MHDECOD (combined TCGA+MIMIC)
+    MT.COMBINED.MHSTDTC                 Algorithm to derive MHSTDTC (combined TCGA+MIMIC)
+    MT.COMBINED.MHDTC                   Algorithm to derive MHDTC (combined TCGA+MIMIC)
+    MT.MHSTDY.DAYSPLUS1                 Algorithm to derive MHSTDY (TCGA-BRCA only)
+    MT.MHSTRTPT.CONDITIONAL             Algorithm to derive MHSTRTPT and MHSTTPT (TCGA-BRCA only)
+    MT.MIMIC.DIRECT                     Algorithm for MIMIC-IV direct-copy variables
+  CodeLists        : 3
+    CL.MHCAT.COMBINED         Medical History Category (Combined)
+    CL.NY                     No Yes Response
+    CL.STENRF                 Start/End Relative to Reference Time Point
+  CommentDefs      : 2
+    COM.MDV.MIXEDPRECISION
+    COM.MHCAT.COMBINED
+  def:leaves       : 4
+    LF.MH.COMBINED                 -> tcga_mimic_mh_combined.txt
+    LF.MH.COMBINED                 -> tcga_mimic_mh_combined.txt
+    LF.RWDLINEAGE.COMBINED         -> rwd_lineage_combined_mh_celllevel.xml
+    LF.SPECGAPS                    -> rwdl_spec_gaps_combined.txt
+
+  Notable design decisions:
+    MHSTDTC DataType=incompleteDatetime (TCGA=year-only, MIMIC=full datetime)
+    MHDTC   DataType=incompleteDatetime (TCGA=date-only, MIMIC=full datetime)
+    COM.MDV.MIXEDPRECISION attached to MDV and ItemGroupDef
+    COM.MHCAT.COMBINED documents different MHCAT values across studies
+    MT.MIMIC.DIRECT covers all MIMIC direct-copy variables
+    MHSTRTPT/MHSTTPT share MethodDef MT.MHSTRTPT.CONDITIONAL
+
+RWD-LINEAGE STRUCTURE (cell-level)
+-----------------------------------
+  FileOID          : RWDL.COMBINED.MH.CELLLEVEL.v2
+  Namespace        : http://www.cdisc.org/ns/rwdl/v1.0
+  Source systems   : 2 (SRC.TCGA.1 = TCGA BCR Biotab; SRC.MIMIC.1 = MH.xlsx)
+  Total MapIDs     : 3,218
+  Omitted columns  : 14 (documented in OmittedColumns block)
+
+  MapID breakdown by study and target column:
+  Column            TCGA  MIMIC   Total
+  --------------- ------ ------  ------
+  MHCAT                0      9       9
+  MHDECOD            385      9     394
+  MHDTC              385      9     394
+  MHDY                 0      9       9
+  MHEVDTYP             0      9       9
+  MHOCCUR              0      9       9
+  MHSEQ                0      9       9
+  MHSTAT               0      9       9
+  MHSTDTC            385      9     394
+  MHSTDY             385      0     385
+  MHSTRTPT           385      0     385
+  MHSTTPT            385      0     385
+  MHTERM             406      9     415
+  USUBJID            385      9     394
+  VISIT                0      9       9
+  VISITNUM             0      9       9
+  TOTAL             3101    117    3218
+
+  Coordinate schema:
+    TCGA source  : FILESYSTEM/TABULAR, URI=./nationwidechildrens_org_clinical_patient_brca.txt, Format=TSV
+    MIMIC source : FILESYSTEM/TABULAR, URI=MH.xlsx, Format=XLSX
+    All targets  : FILESYSTEM/TABULAR, URI=./tcga_mimic_mh_combined.txt, Format=TSV
+
+  Cell coverage:
+    Total target cells (394 rows x 19 cols) : 7,486
+    Cells with a MapID                      : 3,218 (43%)
+    Cells omitted from lineage              : 4,268 (57%)
+
+  Key spec gaps (see rwdl_spec_gaps_combined.txt):
+    C1: MIMIC source is pre-mapped SDTM, not raw RWD
+    C2: Mixed date precision in MHSTDTC/MHDTC across studies
+    C3: MHTERM semantics differ (histology text vs ICD code) across studies
+    C4: MHCAT values differ by study (no cross-study equivalence mechanism)
+    C5: MHEVDTYP partially blank in MIMIC with no missingness-type distinction
+    C6: No standard mechanism to link MapIDs to source OID
+    + all 10 gaps from rwdl_spec_gaps.txt also apply
+
+=================================================================
+QC RESULTS
+=================================================================
+  (Re-run build_combined_mh_xmls.py for live QC; results below from last run)
+
+  [PASS] Define-XML well-formed (no parse error)
+  [PASS] ODM root
+  [PASS] def:Context=Submission
+  [PASS] def:DefineVersion=2.1
+  [PASS] MDV def:CommentOID set
+  [PASS] 3 def:Standards -- found 3
+  [PASS] SDTMIG-3.3 present
+  [PASS] CT standard present
+  [PASS] RWDL-1.0 present
+  [PASS] ItemGroupDef OID=IG.MH.COMBINED
+  [PASS] def:Class=EVENTS
+  [PASS] 19 ItemRefs -- found 19
+  [PASS] KeySequence STUDYID=1
+  [PASS] KeySequence USUBJID=2
+  [PASS] KeySequence MHSEQ=3
+  [PASS] 19 ItemDefs -- found 19
+  [PASS] All ItemDef OIDs present
+  [PASS] All ItemDefs have def:Origin
+  [PASS] All def:Origin have Type+Source
+  [PASS] 7 MethodDefs -- found 7
+  [PASS] All MethodDef OIDs present
+  [PASS] All MethodDefs have FormalExpression
+  [PASS] All ItemRef MethodOIDs resolve -- 7 refs resolve
+  [PASS] 3 CodeLists
+  [PASS] 2 CommentDefs
+  [PASS] LF.MH.COMBINED leaf present
+  [PASS] LF.RWDLINEAGE.COMBINED leaf present
+  [PASS] LF.SPECGAPS leaf present
+  [PASS] MHSTDTC DataType=incompleteDatetime
+  [PASS] MHDTC DataType=incompleteDatetime
+  [PASS] Lineage well-formed XML
+  [PASS] rwdl:lineage root
+  [PASS] sourceMetadata present
+  [PASS] 2 source elements
+  [PASS] 3,218 MapIDs -- found 3,218
+  [PASS] All MapID UUIDs unique -- all 3,218 unique
+  [PASS] All lineage MethodDefOIDs resolve to Define-XML MethodDef
+
+Total: 37 PASS, 0 FAIL out of 37 checks

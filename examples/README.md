@@ -25,18 +25,26 @@ examples/
 │           ├── pt_dx.csv
 │           ├── vitals.csv
 │           └── notes.csv
-└── example2/                  ← AE + LB domains: lab results and adverse events
+├── example2/                  ← AE + LB domains: lab results and adverse events
+│   ├── README.md
+│   ├── Example2.xlsx
+│   └── data/
+│       ├── define/
+│       │   ├── define.xml
+│       │   └── rwd-lineage.xml
+│       ├── sdtm/
+│       │   ├── AE.csv
+│       │   └── LB.csv
+│       └── source/
+│           └── LabResults.csv
+└── example3/                  ← MH domain: TCGA-BRCA + MIMIC-IV combined real-world data
     ├── README.md
-    ├── Example2.xlsx
-    └── data/
-        ├── define/
-        │   ├── define.xml
-        │   └── rwd-lineage.xml
-        ├── sdtm/
-        │   ├── AE.csv
-        │   └── LB.csv
-        └── source/
-            └── LabResults.csv
+    ├── data/
+    │   ├── cohort/
+    │   ├── sdtm/
+    │   └── define/
+    ├── scripts/
+    └── reports/
 ```
 
 `RWD-Lineage-Examples.pdf` is a presentation deck covering the background and motivation for the standard, the RWD Lineage in Define-XML architecture, and annotated walkthroughs of both examples. It is a good starting point for understanding why the standard exists before reading the XML files.
@@ -109,6 +117,21 @@ This example traces LOINC-coded EHR lab data through unit conversion into the SD
 - **High coverage density:** 101 lineage entries across 13 SDTM records demonstrates cell-level traceability at scale, including every standard-range indicator (`LBSTNRLO`, `LBSTNRHI`, `LBNRIND`).
 
 → See [`example2/README.md`](example2/README.md) for the full algorithm definitions.
+
+---
+
+### Example 3 — Medical History (MH): TCGA-BRCA + MIMIC-IV Combined Real-World Data
+
+**SDTM domain:** MH (Medical History)
+**Source data:** TCGA-BRCA BCR Biotab legacy portal export (single-hop) and a pre-mapped MIMIC-IV `MH.xlsx` extract from a PostgreSQL source database (two-hop)
+**Subjects:** 385 TCGA-BRCA + 9 MIMIC-IV = 394 combined MH records
+**Lineage entries:** 3,218 `MapID` elements
+
+This example combines two independently-sourced real-world datasets — a cancer genomics program and a critical-care database — into a single SDTM MH domain via column union, and traces lineage through each source's own path, including a two-hop path for the MIMIC side (source database → intermediate Excel extract → output).
+
+**Note:** this example's `rwd-lineage.xml` predates the schema conventions used in Examples 1–2 and will not currently pass `tools/validate.py`. See [`example3/README.md`](example3/README.md#️-schema-version-note) for details.
+
+→ See [`example3/README.md`](example3/README.md) for the full scenario, cohort screening criteria, and spec-gap notes.
 
 ---
 

@@ -1,0 +1,50 @@
+TCGA-BRCA + MIMIC-IV COMBINED MH DOMAIN — BUILD REPORT
+============================================================
+
+Inputs
+------
+  TCGA  : tcga_brca_mh_v3.txt  (385 rows, 17 cols)
+  MIMIC : MH.xlsx      (9 rows, 16 cols)
+
+Output
+------
+  tcga_mimic_mh_combined.txt  (394 rows, 19 cols)
+
+Column union
+------------
+  Shared columns (14): ['DOMAIN', 'MHCAT', 'MHDECOD', 'MHDTC', 'MHEVDTYP', 'MHOCCUR', 'MHPRESP', 'MHSEQ', 'MHSTDTC', 'MHTERM', 'STUDYID', 'USUBJID', 'VISIT', 'VISITNUM']
+  TCGA-only (3): ['MHSTDY', 'MHSTRTPT', 'MHSTTPT'] -> blank for MIMIC rows
+  MIMIC-only (2): ['MHSTAT', 'MHDY'] -> blank for TCGA rows
+
+Column-level notes
+------------------
+  MHSTDY  : TCGA only. Study Day of Start of Event = days + 1. All = 1.
+  MHSTRTPT: TCGA only. 'BEFORE' for 2 subjects where year = [Not Available].
+  MHSTTPT : TCGA only. 'SCREENING' for same 2 subjects.
+  MHSTAT  : MIMIC only. All null in MIMIC source. Always blank.
+  MHDY    : MIMIC only. All null in MIMIC source. Always blank.
+  MHSTDTC : Mixed precision -- TCGA=year-only (e.g.'2009'), MIMIC=full datetime (e.g.'2149-01-29T22:09:00').
+  MHDTC   : Mixed precision -- TCGA=date-only (e.g.'2011-05-27'), MIMIC=full datetime.
+  MHTERM  : TCGA=histological type text; MIMIC=ICD code string (e.g.'C50919').
+  MHCAT   : TCGA='TCGA-PATIENT'; MIMIC='MALIGNANCY HISTORY'.
+  MHEVDTYP: TCGA=all populated; MIMIC=1 of 9 populated, 8 blank.
+  MHPRESP : TCGA=all 'Y'; MIMIC=all blank (not recorded).
+
+============================================================
+QC RESULTS
+============================================================
+  [PASS] Row count = TCGA + MIMIC -- 385 + 9 = 394, combined=394
+  [PASS] TCGA partition has one STUDYID -- found: {'TCGA-BRCA'}
+  [PASS] MIMIC partition has one STUDYID -- found: {'MIMICIVBC'}
+  [PASS] No unexpected STUDYID values -- found: {'TCGA-BRCA', 'MIMICIVBC'}
+  [PASS] USUBJID unique within TCGA rows
+  [PASS] (STUDYID, USUBJID, MHSEQ) natural key unique
+  [PASS] All expected columns present in COMBINED_COLS order -- 19 columns in order
+  [PASS] TCGA-only column 'MHSTDY' blank for all MIMIC rows
+  [PASS] TCGA-only column 'MHSTRTPT' blank for all MIMIC rows
+  [PASS] TCGA-only column 'MHSTTPT' blank for all MIMIC rows
+  [PASS] MIMIC-only column 'MHSTAT' blank for all TCGA rows
+  [PASS] MIMIC-only column 'MHDY' blank for all TCGA rows
+  [PASS] No tab characters in any value cell (tab-delimiter safety)
+
+Total: 13 PASS, 0 FAIL out of 13 checks

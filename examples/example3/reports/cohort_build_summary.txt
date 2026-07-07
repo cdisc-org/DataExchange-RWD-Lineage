@@ -1,0 +1,58 @@
+TCGA-BRCA SCREENING COHORT -- BUILD SUMMARY
+===========================================
+
+Source data
+-----------
+- nationwidechildrens_org_clinical_patient_brca.txt  (1,099 patients)
+- nationwidechildrens_org_clinical_drug_brca.txt     (2,411 drug rows, 781 unique patients)
+- Source: TCGA-BRCA legacy data portal (BCR Biotab format, 3-row header)
+
+Inclusion criteria applied
+--------------------------
+1. Female        : gender == 'FEMALE'
+2. Age           : age_at_diagnosis between 18 and 60 (inclusive, both ends)
+3. Surgery       : surgical_procedure_first NOT in
+                   {'[Not Available]', '[Unknown]', '[Discrepancy]'}
+4. Chemotherapy  : at least one drug row with
+                   pharmaceutical_therapy_type == 'Chemotherapy'
+                   (exact string match; casing/spacing variants not inspected)
+
+The spec's "Invasive breast cancer / histological_type" row was intentionally
+omitted -- all patients in TCGA-BRCA are breast cancer patients by dataset
+definition.
+
+Attrition funnel
+----------------
+  Step                         n        Dropped
+  -----------------------    -----    ----------
+  Start (all patients)       1,099       --
+  after Female               1,087       -12 male patients
+  after Age 18-60              600       -487 outside range
+  after Surgery known          567       -33 with sentinel surgery values
+  after Chemotherapy           385       -182 without a chemo drug record
+
+  FINAL COHORT               385 patients
+
+Observations
+------------
+- Age is the biggest filter, dropping ~45% of patients. TCGA-BRCA skews older.
+- 33 patients dropped at the surgery step (sentinel values) because most had
+  already been filtered out by earlier steps. Raw sentinel counts in the full
+  patient file: [Not Available] 53, [Discrepancy] 2, [Unknown] 1.
+- 182 post-surgery patients had no chemotherapy record. Some genuinely did not
+  receive chemo; others may simply be missing drug records. The drug file only
+  covers 781 of 1,099 patients (~71%), a known gap in legacy TCGA data.
+
+Output files
+------------
+- tcga_brca_cohort_inclusion.xlsx   (Excel, full patient rows)
+- tcga_brca_cohort_inclusion.txt    (tab-separated, same content)
+- build_tcga_brca_cohort.py         (script used to produce the above)
+
+Notes for downstream combination with MIMIC
+-------------------------------------------
+- Patient ID field is bcr_patient_barcode (not subject_id).
+- When concatenating with the MIMIC cohort, tag source dataset explicitly.
+- Original sentinel strings (e.g. '[Not Available]') preserved in text columns;
+  only age was coerced to numeric for filtering, with the original text column
+  retained alongside.

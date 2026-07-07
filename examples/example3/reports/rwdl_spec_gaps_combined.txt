@@ -1,0 +1,267 @@
+RWD-LINEAGE DATA STANDARD SPECIFICATION — GAPS, AMBIGUITIES, AND IMPLEMENTATION NOTES
+COMBINED TCGA-BRCA + MIMIC-IV MH DOMAIN
+=======================================================================================
+Document context: gaps encountered while implementing the RWDL v1 Draft specification
+against the combined TCGA-BRCA (385 subjects) + MIMIC-IV (9 subjects) MH domain.
+Output files: rwd_lineage_combined_mh_celllevel.xml / .csv, define_combined_mh.xml / .csv
+Prepared alongside: rwdl_spec_gaps.txt (TCGA-only version, which also applies here)
+
+NOTE: All 10 gaps documented in rwdl_spec_gaps.txt (the TCGA-only version) carry over
+to this combined dataset. This file documents ADDITIONAL gaps that arise specifically
+from combining two heterogeneous source datasets in a single RWDL lineage file.
+
+
+COMBINED-DATASET GAP 1 — MIMIC SOURCE IS PRE-MAPPED SDTM, NOT RAW RWD
+=======================================================================
+Severity: HIGH — affects all 9 MIMIC rows (117 MapIDs)
+
+This is the most significant gap in the combined lineage. The MIMIC-IV data was
+provided as a pre-mapped SDTM MH file (MH.xlsx) rather than as raw RWD. True
+cell-level lineage for MIMIC would require tracing back to the MIMIC-IV PostgreSQL
+database (schema: mimic_iv.hosp, tables: diagnoses_icd, admissions, patients, etc.)
+and the intermediate SDTM mapping logic that produced MH.xlsx.
+
+The RWDL v1 spec defines lineage as tracing a target SDTM cell back to its RWD
+source cell. For MIMIC rows in this file, the "source" is itself an SDTM file —
+which means the lineage chain is incomplete. The MapIDs for MIMIC subjects point to
+MH.xlsx as the source, which is one step closer to the truth than nothing, but does
+not satisfy the spirit of the spec's RWD traceability requirement.
+
+Implementation choice: represent MH.xlsx as the source file with FILESYSTEM/TABULAR
+coordinates and Format=XLSX. Document the limitation in the source description field
+within sourceMetadata. Flag it in OmittedColumns notes where applicable.
+
+A fully compliant MIMIC lineage would require:
+  - Source coordinates pointing to MIMIC PostgreSQL (DATABASE/TABULAR) tables
+  - A separate lineage chain from MH.xlsx back to the database
+  - Or a multi-hop lineage model not supported by RWDL v1
+
+RECOMMENDATION: RWDL v2 should define a multi-hop or chained lineage construct
+where an intermediate file (e.g., a pre-mapped SDTM export) can be declared as
+both a target of one lineage chain and a source of another, enabling full
+end-to-end traceability from raw RWD through any number of transformation steps.
+
+
+COMBINED-DATASET GAP 2 — MIXED DATE PRECISION IN THE SAME SDTM COLUMN
+=======================================================================
+Severity: HIGH — affects MHSTDTC and MHDTC (19 columns × 394 rows)
+
+MHSTDTC and MHDTC contain values of different ISO 8601 precision across the
+two source datasets:
+
+  TCGA-BRCA:  MHSTDTC = year-only        (e.g. '2009')        [partialDate]
+              MHDTC   = date-only         (e.g. '2011-05-27')  [date]
+  MIMICIVBC:  MHSTDTC = full datetime    (e.g. '2149-01-29T22:09:00') [datetime]
+              MHDTC   = full datetime    (e.g. '2149-01-29T22:09:00') [datetime]
+
+The SDTM standard and Define-XML 2.1 expect a single DataType per variable.
+There is no single Define-XML 2.1 DataType that correctly describes all values
+in these columns across both studies. The closest option is 'incompleteDatetime'
+(defined in Define-XML 2.1 Table 4.3.1 as: "use when date values for SDTM or
+SEND may be missing a component but is not a partialDatetime or partialDate").
+We use incompleteDatetime for both MHSTDTC and MHDTC in the combined Define-XML.
+
+This is also a data conformance issue independent of the spec gap: combining
+datasets with different temporal precision in the same SDTM variable requires
+downstream consumers to handle both formats, which may break tools that assume
+uniform precision within a column.
+
+RECOMMENDATION: RWDL v2 (and SDTMIG guidance) should explicitly address how to
+document mixed-precision date columns in combined RWD datasets. Options include:
+  (a) Require separate dataset partitions per source study (no column merging)
+  (b) Allow per-row DataType annotation in the lineage file
+  (c) Define a combined DataType for mixed-precision columns in Define-XML
+The RWDL lineage file is an appropriate place to carry per-cell precision metadata,
+since it already records SourceValue and TargetValue per cell.
+
+
+COMBINED-DATASET GAP 3 — HETEROGENEOUS MHTERM SEMANTICS ACROSS STUDIES
+=======================================================================
+Severity: MEDIUM — affects all MHTERM values (394 rows)
+
+MHTERM has different semantic content across the two studies:
+
+  TCGA-BRCA: MHTERM is a histological type description (verbatim collected term),
+             e.g. 'Infiltrating Ductal Carcinoma', 'Infiltrating Lobular Carcinoma'.
+             This is a pathology classification, not a standard coded term.
+
+  MIMICIVBC: MHTERM is an ICD-10 code string (e.g. 'C50919', 'C50912').
+             This is a coded term, not a verbatim description.
+
+By SDTM convention, MHTERM is defined as the verbatim (uncoded) term as reported.
+Using ICD codes in MHTERM for MIMIC subjects is technically non-conformant — the
+codes belong in MHDECOD (which MIMIC does populate correctly with ICD descriptions).
+However, since MH.xlsx was provided as a pre-mapped file (see Gap 1), we cannot
+re-map MHTERM without going back to raw MIMIC data.
+
+The RWDL spec provides no mechanism for flagging semantic heterogeneity within a
+column — it documents source-to-target mappings but cannot express that two
+populations within the same target column use the column differently.
+
+Implementation choice: accept the MIMIC MHTERM values as-is. Document in the
+MethodDef (MT.COMBINED.MHTERM) that MIMIC values are ICD codes rather than
+verbatim text. Flag in the lineage Transformation description for MIMIC MHTERM rows.
+
+RECOMMENDATION: Define a ConformanceFlag element within MapID or Transformation
+to allow sponsors to mark rows where the target value meets the SDTM structural
+requirement but violates the semantic intent of the variable definition.
+
+
+COMBINED-DATASET GAP 4 — MHCAT VALUES DIFFER BY STUDY (SPONSOR-DEFINED)
+=========================================================================
+Severity: LOW — informational
+
+MHCAT contains different sponsor-defined values for each study:
+  TCGA-BRCA:  'TCGA-PATIENT'
+  MIMICIVBC:  'MALIGNANCY HISTORY'
+
+Both are sponsor-defined non-CDISC-CT values. The combined Define-XML declares
+a sponsor-defined CodeList (CL.MHCAT.COMBINED) containing both values. This is
+correct per Define-XML 2.1 Section 4.4 (sponsor-defined codelists). However,
+the different values reflect different categorisation approaches across studies,
+which may complicate pooled analysis that relies on MHCAT as a filter.
+
+The RWDL spec has no mechanism to express that a coded value in one study is
+conceptually equivalent (or not equivalent) to a coded value in another. This
+is a broader cross-study harmonisation problem that RWDL v1 does not address.
+
+RECOMMENDATION: Consider adding a Harmonisation annotation layer to RWDL v2,
+allowing sponsors to declare conceptual equivalences (or known differences) between
+coded values across source datasets.
+
+
+COMBINED-DATASET GAP 5 — MHEVDTYP PARTIALLY POPULATED IN MIMIC (8 OF 9 BLANK)
+================================================================================
+Severity: LOW — data completeness issue
+
+MHEVDTYP is blank for 8 of 9 MIMIC subjects in MH.xlsx (only one row has
+'INITIAL DIAGNOSIS'). For TCGA-BRCA, all 385 rows have 'INITIAL PATHOLOGICAL
+DIAGNOSIS'. The two non-blank values also differ semantically — it is unclear
+whether 'INITIAL DIAGNOSIS' and 'INITIAL PATHOLOGICAL DIAGNOSIS' represent the
+same concept.
+
+The RWDL lineage file records this accurately: MIMIC MapIDs for MHEVDTYP show the
+source value as blank (empty string), and the Transformation note flags this.
+However, the spec provides no mechanism to distinguish between:
+  (a) "blank because the data was not collected" (true missingness)
+  (b) "blank because the mapping was not performed" (mapping gap)
+  (c) "blank because not applicable" (structural)
+
+All three appear as empty strings in the target file and all three generate MapIDs
+with TargetValue = "" in the lineage. The Transformation description text is the
+only place this distinction is documented, which relies on human reading rather
+than machine-readable classification.
+
+RECOMMENDATION: Define a MissingnessType attribute on MapID or TargetValue to
+classify blank target cells (e.g., NotCollected, MappingGap, NotApplicable,
+SentinelConverted), enabling programmatic completeness auditing.
+
+
+COMBINED-DATASET GAP 6 — NO STANDARD MECHANISM TO DECLARE STUDY MEMBERSHIP
+============================================================================
+Severity: LOW — structural limitation
+
+The combined lineage file contains MapIDs for two different source studies
+(TCGA-BRCA and MIMICIVBC) mixed together. The only way to identify which study
+a MapID belongs to is to inspect the Source coordinate URI (TCGA rows have
+'nationwidechildrens_org_clinical_patient_brca.txt'; MIMIC rows have 'MH.xlsx')
+or to match the RowKey value pattern.
+
+The spec provides sourceMetadata/source elements with OIDs (SRC.TCGA.1,
+SRC.MIMIC.1), but MapID elements have no attribute linking them to a specific
+source OID. This means the source-OID-to-MapID relationship must be inferred
+from the coordinate URI, which is fragile — especially if a future version of
+the pipeline changes file names.
+
+RECOMMENDATION: Add an optional sourceOID attribute to MapID elements, referencing
+the OID of the sourceMetadata/source element that governs this MapID. This would
+make study membership machine-readable without requiring URI inspection.
+
+
+OMITTED COLUMNS SUMMARY (combined file)
+========================================
+The following columns were omitted from the lineage file and why:
+
+TCGA-BRCA omitted (no RWD source cell):
+  STUDYID   -- Hardcoded 'TCGA-BRCA' (Assigned)
+  DOMAIN    -- Hardcoded 'MH' (Protocol)
+  MHSEQ     -- Derived from row ordering (no single source cell)
+  MHCAT     -- Hardcoded 'TCGA-PATIENT' (Assigned)
+  MHEVDTYP  -- Hardcoded 'INITIAL PATHOLOGICAL DIAGNOSIS' (Assigned)
+  MHPRESP   -- Hardcoded 'Y' (Protocol)
+  MHOCCUR   -- Hardcoded 'Y' (Assigned)
+  MHSTAT    -- Always blank for TCGA (not collected)
+  MHDY      -- Always blank for TCGA (not collected)
+  VISITNUM  -- Hardcoded 1 (Protocol)
+  VISIT     -- Hardcoded 'VISIT 1' (Protocol)
+
+MIMIC-IV omitted (no RWD source cell or not applicable):
+  STUDYID   -- Hardcoded 'MIMICIVBC' (Assigned)
+  DOMAIN    -- Hardcoded 'MH' (Protocol)
+  MHPRESP   -- Blank for all MIMIC rows; not recorded in MH.xlsx source
+  MHSTDY    -- Study day not derived for MIMIC
+  MHSTRTPT  -- Conditional not applicable for MIMIC
+  MHSTTPT   -- Conditional not applicable for MIMIC
+
+Total omitted columns: 14 unique column-study combinations
+(documented in OmittedColumns block in rwd_lineage_combined_mh_celllevel.xml)
+
+
+MAPID COUNT BREAKDOWN
+=====================
+  Source    Column          MapIDs    Notes
+  --------  --------------  -------   ----------------------------------------
+  TCGA      USUBJID            385    Direct map, 1 src col
+  TCGA      MHTERM             406    364 single-col + 21x2 concat subjects
+  TCGA      MHDECOD            385    Lookup via icd-o-3_code_to_text.xlsx
+  TCGA      MHSTDTC            385    Year-only ISO8601 or blank (2 blank)
+  TCGA      MHDTC              385    ISO8601 conversion from YYYY-M-D
+  TCGA      MHSTDY             385    days + 1 formula (= 1 for all subjects)
+  TCGA      MHSTRTPT           385    Conditional (2 populated, 383 blank)
+  TCGA      MHSTTPT            385    Conditional (2 populated, 383 blank)
+  TCGA      SUBTOTAL         3,101
+  --------  --------------  -------
+  MIMIC     USUBJID              9    Direct map
+  MIMIC     MHSEQ                9    Direct map
+  MIMIC     MHTERM               9    Direct map (ICD codes)
+  MIMIC     MHDECOD              9    Direct map (ICD descriptions)
+  MIMIC     MHCAT                9    Direct map ('MALIGNANCY HISTORY')
+  MIMIC     MHEVDTYP             9    Direct map (1 populated, 8 blank)
+  MIMIC     MHOCCUR              9    Direct map
+  MIMIC     MHSTAT               9    Direct map (all null in source)
+  MIMIC     MHSTDTC              9    Direct map (full datetime)
+  MIMIC     MHDTC                9    Direct map (full datetime)
+  MIMIC     MHDY                 9    Direct map (all null in source)
+  MIMIC     VISITNUM             9    Direct map
+  MIMIC     VISIT                9    Direct map
+  MIMIC     SUBTOTAL           117
+  --------  --------------  -------
+  COMBINED  TOTAL            3,218   All UUIDs unique (UUIDv5, deterministic)
+
+
+CONFORMANCE SUMMARY
+===================
+  Columns with full cell-level lineage (both studies): 0
+    (no column is fully mapped for both TCGA and MIMIC simultaneously
+     without at least one study omitting some rows)
+
+  Columns with cell-level lineage for TCGA only:     8
+    (MHSTDTC, MHDTC, MHSTDY, MHSTRTPT, MHSTTPT, MHTERM, MHDECOD, USUBJID)
+
+  Columns with cell-level lineage for MIMIC only:    5
+    (MHSEQ, MHCAT, MHSTAT, MHDY, VISITNUM, VISIT, MHOCCUR, MHEVDTYP — direct maps)
+
+  Columns with no lineage in either study:            6
+    (STUDYID, DOMAIN, MHSEQ[TCGA], MHPRESP[MIMIC], MHSTDY[MIMIC],
+     MHSTRTPT/MHSTTPT[MIMIC], VISITNUM/VISIT[TCGA])
+
+  Total target cells (394 rows × 19 cols):           7,486
+  Cells with a MapID:                                3,218  (43%)
+  Cells without a MapID (omitted):                   4,268  (57%)
+
+  NOTE: The 57% without a MapID is dominated by:
+    (a) Hardcoded/Protocol columns × 394 rows (STUDYID, DOMAIN, MHCAT[TCGA],
+        MHEVDTYP[TCGA], MHPRESP[TCGA], MHOCCUR[TCGA], VISITNUM[TCGA],
+        VISIT[TCGA], MHPRESP[MIMIC]) = ~2,756 cells
+    (b) Entirely blank columns (MHSTAT[TCGA], MHDY[all]) = ~779 cells
+    (c) Not-applicable conditional columns for MIMIC = ~54 cells
