@@ -3,7 +3,7 @@ build_tcga_mimic_combined_mh.py
 ================================
 Combine the TCGA-BRCA MH domain output (tcga_brca_mh_v3.txt) with the
 MIMIC-IV MH domain output (MH.xlsx) into a single tab-separated combined
-file: tcga_mimic_mh_combined.txt.
+file: MH.txt.
 
 Inputs
 ------
@@ -12,7 +12,7 @@ Inputs
 
 Output
 ------
-  tcga_mimic_mh_combined.txt   -- combined MH (19 cols, 394 rows)
+  MH.txt   -- combined MH (19 cols, 394 rows)
   tcga_mimic_mh_combined_report.txt -- structural report + QC
 
 Column union notes
@@ -52,7 +52,7 @@ UPLOADS   = Path("/mnt/user-data/uploads")
 
 TCGA_FILE  = OUTPUTS / "tcga_brca_mh_v3.txt"
 MIMIC_FILE = UPLOADS / "MH.xlsx"
-OUT_FILE   = OUTPUTS / "tcga_mimic_mh_combined.txt"
+OUT_FILE   = OUTPUTS / "MH.txt"
 REPORT_FILE= OUTPUTS / "tcga_mimic_mh_combined_report.txt"
 
 # Expected SDTM MH column order for combined file
@@ -90,7 +90,7 @@ def qc(label: str, passed: bool, detail: str = "") -> None:
 # Load
 # ---------------------------------------------------------------------------
 log("=" * 60)
-log("BUILD: tcga_mimic_mh_combined.txt")
+log("BUILD: MH.txt")
 log("=" * 60)
 
 tcga  = pd.read_csv(TCGA_FILE,  sep="\t", dtype=str, keep_default_na=False)

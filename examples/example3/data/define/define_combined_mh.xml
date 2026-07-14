@@ -51,8 +51,8 @@
         <ItemRef ItemOID="IT.MH.COMBINED.VISITNUM" OrderNumber="18" Mandatory="No" MethodOID="MT.MIMIC.DIRECT" />
         <ItemRef ItemOID="IT.MH.COMBINED.VISIT" OrderNumber="19" Mandatory="No" MethodOID="MT.MIMIC.DIRECT" />
         <def:Class Name="EVENTS" />
-        <def:leaf ID="LF.MH.COMBINED" xlink:href="tcga_mimic_mh_combined.txt">
-          <def:title>tcga_mimic_mh_combined.txt</def:title>
+        <def:leaf ID="LF.MH.COMBINED" xlink:href="MH.txt">
+          <def:title>MH.txt</def:title>
         </def:leaf>
       </ItemGroupDef>
       <ItemDef OID="IT.MH.COMBINED.STUDYID" Name="STUDYID" DataType="text" SASFieldName="STUDYID" Length="9">
@@ -326,7 +326,7 @@ elif STUDYID=='MIMICIVBC': MHSTRTPT=MHSTTPT=''</FormalExpression>
           <Alias Context="nci:ExtCodeID" Name="C17998" />
         </EnumeratedItem>
       </CodeList>
-      <def:leaf ID="LF.MH.COMBINED" xlink:href="tcga_mimic_mh_combined.txt">
+      <def:leaf ID="LF.MH.COMBINED" xlink:href="MH.txt">
         <def:title>Combined TCGA+MIMIC MH Dataset</def:title>
       </def:leaf>
       <def:leaf ID="LF.RWDLINEAGE.COMBINED" xlink:href="rwd_lineage_combined_mh_celllevel.xml">

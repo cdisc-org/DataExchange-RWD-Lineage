@@ -21,7 +21,7 @@ The spec's "invasive breast cancer / histological_type" criterion was intentiona
 
 | Table | Columns | Records | Description |
 |-------|---------|---------|--------------|
-| `tcga_mimic_mh_combined.txt` | 19 | 394 | Combined SDTM MH domain — 385 TCGA-BRCA subjects + 9 MIMIC-IV subjects |
+| `MH.txt` | 19 | 394 | Combined SDTM MH domain — 385 TCGA-BRCA subjects + 9 MIMIC-IV subjects |
 
 Column union across the two sources:
 
@@ -37,8 +37,8 @@ Notable mixed-precision columns: `MHSTDTC`/`MHDTC` hold year-only or date-only v
 
 `rwd_lineage_combined_mh_celllevel.xml` contains **3,218 `MapID`** elements tracing every populated cell in the combined MH file back to its source:
 
-- **TCGA path:** single-hop — `nationwidechildrens_org_clinical_patient_brca.txt` (BCR Biotab, tab-delimited, 3-row header: harmonized name / BCR original name / CDE_ID) → `tcga_mimic_mh_combined.txt`
-- **MIMIC path:** two-hop — source PostgreSQL database → intermediate pre-mapped `MH.xlsx` extract → `tcga_mimic_mh_combined.txt`
+- **TCGA path:** single-hop — `nationwidechildrens_org_clinical_patient_brca.txt` (BCR Biotab, tab-delimited, 3-row header: harmonized name / BCR original name / CDE_ID) → `MH.txt`
+- **MIMIC path:** two-hop — source PostgreSQL database → intermediate pre-mapped `MH.xlsx` extract → `MH.txt`
 
 A small set of columns (`STUDYID`, `DOMAIN`, `MHSEQ`, `MHCAT`, `MHEVDTYP`, `MHPRESP` for TCGA rows) are hardcoded/assigned constants or derived sequence numbers with no single addressable source cell. These are documented in an `OmittedColumns` block in the lineage file with a spec-gap note, rather than silently mapped — the RWD-Lineage v1 Draft spec has no `AssignedValue`/protocol-origin coordinate type to represent them. Full details are in `reports/rwdl_spec_gaps_combined.txt`.
 
@@ -68,7 +68,7 @@ example3/
 │   │   ├── tcga_brca_cohort_inclusion.txt      # 385-subject screening cohort (129 columns)
 │   │   └── tcga_brca_cohort_inclusion.xlsx     # Same, as workbook
 │   ├── sdtm/
-│   │   └── tcga_mimic_mh_combined.txt          # Combined SDTM MH — 394 rows, 19 columns
+│   │   └── MH.txt          # Combined SDTM MH — 394 rows, 19 columns
 │   └── define/
 │       ├── define_combined_mh.xml              # Define-XML 2.1 (combined target)
 │       ├── define_combined_mh.csv              # Flat rendering of define_combined_mh.xml

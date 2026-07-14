@@ -3,7 +3,7 @@ BUILD REPORT: Combined TCGA-BRCA + MIMIC-IV MH Domain XMLs
 
 SOURCE DATA
 -----------
-  Combined MH file : tcga_mimic_mh_combined.txt  (394 rows, 19 cols)
+  Combined MH file : MH.txt  (394 rows, 19 cols)
   TCGA source      : tcga_brca_cohort_inclusion.xlsx  (385 subjects)
   MIMIC source     : MH.xlsx  (9 subjects)
   Discrepancies    : tcga_brca_mh_v3_discrepancies.txt  (4 MHTERM/MHDECOD mismatches)
@@ -44,8 +44,8 @@ DEFINE-XML 2.1 STRUCTURE
     COM.MDV.MIXEDPRECISION
     COM.MHCAT.COMBINED
   def:leaves       : 4
-    LF.MH.COMBINED                 -> tcga_mimic_mh_combined.txt
-    LF.MH.COMBINED                 -> tcga_mimic_mh_combined.txt
+    LF.MH.COMBINED                 -> MH.txt
+    LF.MH.COMBINED                 -> MH.txt
     LF.RWDLINEAGE.COMBINED         -> rwd_lineage_combined_mh_celllevel.xml
     LF.SPECGAPS                    -> rwdl_spec_gaps_combined.txt
 
@@ -89,7 +89,7 @@ RWD-LINEAGE STRUCTURE (cell-level)
   Coordinate schema:
     TCGA source  : FILESYSTEM/TABULAR, URI=./nationwidechildrens_org_clinical_patient_brca.txt, Format=TSV
     MIMIC source : FILESYSTEM/TABULAR, URI=MH.xlsx, Format=XLSX
-    All targets  : FILESYSTEM/TABULAR, URI=./tcga_mimic_mh_combined.txt, Format=TSV
+    All targets  : FILESYSTEM/TABULAR, URI=./MH.txt, Format=TSV
 
   Cell coverage:
     Total target cells (394 rows x 19 cols) : 7,486

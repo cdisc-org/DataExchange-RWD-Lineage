@@ -10,7 +10,7 @@ Builds the following outputs for the combined TCGA-BRCA + MIMIC-IV MH domain:
   build_xml_report_combined.txt       -- Step-by-step documentation + QC
 
 Source data required (all in OUTPUTS or UPLOADS):
-  tcga_mimic_mh_combined.txt          -- combined target SDTM MH file (394 rows)
+  MH.txt          -- combined target SDTM MH file (394 rows)
   tcga_brca_cohort_inclusion.xlsx     -- TCGA source patient file (385 rows)
   MH.xlsx                             -- MIMIC pre-mapped MH source (9 rows)
   tcga_brca_mh_v3_discrepancies.txt   -- 4 TCGA MHTERM/MHDECOD mismatches
@@ -52,7 +52,7 @@ from pathlib import Path
 OUTPUTS   = Path("/mnt/user-data/outputs")
 UPLOADS   = Path("/mnt/user-data/uploads")
 
-COMBINED_FILE = OUTPUTS / "tcga_mimic_mh_combined.txt"
+COMBINED_FILE = OUTPUTS / "MH.txt"
 TCGA_SRC_FILE = OUTPUTS / "tcga_brca_cohort_inclusion.xlsx"
 MIMIC_SRC_FILE= UPLOADS / "MH.xlsx"
 DISC_FILE     = OUTPUTS / "tcga_brca_mh_v3_discrepancies.txt"
@@ -136,7 +136,7 @@ n_cols   = len(combined.columns)
 
 log(f"Loaded combined file: {n_total} rows ({n_tcga} TCGA, {n_mimic} MIMIC), {n_cols} cols")
 
-TGT_FILE      = "./tcga_mimic_mh_combined.txt"
+TGT_FILE      = "./MH.txt"
 TCGA_URI      = "./nationwidechildrens_org_clinical_patient_brca.txt"
 MIMIC_URI     = "MH.xlsx"
 
@@ -394,8 +394,8 @@ for col,label,dtype,length,orig_type,orig_src,moid,mandatory in MH_VARS:
 
 cls=dsub(igd,"Class"); cls.set("Name","EVENTS")
 lf=dsub(igd,"leaf")
-lf.set("ID","LF.MH.COMBINED"); lf.set(xl("href"),"tcga_mimic_mh_combined.txt")
-dsub(lf,"title").text="tcga_mimic_mh_combined.txt"
+lf.set("ID","LF.MH.COMBINED"); lf.set(xl("href"),"MH.txt")
+dsub(lf,"title").text="MH.txt"
 
 for col,label,dtype,length,orig_type,orig_src,moid,_ in MH_VARS:
     idef=sub(mdv,"ItemDef",OID=ioid(col),Name=col,DataType=dtype,SASFieldName=col)
@@ -422,7 +422,7 @@ for cl_oid,cl_name,cl_dt,std_oid,is_nonstd,items in CODELISTS:
         if nci: sub(ei,"Alias",Context="nci:ExtCodeID",Name=nci)
 
 for lid,href,title in [
-    ("LF.MH.COMBINED",       "tcga_mimic_mh_combined.txt",             "Combined TCGA+MIMIC MH Dataset"),
+    ("LF.MH.COMBINED",       "MH.txt",             "Combined TCGA+MIMIC MH Dataset"),
     ("LF.RWDLINEAGE.COMBINED","rwd_lineage_combined_mh_celllevel.xml",  "RWD Lineage — Combined (cell-level)"),
     ("LF.SPECGAPS",           "rwdl_spec_gaps_combined.txt",            "RWDL Specification Gaps — Combined"),
 ]:
@@ -834,7 +834,7 @@ r()
 r("  Coordinate schema:")
 r("    TCGA source  : FILESYSTEM/TABULAR, URI=./nationwidechildrens_org_clinical_patient_brca.txt, Format=TSV")
 r("    MIMIC source : FILESYSTEM/TABULAR, URI=MH.xlsx, Format=XLSX")
-r("    All targets  : FILESYSTEM/TABULAR, URI=./tcga_mimic_mh_combined.txt, Format=TSV")
+r("    All targets  : FILESYSTEM/TABULAR, URI=./MH.txt, Format=TSV")
 r()
 r("  Key spec gaps (see rwdl_spec_gaps_combined.txt for full detail):")
 r("    C1: MIMIC source is pre-mapped SDTM, not raw RWD")
